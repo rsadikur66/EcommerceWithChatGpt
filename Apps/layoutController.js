@@ -4,6 +4,14 @@
     $scope.activeCategory = null; // New variable to track active category for styling
     $scope.categories = [];   // Category লোড হওয়ার পর ভরবে
 
+
+    //function getQueryParam(param) {
+    //    var params = new URLSearchParams(window.location.search);
+    //    return params.get(param);
+    //}
+    //var Id = getQueryParam("id");
+
+
     function LoadCategories() {
         Service.loadDataWithoutParm('/Home/LoadCategory')
             .then(function (returnData) {
@@ -94,7 +102,7 @@
 
     $scope.products = [
         {
-            id: 1,
+            id: 300,
             image: 'https://placehold.co/400x300/F0F0F0/333333?text=Product+1', // আপনার পণ্যের ছবির URL দিয়ে প্রতিস্থাপন করুন
             name: 'গেমিং ল্যাপটপ',
             price: '৳ ৮৫,০০০',
@@ -102,7 +110,7 @@
             buttonText: 'কার্টে যোগ করুন'
         },
         {
-            id: 2,
+            id: 301,
             image: 'https://placehold.co/400x300/F0F0F0/333333?text=Product+2', // আপনার পণ্যের ছবির URL দিয়ে প্রতিস্থাপন করুন
             name: 'স্মার্টওয়াচ এক্স৩',
             price: '৳ ৭,৫০০',
@@ -110,7 +118,7 @@
             buttonText: 'কার্টে যোগ করুন'
         },
         {
-            id: 3,
+            id: 302,
             image: 'https://placehold.co/400x300/F0F0F0/333333?text=Product+3', // আপনার পণ্যের ছবির URL দিয়ে প্রতিস্থাপন করুন
             name: 'ওয়্যারলেস হেডফোন',
             price: '৳ ২,৯৯৯',

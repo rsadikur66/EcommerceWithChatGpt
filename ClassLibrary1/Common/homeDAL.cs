@@ -21,5 +21,11 @@ namespace DataAccessLayer.Common
             sql = Query($"select s.SubCategoryId,s.Name From T12001 s where s.CategoryId='{catId}'");
             return sql;
         }
+        public DataTable GetProDetailsById(string ProductId)
+        {
+            DataTable sql = new DataTable();
+            sql = Query($"select * from t12003 where product_id='{ProductId}'");
+            return sql;
+        }
     }
 }

@@ -129,6 +129,7 @@
   <ItemGroup>
     <Content Include="Apps\app.js" />
     <Content Include="Apps\layoutController.js" />
+    <Content Include="Apps\ProductDetailsController.js" />
     <Content Include="Apps\Service\ImageService.js" />
     <Content Include="Apps\Service\Service.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -174,6 +175,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
