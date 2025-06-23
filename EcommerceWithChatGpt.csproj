@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Apps\app.js" />
+    <Content Include="Apps\homepageController.js" />
     <Content Include="Apps\layoutController.js" />
     <Content Include="Apps\ProductDetailsController.js" />
     <Content Include="Apps\Service\ImageService.js" />

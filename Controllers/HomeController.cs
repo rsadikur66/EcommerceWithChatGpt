@@ -70,6 +70,28 @@ namespace EcommerceWithChatGpt.Controllers
         }
 
         [HttpPost]
+        public ActionResult LoadAllHomeProducts()
+        {
+            try
+            {
+                var data = repository.GetAllHomeProducts();
+                string JSONString = string.Empty;
+                JSONString = JsonConvert.SerializeObject(data);
+                return Json(JSONString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+
+
+
+
+        [HttpPost]
         public ActionResult ProductsDetailsByIdData(string param)
         {
             try

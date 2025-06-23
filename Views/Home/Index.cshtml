@@ -18,7 +18,7 @@
     /*object-fit: cover;*/ /* Cover the container, crop if necessary */
     /*}*/
 </style>
-<div>
+<div ng-controller="HomepageController">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" ng-repeat="banner in banners"
@@ -52,20 +52,20 @@
         <div class="col" ng-repeat="product in products">
             <div class="card h-100 shadow-sm rounded-lg">
                 <!-- Product Image (now a clickable link) -->
-                <a ng-href="/Home/Details?id={{product.id}}">
-                    <img ng-src="{{product.image}}" class="card-img-top rounded-top-lg" alt="{{product.name}}"
+                <a ng-href="/Home/Details?id={{product.product_id}}">
+                    <img ng-src="./Images/{{product.image_url}}" class="card-img-top rounded-top-lg" alt="{{product.product_name}}"
                          onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E0E0/888888?text=Image+Not+Found';">
                 </a>
                 <div class="card-body d-flex flex-column">
                     <!-- Product Name (now a clickable link) -->
                     <h5 class="card-title text-primary">
-                        <a ng-href="/Home/Details?id={{product.id}}" class="text-decoration-none text-primary">
-                            {{product.name}}
+                        <a ng-href="/Home/Details?id={{product.product_id}}" class="text-decoration-none text-primary">
+                            {{product.product_name}}
                         </a>
                         @*ng-click="viewProductDetails(product); $event.preventDefault();"*@
                     </h5>
                     <!-- Product Description -->
-                    <p class="card-text text-muted flex-grow-1">{{product.description}}</p>
+                    <p class="card-text text-muted flex-grow-1">{{product.short_description}}</p>
                     <!-- Product Price -->
                     <h4 class="card-text text-success fw-bold mt-2 mb-3">{{product.price}}</h4>
                     <!-- Add to Cart Button -->
