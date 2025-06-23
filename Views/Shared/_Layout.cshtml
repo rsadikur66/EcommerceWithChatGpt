@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <script src="~/Apps/app.js"></script>
+    <script src="~/Apps/layoutController.js"></script>
+    <script src="~/Apps/Service/Service.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll when sidebar is open */
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -260px; /* Initially hidden, adjust based on .sidebar-category-list width */
+            width: 260px; /* Initial width, will expand with subcategory */
+            height: 100%;
+            background-color: #fff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transition: left 0.3s ease;
+            z-index: 1050;
+            padding-top: 80px; /* Adjusted padding to clear header */
+            overflow: visible; /* Crucial for subcategory to appear outside initial sidebar width */
+            display: flex; /* Use flexbox for category/subcategory layout */
+            flex-direction: row;
+        }
+
+            .sidebar.show {
+                left: 0;
+            }
+
+                /* When sidebar is showing and a subcategory is active, expand sidebar width */
+                .sidebar.show.has-subcategory {
+                    width: calc(260px + 280px); /* Category width + Subcategory width */
+                }
+
+        /* Prevent scroll behind sidebar */
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        .hamburger-area {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+            .hamburger-area:hover {
+                background-color: #e9ecef;
+            }
+
+        /* Category List */
+        .sidebar-category-list {
+            width: 260px; /* Fixed width for category column */
+            flex-shrink: 0; /* Prevent shrinking */
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow-y: auto; /* Enable scrolling for categories if too many */
+            height: 100%; /* Ensure it takes full height of sidebar */
+        }
+
+            .sidebar-category-list .list-group-item {
+                border: none;
+                padding: 10px 15px;
+                transition: background-color 0.2s ease, color 0.2s ease;
+                cursor: pointer;
+                position: relative;
+            }
+
+                .sidebar-category-list .list-group-item:hover,
+                .sidebar-category-list .list-group-item.active-category { /* Added active-category class */
+                    background-color: #f8f9fa;
+                    color: #0d6efd;
+                }
+
+                .sidebar-category-list .list-group-item a {
+                    font-size: 15px;
+                    font-weight: 500;
+                    text-decoration: none;
+                    color: #343a40;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .sidebar-category-list .list-group-item:hover a,
+                .sidebar-category-list .list-group-item.active-category a {
+                    color: #0d6efd; /* Keep link color consistent on hover/active */
+                }
+
+
+        /* Subcategory Column */
+        .subcategory-column {
+            position: absolute;
+            left: 260px; /* Position right next to the category column (width of .sidebar-category-list) */
+            top: 0; /* Adjust if header affects it */
+            margin-top: 80px; /* To align with padding-top of sidebar */
+            width: 280px; /* Adjust as needed */
+            height: calc(100% - 80px); /* Adjust height to match sidebar content area */
+            background-color: #fff;
+            box-shadow: 3px 0 7px rgba(0, 0, 0, 0.15); /* Slightly darker shadow */
+            z-index: 1060; /* Higher than sidebar */
+            padding: 15px;
+            display: none; /* Hidden by default */
+            opacity: 0; /* For fade transition */
+            transition: left 0.3s ease, opacity 0.3s ease; /* Transition for smooth appearance */
+            overflow-y: auto; /* Enable scrolling for subcategories if too many */
+        }
+
+            .subcategory-column.show {
+                display: block;
+                opacity: 1;
+                left: 260px; /* Ensure it stays in place during transition */
+            }
+
+            .subcategory-column h5 {
+                margin-bottom: 15px;
+                color: #0d6efd;
+                font-weight: bold;
+                font-size: 1.1rem;
+            }
+
+            .subcategory-column .subcategory-link {
+                font-size: 14px; /* Slightly larger font */
+                color: #555;
+                text-decoration: none;
+                display: block;
+                padding: 6px 0; /* More padding */
+                transition: color 0.2s ease;
+            }
+
+                .subcategory-column .subcategory-link:hover {
+                    color: red; /* As per your request */
+                }
+
+        .hover-arrow {
+            transition: transform 0.2s ease;
+        }
+
+        .list-group-item:hover .hover-arrow,
+        .list-group-item.active-category .hover-arrow { /* Added active-category */
+            transform: translateX(3px); /* Slight movement on hover */
+            color: #0d6efd; /* Change arrow color on hover/active */
+        }
+    </style>
+</head>
+
+<body ng-controller="LayoutController"
+      ng-class="{ 'sidebar-open': sidebarVisible }">
+
+    <header class="bg-light py-2 shadow-sm fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+
+            <div>
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand fw-bold text-primary">
+                    <img src="~/Content/logo.png" alt="Logo" style="height:40px;" />
+                </a>
+            </div>
+
+            <div class="hamburger-area"
+                 ng-mouseenter="sidebarVisible = true">
+                <i class="bi bi-list" style="font-size: 1.8rem;"></i>
+            </div>
+
+            <div class="flex-grow-1 mx-4">
+                <form method="get" action="/Search/Results">
+                    <input type="text" name="q" class="form-control form-control-lg" placeholder="পণ্য খুঁজুন..." />
+                </form>
+            </div>
+
+            <div>
+                <a href="@Url.Action("Cart", "Shop")" class="btn btn-outline-dark me-2">
+                    <i class="bi bi-cart"></i> 🛒 Cart
+                </a>
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    🔐 Login / Register
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar"
+         ng-mouseleave="sidebarVisible = false; hoveredCategory = null; activeCategory = null;"
+         ng-class="{ 'show': sidebarVisible, 'has-subcategory': sidebarVisible && hoveredCategory && hoveredCategory.subcategories.length }">
+        @*kjdfajkl*@
+        <ul class="sidebar-category-list">
+            <li class="list-group-item"
+                ng-repeat="cat in categories"
+                ng-mouseover="showSubcategories(cat)"
+                ng-class="{'active-category': activeCategory === cat}">
+                <a class="text-dark text-decoration-none" href="/Home/Product?catid={{cat.categoryid}}">
+                    {{ cat.name }} <i class="bi bi-chevron-right hover-arrow"></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="subcategory-column"
+             ng-class="{ 'show': hoveredCategory && hoveredCategory.subcategories.length }">
+            <h5 ng-if="hoveredCategory">{{ hoveredCategory.name }}</h5>
+            <div class="row row-cols-1 g-1" ng-if="hoveredCategory && hoveredCategory.subcategories.length">
+                <div class="col" ng-repeat="sub in hoveredCategory.subcategories">
+                    <a class="subcategory-link" href="/Home/Product?subcatid={{sub.SubCategoryId}}">
+                        • {{ sub.Name }}
+                    </a>
+                </div>
+            </div>
+            <p ng-if="hoveredCategory && !hoveredCategory.subcategories.length" class="text-muted small mt-3">কোনো সাব-ক্যাটাগরি নেই।</p>
+        </div>
+    </div>
+   
+    <div class="container my-4">
+        @RenderBody()
+    </div>
+
+    @Html.Partial("_LoginModal")
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</body>
+</html>
+
