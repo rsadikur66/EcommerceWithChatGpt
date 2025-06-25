@@ -14,6 +14,9 @@
         Service.loadDataWithoutParm('/Home/LoadAllHomeProducts')
             .then(function (returnData) {
                 $scope.products = JSON.parse(returnData);
+                for (let i = 0; i < $scope.products.length; i++) {
+                    $scope.products[i].buttonText = "Add to cart";
+                }
                 console.log($scope.products);
                 
             });

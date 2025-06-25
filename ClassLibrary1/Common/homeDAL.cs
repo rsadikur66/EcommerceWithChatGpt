@@ -29,10 +29,6 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
-
-
-
-
         public DataTable GetProDetailsById(string ProductId)
         {
             DataTable sql = new DataTable();

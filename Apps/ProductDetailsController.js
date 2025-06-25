@@ -22,7 +22,12 @@
         var load = Service.loadDataSingleParm('/Home/ProductsDetailsByIdData', productId);
         load.then(function (returnData) {
             var dataArray = JSON.parse(returnData);
+            for (let i = 0; i < dataArray.length; i++) {
+                dataArray[i].buttonText = "Add to cart";
+            }
             $scope.selectedProduct = dataArray[0];
+
+
             //loadCategoryData();
         });
         //loadCategoryData();
