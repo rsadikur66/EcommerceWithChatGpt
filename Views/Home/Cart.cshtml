@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>আপনার কেনাকাটার কার্ট</h2>
+
+<div ng-app="myApp" ng-controller="cartPageController">
+    <div ng-if="cartItems.length === 0" class="alert alert-info">
+        আপনার কার্ট খালি। কেনাকাটা শুরু করুন!
+    </div>
+
+    <div ng-if="cartItems.length > 0">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>পণ্য</th>
+                    <th>SKU</th>
+                    <th>পরিমাণ</th>
+                    <th>মূল্য</th>
+                    <th>মোট</th>
+                    <th>অ্যাকশন</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in cartItems">
+                    <td>{{ item.product_name }}</td>
+                    <td>{{ item.sku }}</td>
+                    <td>
+                        <input type="number" ng-model="item.quantity" ng-change="updateCartItem(item)" min="1" class="form-control" style="width: 80px;">
+                    </td>
+                    <td>{{ item.price | currency:'৳'}}</td>
+                    <td>{{ (item.quantity * item.price) | currency:'৳' }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" ng-click="removeFromCart(item)">মুছে ফেলুন</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-end"><strong>মোট কার্ট মূল্য:</strong></td>
+                    <td><strong>{{ getTotalCartPrice() | currency:'৳' }}</strong></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-end mt-4">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">আরও কেনাকাটা করুন</a>
+            <a href="@Url.Action("Checkout", "Home")" class="btn btn-success">চেকআউট করুন</a>
+        </div>
+    </div>
+</div>

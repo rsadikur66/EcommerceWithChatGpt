@@ -1,4 +1,4 @@
-﻿app.controller('LayoutController', ["$scope", "Service", function ($scope, Service) {
+﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", function ($scope, $rootScope, Service) {
     $scope.sidebarVisible = false;
     $scope.hoveredCategory = null;
     $scope.activeCategory = null; // New variable to track active category for styling
@@ -10,7 +10,37 @@
     //    return params.get(param);
     //}
     //var Id = getQueryParam("id");
+    $scope.cartItemCount = 0;
 
+    // প্রাথমিক লোড: localStorage থেকে কার্ট ডেটা নিন
+    $scope.loadCartCount = function () {
+        var storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+            try {
+                var cartItems = JSON.parse(storedCart);
+                $scope.cartItemCount = cartItems.length;
+            } catch (e) {
+                console.error("Error parsing cart from localStorage in layoutController:", e);
+                $scope.cartItemCount = 0;
+            }
+        } else {
+            $scope.cartItemCount = 0;
+        }
+    };
+
+    // কন্ট্রোলার লোড হওয়ার সময় কার্ট গণনা লোড করুন
+    $scope.loadCartCount();
+
+    // যখন cartController থেকে 'cartUpdated' ইভেন্ট ব্রডকাস্ট হবে
+    $rootScope.$on('cartUpdated', function () {
+        // ইভেন্ট পাওয়ার পর সংখ্যাটি আপডেট করুন
+        $scope.loadCartCount();
+        // যদি UI সাথে সাথে আপডেট না হয়, $timeout ব্যবহার করতে পারেন
+        // $timeout(function() {
+        //     $scope.loadCartCount();
+        // });
+    });
+    
 
     function LoadCategories() {
         Service.loadDataWithoutParm('/Home/LoadCategory')

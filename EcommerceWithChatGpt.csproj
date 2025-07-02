@@ -128,6 +128,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Apps\app.js" />
+    <Content Include="Apps\cartPageController.js" />
+    <Content Include="Apps\checkoutController.js" />
     <Content Include="Apps\homepageController.js" />
     <Content Include="Apps\layoutController.js" />
     <Content Include="Apps\ProductDetailsController.js" />
@@ -179,6 +181,8 @@
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Product.cshtml" />
+    <Content Include="Views\Home\Cart.cshtml" />
+    <Content Include="Views\Home\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

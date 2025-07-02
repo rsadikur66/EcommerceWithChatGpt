@@ -13,6 +13,9 @@
     <script src="~/Apps/layoutController.js"></script>
     <script src="~/Apps/homepageController.js"></script>
     <script src="~/Apps/ProductDetailsController.js"></script>
+    <script src="~/Apps/cartPageController.js"></script>
+    <script src="~/Apps/checkoutController.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -163,15 +166,14 @@
     <header class="bg-light py-2 shadow-sm fixed-top">
         <div class="container-fluid d-flex align-items-center justify-content-between">
 
+            <div class="hamburger-area"
+                 ng-mouseenter="sidebarVisible = true">
+                <i class="bi bi-list" style="font-size: 1.8rem;"></i>
+            </div>
             <div>
                 <a href="@Url.Action("Index", "Home")" class="navbar-brand fw-bold text-primary">
                     <img src="~/Content/logo.png" alt="Logo" style="height:40px;" />
                 </a>
-            </div>
-
-            <div class="hamburger-area"
-                 ng-mouseenter="sidebarVisible = true">
-                <i class="bi bi-list" style="font-size: 1.8rem;"></i>
             </div>
 
             <div class="flex-grow-1 mx-4">
@@ -180,9 +182,20 @@
                 </form>
             </div>
 
+            @*<div>
+            <a href="@Url.Action("Cart", "Shop")" class="btn btn-outline-dark me-2">
+                <i class="bi bi-cart"></i> 🛒 Cart
+            </a>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                🔐 Login / Register
+            </button>
+        </div>*@
             <div>
-                <a href="@Url.Action("Cart", "Shop")" class="btn btn-outline-dark me-2">
+                <a href="@Url.Action("Cart","Home")" class="btn btn-outline-dark me-2 position-relative">
                     <i class="bi bi-cart"></i> 🛒 Cart
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ cartItemCount }} <span class="visually-hidden">unread messages</span>
+                    </span>
                 </a>
                 <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
                     🔐 Login / Register
