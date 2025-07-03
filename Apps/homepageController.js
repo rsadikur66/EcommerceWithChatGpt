@@ -39,6 +39,7 @@
         var found = false;
         for (var i = 0; i < $scope.cartItems.length; i++) {
             if ($scope.cartItems[i].product_id === product.product_id) {
+                $scope.cartItems[i].price = product.price;
                 $scope.cartItems[i].quantity++; // কার্টে থাকলে পরিমাণ বৃদ্ধি করুন
                 found = true;
                 break;

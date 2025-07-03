@@ -3,19 +3,20 @@
     $scope.cartItems = [];
 
     $scope.loadCart = function () {
+        debugger;
         // ... আপনার loadCart লজিক ...
         var storedCart = localStorage.getItem('cart');
         if (storedCart) {
             try {
                 $scope.cartItems = JSON.parse(storedCart);
                 // নিশ্চিত করুন যে আপনার price ডেটা আছে বা এখানে লোড করছেন
-                $scope.cartItems.forEach(function (item) {
-                    if (!item.price) {
-                        if (item.product_id === '301') item.price = 899.50;
-                        else if (item.product_id === '300') item.price = 999.99;
-                        else item.price = 0;
-                    }
-                });
+                //$scope.cartItems.forEach(function (item) {
+                //    if (!item.price) {
+                //        if (item.product_id === '301') item.price = 899.50;
+                //        else if (item.product_id === '300') item.price = 999.99;
+                //        else item.price = 0;
+                //    }
+                //});
             } catch (e) {
                 console.error("Error parsing cart from localStorage:", e);
                 $scope.cartItems = [];
