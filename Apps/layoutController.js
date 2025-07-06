@@ -1,4 +1,8 @@
 ﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", function ($scope, $rootScope, Service) {
+    $scope.obj = {};
+    $scope.obj = Data;
+    $scope.obj.T11999 = {};
+
     $scope.sidebarVisible = false;
     $scope.hoveredCategory = null;
     $scope.activeCategory = null; // New variable to track active category for styling
@@ -73,101 +77,49 @@
 
     LoadCategories();
 
-   
-    //LoadCategories();
-    //$scope.banners = [
-    //    {
-    //        imageUrl: 'AC_Common_Big_Banner_2_1_.jpg',
-    //        altText: 'First slide',
-    //        title: 'এই গরমে থাকুন আরামে',
-    //        description: '80% পর্যন্ত ছাড়'
-    //    },
-    //    {
-    //        imageUrl: 'big_banner_copy_1__1.jpg',
-    //        altText: 'Second slide',
-    //        title: 'নতুন অফার!',
-    //        description: 'এক্সক্লুসিভ ডিল মিস করবেন না।'
-    //    },
-    //    {
-    //        imageUrl: 'Gadget_Big_Banner_copy_1_1_.jpg',
-    //        altText: 'Third slide',
-    //        title: 'সীমিত সময়ের জন্য',
-    //        description: 'আজই কিনুন!'
-    //    }
-    //];
-
-    //function LoadCategories(){
-    //    var load = Service.loadDataWithoutParm('/Home/LoadCategory');
-    //    load.then(function (returnData) {
-    //        $scope.categories = JSON.parse(returnData);
-    //        console.log($scope.categories);
-    //        //LoadSubCategories()
-    //        //loadCategoryData();
-    //    });
-    //}
-
-    //$scope.showSubcategories = function (catId) {
-    //    var load = Service.loadDataSingleParm('/Home/LoadSubCategory', catId);
-    //    load.then(function (returnData) {
-    //        $scope.hoveredCategory.subcategories = JSON.parse(returnData);
-    //        console.log($scope.hoveredCategory.subcategories);
-    //        //loadCategoryData();
-    //    });
-    //}
-   
-
-
-    // Dummy data for categories - Replace with actual data from your backend
-  
-
-    //$scope.showSubcategories = function (category) {
-    //    $scope.hoveredCategory = category;
-    //    $scope.activeCategory = category; // Set active category for styling
-    //};
-
-    //$scope.hideSubcategories = function () {
-    //    $scope.hoveredCategory = null;
-    //    $scope.activeCategory = null; // Clear active category
-    //};
-
-    $scope.products = [
-        {
-            id: 300,
-            image: 'https://placehold.co/400x300/F0F0F0/333333?text=Product+1', // আপনার পণ্যের ছবির URL দিয়ে প্রতিস্থাপন করুন
-            name: 'গেমিং ল্যাপটপ',
-            price: '৳ ৮৫,০০০',
-            description: 'উচ্চ পারফরম্যান্সের গেমিং ল্যাপটপ, গেমিং এবং গ্রাফিক্সের কাজের জন্য উপযুক্ত।',
-            buttonText: 'কার্টে যোগ করুন'
-        },
-        {
-            id: 301,
-            image: 'https://placehold.co/400x300/F0F0F0/333333?text=Product+2', // আপনার পণ্যের ছবির URL দিয়ে প্রতিস্থাপন করুন
-            name: 'স্মার্টওয়াচ এক্স৩',
-            price: '৳ ৭,৫০০',
-            description: 'স্বাস্থ্য ট্র্যাকিং এবং নোটিফিকেশন সহ আধুনিক স্মার্টওয়াচ।',
-            buttonText: 'কার্টে যোগ করুন'
-        },
-        {
-            id: 302,
-            image: 'https://placehold.co/400x300/F0F0F0/333333?text=Product+3', // আপনার পণ্যের ছবির URL দিয়ে প্রতিস্থাপন করুন
-            name: 'ওয়্যারলেস হেডফোন',
-            price: '৳ ২,৯৯৯',
-            description: 'উচ্চমানের অডিও এবং দীর্ঘস্থায়ী ব্যাটারি ব্যাকআপ সহ হেডফোন।',
-            buttonText: 'কার্টে যোগ করুন'
-        },
-        {
-            id: 4,
-            image: 'https://placehold.co/400x300/F0F0F0/333333?text=Product+4', // আপনার পণ্যের ছবির URL দিয়ে প্রতিস্থাপন করুন
-            name: '4K স্মার্ট টিভি',
-            price: '৳ ৫০,০০০',
-            description: 'আলট্রা এইচডি রেসুলেশন এবং স্মার্ট ফিচার সহ টেলিভিশন।',
-            buttonText: 'কার্টে যোগ করুন'
-        }
-    ];
+    
 
     $scope.viewProductDetails = function (product) {
         $scope.selectedProduct = product;
         $scope.showDetailsPage = true; // বিস্তারিত পেজ দেখান
     };
+
+
+    $scope.LoginClick = function () {
+        console.log($scope.obj.T11999.username + " " + $scope.obj.T12000.password)
+        if ($scope.obj.T11999.username != undefined && $scope.obj.T11999.User_Name != '' && $scope.obj.T11999.password != undefined && $scope.obj.T11999.password != '') {
+            loader(true);
+            var d = Service.login($scope.obj.T11999.username, $scope.obj.T11999.password);
+            d.then(function (data) {
+                const myArray = data.split("-");
+                if (myArray[0] == '1') {
+                    if (myArray[1] == '100') {
+                        window.location.href = "/Home/H00001";
+                        // window.location.href = "/DT01111/DT01111";
+                    } else if (myArray[1] == '101') {
+                        window.location.href = "/Home/H00001";
+                        /*window.location.href = "/Transaction/AT13001";*/
+                    } else {
+                        window.location.href = "/Home/H00001";
+                    }
+                    // window.location.href = "/Transaction/SendSms";
+                    // loader(false);
+                } else if (data == '2') {
+                    alert('userId or password is wrong !!!');
+                    loader(false);
+                } else {
+                    alert('You are not Authenticate user. Please Contact with 01515265289');
+                    loader(false);
+                }
+            });
+        } else {
+            alert('Please enter userId and password');
+            loader(false);
+        }
+
+
+
+    }
+
 
 }]);

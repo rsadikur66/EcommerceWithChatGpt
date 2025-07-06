@@ -6,7 +6,8 @@
         loadDataListParm: loadDataListParm,
         saveData_Model_List: saveData_Model_List,
         saveData_List: saveData_List,
-        save_Data_Two_List: save_Data_Two_List
+        save_Data_Two_List: save_Data_Two_List,
+        login: login
     };
     return data;
     function saveData(controller, model) {
@@ -115,6 +116,26 @@
                 method: "POST",
                 data: { list_1: list_1, list_2: list_2 }
             }).then(function (results) {
+                return results.data;
+            }).catch(function (ex) {
+                throw ex;
+            });
+        } catch (ex) {
+            throw ex;
+        }
+    }
+
+    function login(userId, pass) {
+        try {
+            var url = '/Login/UserLogin';
+            var params = {};
+            return $http({
+                url: url,
+                method: "POST",
+                //data: params
+                data: { userId: userId, pass: pass }
+            }).then(function (results) {
+
                 return results.data;
             }).catch(function (ex) {
                 throw ex;

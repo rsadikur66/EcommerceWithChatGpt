@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Common\LoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,8 +186,10 @@
     <Content Include="Views\Home\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Apps\Common\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
