@@ -1,4 +1,4 @@
-﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", function ($scope, $rootScope, Service) {
+﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", function ($scope, $rootScope, Service, Data, sweetAlertService) {
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11999 = {};
@@ -8,6 +8,18 @@
     $scope.activeCategory = null; // New variable to track active category for styling
     $scope.categories = [];   // Category লোড হওয়ার পর ভরবে
 
+    // লোডার স্ট্যাটাস ট্র্যাকিং এর জন্য নতুন প্রপার্টি
+    $scope.isLoading = false;
+
+    // loader_show ইভেন্ট শুনুন
+    $rootScope.$on('loader_show', function () {
+        $scope.isLoading = true;
+    });
+
+    // loader_hide ইভেন্ট শুনুন
+    $rootScope.$on('loader_hide', function () {
+        $scope.isLoading = false;
+    });
 
     //function getQueryParam(param) {
     //    var params = new URLSearchParams(window.location.search);
@@ -86,14 +98,16 @@
 
 
     $scope.LoginClick = function () {
-        console.log($scope.obj.T11999.username + " " + $scope.obj.T12000.password)
-        if ($scope.obj.T11999.username != undefined && $scope.obj.T11999.User_Name != '' && $scope.obj.T11999.password != undefined && $scope.obj.T11999.password != '') {
-            loader(true);
+        debugger;
+        //console.log($scope.obj.T11999.username + " " + $scope.obj.T11999.password)
+        if ($scope.obj.T11999.username != undefined && $scope.obj.T11999.username != '' && $scope.obj.T11999.password != undefined && $scope.obj.T11999.password != '') {
+            //loader(true);
             var d = Service.login($scope.obj.T11999.username, $scope.obj.T11999.password);
             d.then(function (data) {
                 const myArray = data.split("-");
                 if (myArray[0] == '1') {
-                    if (myArray[1] == '100') {
+                    if (myArray[1] == '120') {
+                        sweetAlertService.showSuccess('Login Successful!', 'Welcome back!');
                         window.location.href = "/Home/H00001";
                         // window.location.href = "/DT01111/DT01111";
                     } else if (myArray[1] == '101') {
@@ -105,16 +119,13 @@
                     // window.location.href = "/Transaction/SendSms";
                     // loader(false);
                 } else if (data == '2') {
-                    alert('userId or password is wrong !!!');
-                    loader(false);
+                    sweetAlertService.showError('Login Failed!', 'User ID or password is wrong.');
                 } else {
                     alert('You are not Authenticate user. Please Contact with 01515265289');
-                    loader(false);
                 }
             });
         } else {
-            alert('Please enter userId and password');
-            loader(false);
+            sweetAlertService.showWarning('Input Required', 'Please enter User ID and password.');
         }
 
 

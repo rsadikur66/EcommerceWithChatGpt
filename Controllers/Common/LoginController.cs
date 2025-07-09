@@ -20,20 +20,20 @@ namespace EcommerceWithChatGpt.Controllers.Common
                 var sms = ""; //cmd: wmic bios get serialnumber
                               // var savetest = testDal.SaveData(); sr == "G9N0CV01J96835A"
                               //var sr = sirealNumber();
-                var sr = "G9N0CV01J96835A";
-                if (sr == "G9N0CV01J96835A")
-                {
+                //var sr = "G9N0CV01J96835A";
+                //if (sr == "G9N0CV01J96835A")
+                //{
                     var data = loginDAL.GetData(userId, pass);
                     if (data.Rows.Count > 0)
                     {
                         foreach (DataRow i in data.Rows)
                         {
-                            Session["T_EMP_ID"] = i["T_EMP_ID"].ToString();
-                            // Session["site"] = "1";
-                            //  Session["LOGIN_PASS"] = i["LOGIN_PASS"].ToString();
-                            //  Session["LOGIN_CODE"] = i["LOGIN_CODE"].ToString();
-                            Session["T_ROLE"] = i["T_ROLE"].ToString();
-                            sms = "1" + "-" + i["T_ROLE"].ToString();
+                            Session["UserCode"] = i["UserCode"].ToString();
+                            Session["Username"] = i["Username"].ToString();
+                              Session["FirstName"] = i["FirstName"].ToString();
+                              Session["LastName"] = i["LastName"].ToString();
+                            Session["RoleCode"] = i["RoleCode"].ToString();
+                            sms = "1" + "-" + i["RoleCode"].ToString();
                             // var myStr = Session["someKey1"] as String;
                         }
                     }
@@ -41,11 +41,11 @@ namespace EcommerceWithChatGpt.Controllers.Common
                     {
                         sms = "2";
                     }
-                }
-                else
-                {
-                    sms = "3";
-                }
+                //}
+                //else
+                //{
+                //    sms = "3";
+                //}
 
                 return Json(sms, JsonRequestBehavior.AllowGet);
             }

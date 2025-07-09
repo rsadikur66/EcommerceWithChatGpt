@@ -32,7 +32,10 @@ namespace EcommerceWithChatGpt.Controllers
         {
             return View();
         }
-
+        public ActionResult H00001()
+        {
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

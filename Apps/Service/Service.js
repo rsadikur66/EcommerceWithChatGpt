@@ -126,6 +126,7 @@
     }
 
     function login(userId, pass) {
+        debugger;
         try {
             var url = '/Login/UserLogin';
             var params = {};

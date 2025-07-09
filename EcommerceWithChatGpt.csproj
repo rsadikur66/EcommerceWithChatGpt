@@ -184,6 +184,7 @@
     <Content Include="Views\Home\Product.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
+    <Content Include="Views\Home\H00001.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Apps\Common\" />
