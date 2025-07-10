@@ -1,8 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "H00001";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+<script src="~/Apps/Common/ModuleController.js"></script>
 <h2>H00001</h2>
+<div class="row" ng-controller="ModuleController">
+    <h3>{{moduleName}}</h3>
+    <div class="card" style="width: 18rem;" ng-repeat="mod in modules">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{mod.ModuleName}}</h5>
+            <p class="card-text">{{mod.ModuleDesc}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div>
+
 

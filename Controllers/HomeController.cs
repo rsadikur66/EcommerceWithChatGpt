@@ -36,6 +36,11 @@ namespace EcommerceWithChatGpt.Controllers
         {
             return View();
         }
+
+        public ActionResult H00002()
+        {
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -119,6 +124,24 @@ namespace EcommerceWithChatGpt.Controllers
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //For Module Page Start
+        [HttpPost]
+        public ActionResult LoadModules()
+        {
+            try
+            {
+                var data = repository.GetModulesData();
+                string JSONString = string.Empty;
+                JSONString = JsonConvert.SerializeObject(data);
+                return Json(JSONString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //For Module Page End
 
     }
 }

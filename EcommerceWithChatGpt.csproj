@@ -131,6 +131,7 @@
     <Content Include="Apps\app.js" />
     <Content Include="Apps\cartPageController.js" />
     <Content Include="Apps\checkoutController.js" />
+    <Content Include="Apps\Common\ModuleController.js" />
     <Content Include="Apps\homepageController.js" />
     <Content Include="Apps\layoutController.js" />
     <Content Include="Apps\ProductDetailsController.js" />
@@ -185,9 +186,9 @@
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
     <Content Include="Views\Home\H00001.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Apps\Common\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Login\" />

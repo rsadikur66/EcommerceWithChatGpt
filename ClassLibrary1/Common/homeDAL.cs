@@ -35,5 +35,12 @@ namespace DataAccessLayer.Common
             sql = Query($"select * from t12002 where product_id='{ProductId}'");
             return sql;
         }
+
+         public DataTable GetModulesData()
+        {
+            DataTable sql = new DataTable();
+            sql = Query($"select distinct t.ModuleCode,e.ModuleName,e.ModuleDesc from dbo.T11996 t  join dbo.t11997 e on t.ModuleCode = e.ModuleCode where t.RoleCode =120");
+            return sql;
+        }
     }
 }
