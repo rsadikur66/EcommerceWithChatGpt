@@ -121,6 +121,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Common\LoginController.cs" />
+    <Compile Include="Controllers\Common\SetupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,6 +188,7 @@
     <Content Include="Views\Home\Checkout.cshtml" />
     <Content Include="Views\Home\H00001.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Setup\T11221.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
