@@ -123,6 +123,7 @@
     <Compile Include="Controllers\Common\LoginController.cs" />
     <Compile Include="Controllers\Common\SetupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Setup\T11221Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -138,6 +139,7 @@
     <Content Include="Apps\ProductDetailsController.js" />
     <Content Include="Apps\Service\ImageService.js" />
     <Content Include="Apps\Service\Service.js" />
+    <Content Include="Apps\Setup\T11221Controller.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -194,6 +196,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Login\" />
+    <Folder Include="Views\T11221\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -45,10 +45,10 @@
     <Compile Include="Common\CommonDAL.cs" />
     <Compile Include="Common\homeDAL.cs" />
     <Compile Include="Common\loginDAL.cs" />
+    <Compile Include="DAL\Setup\T11221DAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DAL\" />
     <Folder Include="Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
