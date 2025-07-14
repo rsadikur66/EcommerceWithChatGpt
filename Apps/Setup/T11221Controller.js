@@ -6,6 +6,7 @@
     LoadCategories();
     $scope.FormCode = "T11221";
     $scope.FormName = "Category Setup Page";
+    $scope.selectedCategory = null;
 
 
     function LoadCategories() {
@@ -25,7 +26,14 @@
         ////...
         //formdata.append('ICON', file);
         console.log($scope.obj.T11221);
-        //var insert = Service.saveData(formdata);
+        var save = Service.saveData('/T11221/SaveData', $scope.obj.T11221);
+        save.then(function (success) {
+            alert(success);
+            loadGridData();
+        })
+
+
+        //var insert = Service.saveData($scope.obj.T11221);
         //insert.then(function (data) {
         //    if (data) {
         //        alert("Data Save Successfully.")
@@ -43,6 +51,7 @@
         $scope.obj.T11221.CategoryId = data.CategoryId;
         $scope.obj.T11221.Name = data.Name;
         $scope.obj.T11221.Description = data.Description;
+        $scope.selectedCategory = data.CategoryId;
         //$scope.buttonText = "Update";
         //$('#myCategoryModal').modal('toggle');
         $('#myCategoryModal').modal('show');

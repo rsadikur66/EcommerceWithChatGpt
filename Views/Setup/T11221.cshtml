@@ -3,7 +3,12 @@
 }
 
 <script src="~/Apps/Setup/T11221Controller.js"></script>
+<style>
+    table.table tr.selected-row {
+        background-color: red !important;
+    }
 
+</style>
 
 <div class="container" ng-controller="T11221Controller">
     @*<h3 class="text-decoration-underline">{{FormCode}}-{{FormName}}</h3>*@
@@ -29,6 +34,12 @@
                         <tr>
                             <td> <label for="categoryDescription" class="form-label float-end">Description</label></td>
                             <td colspan="4"> <textarea class="form-control" ng-model="obj.T11221.Description" id="categoryDescription" rows="3" placeholder="এই ক্যাটাগরি সম্পর্কে বিস্তারিত লিখুন..."></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <button type="submit" class="btn btn-success w-100" ng-click="Save()">ক্যাটাগরি সংরক্ষণ করুন</button>
+                            </td>
+                            
                         </tr>
                     </table>
                     @*<form>
@@ -69,15 +80,13 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Icon Name</th>
-                    <th>Image</th>
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="cat in obj.categories | filter:searchText  | itemsPerPage: pageSize" ng-click="selectCategory(cat)" ng-class="{'table-primary': selectedCategory === cat}">
+                <tr dir-paginate="cat in obj.categories | filter:searchText  | itemsPerPage: pageSize"  ng-click="selectCategory(cat)" ng-class="{'table-warning': selectedCategory === cat.CategoryId}">
                     <td>{{ cat.CategoryId }}</td>
                     <td>{{ cat.Name }}</td>
                     <td>{{ cat.Description }}</td>
-                    @*<td><img style="width: 20px;height: 20px;display: block;float: left;margin-right: 5px;" src="../images/icon/{{cat.Icon}}" alt=""></td>*@
                 </tr>
             </tbody>
         </table>
