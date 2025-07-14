@@ -4,20 +4,63 @@
 
 <script src="~/Apps/Setup/T11221Controller.js"></script>
 
-<style>
-    .hoverColor {
-        background-color: #75c67f;
-        cursor: pointer;
-    }
-</style>
+
 <div class="container" ng-controller="T11221Controller">
-    <h3 class="text-decoration-underline">{{FormCode}}-{{FormName}}</h3>
-    <div>
-        <button class="btn btn-link btn-sm float-right" ng-click="openModal()">Add New &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
-        <!-- <button class="btn btn-default float-right" ng-click="openModal()">Add New Product</button>-->
+    @*<h3 class="text-decoration-underline">{{FormCode}}-{{FormName}}</h3>*@
+    <div class="float-end">
+        <input type="button" value="Clear" class="btn btn-dark" />
     </div>
-    <div>
-        
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">নতুন ক্যাটাগরি যোগ করুন</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td> <label for="categoryId" class="form-label float-end">Category Id</label></td>
+                            <td> <input type="text" class="form-control w-50" ng-model="obj.T11221.CategoryId" id="categoryId" placeholder="উদাহরণ: CAT001" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><label for="categoryName" class="form-label float-end">Name</label></td>
+                            <td> <input type="text" class="form-control w-100" ng-model="obj.T11221.Name" id="categoryName" placeholder="উদাহরণ: ইলেক্ট্রনিক্স" required></td>
+                        </tr>
+                        <tr>
+                            <td> <label for="categoryDescription" class="form-label float-end">Description</label></td>
+                            <td colspan="4"> <textarea class="form-control" ng-model="obj.T11221.Description" id="categoryDescription" rows="3" placeholder="এই ক্যাটাগরি সম্পর্কে বিস্তারিত লিখুন..."></textarea></td>
+                        </tr>
+                    </table>
+                    @*<form>
+                        <div class="row mb-3">
+                            <div class="col-md-3 mb-3 mb-md-0">
+                                <label for="categoryId" class="form-label">Category Id</label>
+                                <input type="text" class="form-control" ng-model="obj.T11221.CategoryId" id="categoryId" placeholder="উদাহরণ: CAT001" readonly>
+                            </div>
+
+                            <div class="col-md-9">
+                                <label for="categoryName" class="form-label">ক্যাটাগরির নাম</label>
+                                <input type="text" class="form-control" ng-model="obj.T11221.Name" id="categoryName" placeholder="উদাহরণ: ইলেক্ট্রনিক্স" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="categoryDescription" class="form-label">ক্যাটাগরির বিবরণ</label>
+                            <textarea class="form-control" ng-model="obj.T11221.Description" id="categoryDescription" rows="3" placeholder="এই ক্যাটাগরি সম্পর্কে বিস্তারিত লিখুন..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100" ng-click="Save()">ক্যাটাগরি সংরক্ষণ করুন</button>
+                    </form>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <!--<div class="float-end">
+        <button class="btn btn-link btn-sm float-right" ng-click="openModal()">Add New &nbsp;<span class="glyphicon glyphicon-plus"></span></button>-->
+        <!-- <button class="btn btn-default float-right" ng-click="openModal()">Add New Product</button>-->
+    <!--</div>-->
+    <div>        
         <!-- Search Box -->
         <input type="text" class="form-control mb-3" placeholder="🔍 Search..." ng-model="searchText">
         <table class="table table-sm table-striped">
@@ -32,60 +75,14 @@
             <tbody>
                 <tr dir-paginate="cat in obj.categories | filter:searchText  | itemsPerPage: pageSize" ng-click="selectCategory(cat)" ng-class="{'table-primary': selectedCategory === cat}">
                     <td>{{ cat.CategoryId }}</td>
-                    <td>{{ cat.CategoryName }}</td>
-                    <td>{{ cat.Icon }}</td>
-                    <td><img style="width: 20px;height: 20px;display: block;float: left;margin-right: 5px;" src="../images/icon/{{cat.Icon}}" alt=""></td>
+                    <td>{{ cat.Name }}</td>
+                    <td>{{ cat.Description }}</td>
+                    @*<td><img style="width: 20px;height: 20px;display: block;float: left;margin-right: 5px;" src="../images/icon/{{cat.Icon}}" alt=""></td>*@
                 </tr>
             </tbody>
         </table>
-        <dir-pagination-controls template-url="pagination.html"> max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+        <dir-pagination-controls template-url="/Content/Template/pagination.html"> max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
 
         <!--new table end-->
     </div>
-
-
-    <!-- modal section design -->
-    <div class="modal fade" id="myCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Add Category</h4>
-                    <button type="button" class="close" ng-click="closeModal()"><span aria-hidden="true">&times;</span></button>
-                    <!--<button class="btn btn-secondary" ng-click="closeModal()">Cancel</button>-->
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group row">
-                            <label id="lblCategoryId" class="col-sm-4 col-form-label text-right">Category Id</label>
-                            <div class="col-sm-8">
-                                <input id="txtCategoryId" ng-model="obj.cat.CATEGORY_ID" class="form-control" style="width:250px;" />
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label text-right">Name</label>
-                            <div class="col-sm-8">
-                                <input id="txtEnglishName" ng-model="obj.cat.T_LANG2_NAME" class="form-control" style="width:250px;" required />
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label text-right">Icon</label>
-                            <div class="col-sm-8">
-                                <input type="file" id="uploadFile" style="width:250px;" file-upload />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <!--<button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>-->
-                    <button class="btn btn-secondary" ng-click="closeModal()">Cancel</button>
-                    <input type="button" id="btnSave" data-dismiss="modal" class="btn btn-primary" ng-click="Save()" value="{{buttonText}}" title="Save" />
-                    <input type="button" id="btnClear" class="btn btn-default" ng-click="Clear()" value="Clear" title="Clear" />
-                    <input type="button" id="btnDelete" class="btn btn-danger" data-dismiss="modal" ng-click="Delete()" title="Delete" value="Delete" />
-                    <input type="button" id="btnReport" class="btn btn-info" ng-click="Print()" value="Report" title="Report" />
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- modal section design -->
-
 </div>

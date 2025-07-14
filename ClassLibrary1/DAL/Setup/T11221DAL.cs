@@ -12,7 +12,7 @@ namespace ClassLibrary1.DAL.Setup
     {
         public DataTable GetCategoryList()
         {
-            return Query($"SELECT * FROM T11221");
+            return Query($"SELECT * FROM T12000");
         }
     }
 }

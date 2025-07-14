@@ -1,4 +1,4 @@
-﻿var app = angular.module('myApp', []);
+﻿var app = angular.module('myApp', ['angularUtils.directives.dirPagination']);
 
 app.factory('Data', function () {
     return { obj: '' };

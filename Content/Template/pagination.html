@@ -1,0 +1,17 @@
+﻿<ul class="pagination" ng-if="pages.length > 1">
+    <li class="page-item" ng-if="currentPage > 1">
+        <a class="page-link" href="" ng-click="setCurrent(1)">প্রথম</a>
+    </li>
+    <li class="page-item" ng-if="currentPage > 1">
+        <a class="page-link" href="" ng-click="setCurrent(currentPage - 1)">পূর্ববর্তী</a>
+    </li>
+    <li class="page-item" ng-repeat="page in pages" ng-class="{active: currentPage === page}">
+        <a class="page-link" href="" ng-click="setCurrent(page)">{{ page }}</a>
+    </li>
+    <li class="page-item" ng-if="currentPage < pages.length">
+        <a class="page-link" href="" ng-click="setCurrent(currentPage + 1)">পরবর্তী</a>
+    </li>
+    <li class="page-item" ng-if="currentPage < pages.length">
+        <a class="page-link" href="" ng-click="setCurrent(pages.length)">শেষ</a>
+    </li>
+</ul>

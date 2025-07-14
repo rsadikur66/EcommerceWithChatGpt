@@ -2,74 +2,53 @@
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11221 = {};
-
+    $scope.pageSize = 5;
     LoadCategories();
     $scope.FormCode = "T11221";
-    $scope.FormName = "Category Setup Page"
-    $scope.cartItems = [];
+    $scope.FormName = "Category Setup Page";
 
 
     function LoadCategories() {
         Service.loadDataWithoutParm('/T11221/GetCatList')
             .then(function (returnData) {
                 $scope.obj.categories = JSON.parse(returnData);
-                console.log(JSON.parse(returnData));
+                console.log($scope.obj.categories);
                 //cat.subLoaded = true;
             });
     }
-    $scope.loadCart = function () {
-        debugger;
-        // ... আপনার loadCart লজিক ...
-        var storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-            try {
-                $scope.cartItems = JSON.parse(storedCart);
-                // নিশ্চিত করুন যে আপনার price ডেটা আছে বা এখানে লোড করছেন
-                //$scope.cartItems.forEach(function (item) {
-                //    if (!item.price) {
-                //        if (item.product_id === '301') item.price = 899.50;
-                //        else if (item.product_id === '300') item.price = 999.99;
-                //        else item.price = 0;
-                //    }
-                //});
-            } catch (e) {
-                console.error("Error parsing cart from localStorage:", e);
-                $scope.cartItems = [];
-            }
-        }
-        $rootScope.$broadcast('cartUpdated'); // লোড হওয়ার পরেও ব্রডকাস্ট করুন
-    };
 
-    $scope.updateCartItem = function (item) {
-        // ... আপনার updateCartItem লজিক ...
-        if (item.quantity < 1) {
-            item.quantity = 1;
-        }
-        localStorage.setItem('cart', JSON.stringify($scope.cartItems));
-        $rootScope.$broadcast('cartUpdated'); // আপডেটের পর ব্রডকাস্ট করুন
-    };
+    $scope.Save = function () {
+        //var file = document.getElementById('uploadFile').files[0];
+        //var formdata = new FormData();
+        //formdata.append('CATEGORY_ID', $scope.obj.cat.CATEGORY_ID);
+        //formdata.append('T_LANG2_NAME', $scope.obj.cat.T_LANG2_NAME);
+        ////...
+        //formdata.append('ICON', file);
+        console.log($scope.obj.T11221);
+        //var insert = Service.saveData(formdata);
+        //insert.then(function (data) {
+        //    if (data) {
+        //        alert("Data Save Successfully.")
+        //    } else {
+        //        alert("Data not Saved. Try Again.")
+        //    }
+        //    //var msg = data;
+        //    //alert(msg);
+        //    getCategoriesData();
+        //    clear();
+        //});
+    }
 
-    $scope.removeFromCart = function (itemToRemove) {
-        // ... আপনার removeFromCart লজিক ...
-        $scope.cartItems = $scope.cartItems.filter(function (item) {
-            return item.product_id !== itemToRemove.product_id;
-        });
-        localStorage.setItem('cart', JSON.stringify($scope.cartItems));
-        $rootScope.$broadcast('cartUpdated'); // সরানোর পর ব্রডকাস্ট করুন
+    $scope.selectCategory = function (data) {
+        $scope.obj.T11221.CategoryId = data.CategoryId;
+        $scope.obj.T11221.Name = data.Name;
+        $scope.obj.T11221.Description = data.Description;
+        //$scope.buttonText = "Update";
+        //$('#myCategoryModal').modal('toggle');
+        $('#myCategoryModal').modal('show');
+        /* $("#myCategoryModal").modal();*/
     };
-
-    //$scope.getTotalCartPrice = function () {
-    //    // ... আপনার getTotalCartPrice লজিক ...
-    //};
-    $scope.getTotalCartPrice = function () {
-        var total = 0;
-        $scope.cartItems.forEach(function (item) {
-            total += item.quantity * (item.price || 0);
-        });
-        return total;
-    };
-
-    $scope.loadCart(); // কন্ট্রোলার লোড হওয়ার সময় কার্ট লোড করুন
+   
 
 
 }]);
