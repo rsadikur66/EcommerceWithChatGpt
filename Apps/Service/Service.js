@@ -126,9 +126,10 @@
     }
 
     function login(userId, pass) {
-        debugger;
+        //var baseUrl = window.location.origin + window.location.pathname;
+        var baseUrl = window.location.origin;
         try {
-            var url = '/Login/UserLogin';
+            var url = baseUrl + '/Login/UserLogin';
             var params = {};
             return $http({
                 url: url,

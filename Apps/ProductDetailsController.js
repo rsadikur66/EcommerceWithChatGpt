@@ -1,4 +1,5 @@
 ﻿app.controller('ProductDetailsController', ["$scope", "$rootScope", "Service", function ($scope,$rootScope, Service) {
+    var baseUrl = window.location.origin + window.location.pathname;
     function getQueryParam(param) {
         var params = new URLSearchParams(window.location.search);
         return params.get(param);
@@ -8,6 +9,7 @@
     if (Id != null || Id != undefined) {
         loadProductsDetailsById(Id)
     }
+    
     $scope.cartItems = [];
     // **গুরুত্বপূর্ণ:** কন্ট্রোলার লোড হওয়ার সাথে সাথে localStorage থেকে কার্ট লোড করুন
     var storedCart = localStorage.getItem('cart');

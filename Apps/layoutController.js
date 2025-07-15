@@ -2,7 +2,7 @@
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11999 = {};
-
+    var baseUrl = window.location.origin + window.location.pathname;
     $scope.sidebarVisible = false;
     $scope.hoveredCategory = null;
     $scope.activeCategory = null; // New variable to track active category for styling
@@ -59,7 +59,7 @@
     
 
     function LoadCategories() {
-        Service.loadDataWithoutParm('/Home/LoadCategory')
+        Service.loadDataWithoutParm(baseUrl + '/Home/LoadCategory')
             .then(function (returnData) {
                 $scope.categories = JSON.parse(returnData);
                 // সব ক্যাটাগরিতে সাবক্যাটাগরির খালি অ্যারে অ্যাড করলাম
@@ -80,7 +80,7 @@
         //    return;
         //}
 
-        Service.loadDataSingleParm('/Home/LoadSubCategory', cat.categoryid)
+        Service.loadDataSingleParm(baseUrl + '/Home/LoadSubCategory', cat.categoryid)
             .then(function (returnData) {
                 $scope.hoveredCategory.subcategories = JSON.parse(returnData);
                 //cat.subLoaded = true;

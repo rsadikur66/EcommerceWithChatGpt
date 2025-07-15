@@ -6,7 +6,7 @@
     <div class="card shadow-lg rounded-lg">
         <div class="row g-0">
             <div class="col-md-6">
-                <img ng-src="~/Images/{{selectedProduct.image_url}}" class="img-fluid rounded-start-lg w-100 h-100 object-fit-cover" alt="{{selectedProduct.product_name}}">
+                <img ng-src="@Url.Content("~/Images/"){{selectedProduct.image_url}}" class="img-fluid rounded-start-lg w-100 h-100 object-fit-cover" alt="{{selectedProduct.product_name}}">
             </div>
             <div class="col-md-6">
                 <div class="card-body p-4 d-flex flex-column justify-content-between">

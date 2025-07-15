@@ -230,7 +230,7 @@ namespace DataAccessLayer.Common
         }
         public bool permission(string roll, string form, string mod)
         {
-            Boolean result = false;
+            //Boolean result = false;
             var res = "0";
             if (mod == "INS")
             {

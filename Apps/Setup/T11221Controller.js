@@ -2,6 +2,7 @@
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11221 = {};
+    var baseUrl = window.location.origin;
     $scope.pageSize = 5;
     LoadCategories();
     $scope.FormCode = "T11221";
@@ -10,7 +11,7 @@
 
 
     function LoadCategories() {
-        Service.loadDataWithoutParm('/T11221/GetCatList')
+        Service.loadDataWithoutParm(baseUrl +'/T11221/GetCatList')
             .then(function (returnData) {
                 $scope.obj.categories = JSON.parse(returnData);
                 console.log($scope.obj.categories);
@@ -26,7 +27,7 @@
         ////...
         //formdata.append('ICON', file);
         console.log($scope.obj.T11221);
-        var save = Service.saveData('/T11221/SaveData', $scope.obj.T11221);
+        var save = Service.saveData(baseUrl +'/T11221/SaveData', $scope.obj.T11221);
         save.then(function (success) {
             alert(success);
             loadGridData();

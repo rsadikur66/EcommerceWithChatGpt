@@ -59,7 +59,7 @@
                 <div class="card-body d-flex flex-column">
                     <!-- Product Name (now a clickable link) -->
                     <h5 class="card-title text-primary">
-                        <a ng-href="/Home/Details?id={{product.product_id}}" class="text-decoration-none text-primary">
+                        <a ng-href="@Url.Content("~/Home/Details")?id={{product.product_id}}" class="text-decoration-none text-primary">
                             {{product.product_name}}
                         </a>
                         @*ng-click="viewProductDetails(product); $event.preventDefault();"*@

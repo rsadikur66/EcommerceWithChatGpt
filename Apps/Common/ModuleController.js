@@ -4,9 +4,10 @@
     $scope.obj = Data;
     $scope.modules = [];
     $scope.moduleName = 'Products';
+    var baseUrl = window.location.origin;
     LoadModules();
     function LoadModules() {
-        Service.loadDataWithoutParm('/Home/LoadModules')
+        Service.loadDataWithoutParm(baseUrl + '/Home/LoadModules')
             .then(function (returnData) {
                 var data = JSON.parse(returnData);  
                 $scope.obj.setupList = data.filter(x => x.T_LINK_SEPARATION === "1");

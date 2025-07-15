@@ -9,6 +9,7 @@
     //    loadProductsDetailsById(Id)
     //}
     // কার্ট আইটেমগুলি রাখার জন্য একটি খালি অ্যারে শুরু করুন
+    var baseUrl = window.location.origin + window.location.pathname;
     $scope.cartItems = [];
     // **গুরুত্বপূর্ণ:** কন্ট্রোলার লোড হওয়ার সাথে সাথে localStorage থেকে কার্ট লোড করুন
     var storedCart = localStorage.getItem('cart');
@@ -22,7 +23,7 @@
     }
     LoadAllHomeProducts();
     function LoadAllHomeProducts() {
-        Service.loadDataWithoutParm('/Home/LoadAllHomeProducts')
+        Service.loadDataWithoutParm(baseUrl + '/Home/LoadAllHomeProducts')
             .then(function (returnData) {
                 $scope.products = JSON.parse(returnData);
                 for (let i = 0; i < $scope.products.length; i++) {
