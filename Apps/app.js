@@ -126,6 +126,31 @@ app.factory('sweetAlertService', ['$q', function ($q) {
         // কাস্টম অপশন সহ SweetAlert দেখানোর জন্য
         showCustom: function (options) {
             return Swal.fire(options);
+        },
+
+        showResponseMessage: function (responseText) {
+            if (responseText.endsWith('-1')) {
+                return Swal.fire({
+                    title: 'Success!',
+                    text: responseText.replace('-1', ''),
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            } else if (responseText.endsWith('-0')) {
+                return Swal.fire({
+                    title: 'Error!',
+                    text: responseText.replace('-0', ''),
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                return Swal.fire({
+                    title: 'Info',
+                    text: responseText,
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            }
         }
     };
 }]);

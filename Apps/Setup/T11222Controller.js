@@ -5,8 +5,8 @@
     var baseUrl = window.location.origin;
     $scope.pageSize = 5;
     LoadCategories();
-    $scope.FormCode = "T11221";
-    $scope.FormName = "Category Setup Page";
+    $scope.FormCode = "T11222";
+    $scope.FormName = "Sub Category Setup Page";
     $scope.selectedCategory = null;
 
 

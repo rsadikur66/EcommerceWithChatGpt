@@ -5,22 +5,22 @@ using System.Data;
 
 namespace ClassLibrary1.DAL.Setup
 {
-    public class T11221DAL : CommonDAL
+    public class T11222DAL : CommonDAL
     {
         public DataTable GetCategoryList()
         {
-            return Query($"SELECT * FROM T11221");
+            return Query($"SELECT * FROM T11222");
         }
 
-        public string SaveData(T11221 t11221)
+        public string SaveData(T11222 t11222)
         {
             var sms = "";
-            if (t11221.CategoryId == 0)
+            if (t11222.CategoryId == 0)
             {
                 //insert
-                var insertT11221 = Command($"insert into t11221(Name, Description) values('{t11221.Name}','{t11221.Description}')");
+                var insertT11222 = Command($"insert into t11222(Name, Description) values('{t11222.Name}','{t11222.Description}')");
 
-                if (insertT11221)
+                if (insertT11222)
                 {
                     sms = "Save Successfully-1";
                 }
@@ -31,8 +31,8 @@ namespace ClassLibrary1.DAL.Setup
             }
             else
             {
-                var updateT11221 = Command($"UPDATE T11221 SET Name='{t11221.Name}',Description='{t11221.Description}' WHERE CategoryId ={t11221.CategoryId}");
-                if (updateT11221)
+                var updateT11222 = Command($"UPDATE T11221 SET Name='{t11222.Name}',Description='{t11222.Description}' WHERE CategoryId ={t11222.CategoryId}");
+                if (updateT11222)
                 {
                     sms = "Update Successfully-1";
                 }
