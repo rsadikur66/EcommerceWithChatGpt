@@ -7,9 +7,9 @@ namespace ClassLibrary1.DAL.Setup
 {
     public class T11222DAL : CommonDAL
     {
-        public DataTable GetCategoryList()
+        public DataTable GetSubCategoryList()
         {
-            return Query($"SELECT * FROM T11222");
+            return Query($"select t22.SubCategoryId,t22.CategoryId,t21.Name CategoryName,t22.Name,t22.Description from T11222 t22 join t11221 t21 on t22.CategoryId = t21.CategoryId");
         }
 
         public string SaveData(T11222 t11222)

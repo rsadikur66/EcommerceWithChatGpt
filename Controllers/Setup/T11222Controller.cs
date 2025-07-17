@@ -8,18 +8,18 @@ namespace EcommerceWithChatGpt.Controllers.Setup
 {
     public class T11222Controller : Controller
     {
-        T11221DAL repository = new T11221DAL();
-        // GET: T11221
+        T11222DAL repository = new T11222DAL();
+        // GET: T11222
         [HttpPost]
-        public ActionResult GetCatList()
+        public ActionResult GetSubCatList()
         {
-            var data = repository.GetCategoryList();
+            var data = repository.GetSubCategoryList();
             string jsonData = JsonConvert.SerializeObject(data);
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult SaveData(T11221 model)
+        public ActionResult SaveData(T11222 model)
         {
             if (string.IsNullOrEmpty(Session["UserCode"] as string)) { return Json("Logout-0", JsonRequestBehavior.AllowGet); }
             try

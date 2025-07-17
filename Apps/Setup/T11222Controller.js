@@ -1,17 +1,25 @@
-﻿app.controller('T11221Controller', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", function ($scope, $rootScope, Service, Data,sweetAlertService) {
+﻿app.controller('T11222Controller', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", function ($scope, $rootScope, Service, Data,sweetAlertService) {
     $scope.obj = {};
     $scope.obj = Data;
-    $scope.obj.T11221 = {};
+    $scope.obj.T11222 = {};
     var baseUrl = window.location.origin;
     $scope.pageSize = 5;
     LoadCategories();
+    LoadGridData();
     $scope.FormCode = "T11222";
     $scope.FormName = "Sub Category Setup Page";
     $scope.selectedCategory = null;
+    
 
+    function LoadGridData() {
+        Service.loadDataWithoutParm(baseUrl +'/T11222/GetSubCatList')
+            .then(function (returnData) {
+                $scope.obj.subCategories = JSON.parse(returnData);
+            });
+    }
 
     function LoadCategories() {
-        Service.loadDataWithoutParm(baseUrl +'/T11221/GetCatList')
+        Service.loadDataWithoutParm(baseUrl + '/T11221/GetCatList')
             .then(function (returnData) {
                 $scope.obj.categories = JSON.parse(returnData);
                 console.log($scope.obj.categories);
@@ -32,7 +40,7 @@
         ////...
         //formdata.append('ICON', file);
         console.log($scope.obj.T11221);
-        var save = Service.saveData(baseUrl +'/T11221/SaveData', $scope.obj.T11221);
+        var save = Service.saveData(baseUrl +'/T11222/SaveData', $scope.obj.T11221);
         save.then(function (msg) {
             debugger;
             sweetAlertService.showResponseMessage(msg);
@@ -54,11 +62,13 @@
         //});
     }
 
-    $scope.selectCategory = function (data) {
-        $scope.obj.T11221.CategoryId = data.CategoryId;
-        $scope.obj.T11221.Name = data.Name;
-        $scope.obj.T11221.Description = data.Description;
-        $scope.selectedCategory = data.CategoryId;
+    $scope.selectSubCategory = function (data) {
+        $scope.obj.T11222.SubCategoryId = data.SubCategoryId;
+        $scope.obj.ddlItemCategories = { Name: data.Name, CategoryId: data.CategoryId };
+        $scope.obj.T11222.CategoryId = $scope.obj.ddlItemCategories.CategoryId;
+        $scope.obj.T11222.Name = data.Name;
+        $scope.obj.T11222.Description = data.Description;
+        $scope.selectedSubCategory = data.CategoryId;
         //$scope.buttonText = "Update";
         //$('#myCategoryModal').modal('toggle');
         $('#myCategoryModal').modal('show');
@@ -67,6 +77,6 @@
    
 
     $scope.btnClearClick = function () {
-        $scope.obj.T11221 = {};
+        $scope.obj.T11222 = {};
     }
 }]);
