@@ -1,4 +1,4 @@
-﻿app.controller('T11221Controller', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", function ($scope, $rootScope, Service, Data,sweetAlertService) {
+﻿app.controller('T11221Controller', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "LoaderService", function ($scope, $rootScope, Service, Data, sweetAlertService, LoaderService) {
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11221 = {};
@@ -11,12 +11,14 @@
 
 
     function LoadCategories() {
+        LoaderService.show();
         Service.loadDataWithoutParm(baseUrl +'/T11221/GetCatList')
             .then(function (returnData) {
                 $scope.obj.categories = JSON.parse(returnData);
                 console.log($scope.obj.categories);
                 //cat.subLoaded = true;
             });
+        LoaderService.hide();
     }
 
     $scope.btnSaveClick = function () {

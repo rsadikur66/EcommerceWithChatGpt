@@ -1,4 +1,4 @@
-﻿app.controller('T11222Controller', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", function ($scope, $rootScope, Service, Data,sweetAlertService) {
+﻿app.controller('T11222Controller', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "LoaderService", function ($scope, $rootScope, Service, Data, sweetAlertService, LoaderService) {
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11222 = {};
@@ -12,10 +12,12 @@
     
 
     function LoadGridData() {
+        LoaderService.show();
         Service.loadDataWithoutParm(baseUrl +'/T11222/GetSubCatList')
             .then(function (returnData) {
                 $scope.obj.subCategories = JSON.parse(returnData);
             });
+        LoaderService.hide();
     }
 
     function LoadCategories() {

@@ -154,3 +154,15 @@ app.factory('sweetAlertService', ['$q', function ($q) {
         }
     };
 }]);
+
+app.factory('LoaderService', function ($rootScope) {
+    return {
+        show: function () {
+            $rootScope.isLoading = true;
+        },
+        hide: function () {
+            $rootScope.isLoading = false;
+        }
+    };
+});
+
