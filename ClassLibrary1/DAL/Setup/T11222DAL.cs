@@ -15,10 +15,10 @@ namespace ClassLibrary1.DAL.Setup
         public string SaveData(T11222 t11222)
         {
             var sms = "";
-            if (t11222.CategoryId == 0)
+            if (t11222.SubCategoryId == 0)
             {
                 //insert
-                var insertT11222 = Command($"insert into t11222(Name, Description) values('{t11222.Name}','{t11222.Description}')");
+                var insertT11222 = Command($"insert into T11222(CategoryId, Name, Description) values ({t11222.CategoryId},'{t11222.Name}','{t11222.Description}')");
 
                 if (insertT11222)
                 {
@@ -31,7 +31,7 @@ namespace ClassLibrary1.DAL.Setup
             }
             else
             {
-                var updateT11222 = Command($"UPDATE T11221 SET Name='{t11222.Name}',Description='{t11222.Description}' WHERE CategoryId ={t11222.CategoryId}");
+                var updateT11222 = Command($"UPDATE T11222 SET Name='{t11222.Name}',Description='{t11222.Description}' WHERE SubCategoryId ={t11222.SubCategoryId}");
                 if (updateT11222)
                 {
                     sms = "Update Successfully-1";

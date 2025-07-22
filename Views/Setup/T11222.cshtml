@@ -3,110 +3,94 @@
 }
 
 <script src="~/Apps/Setup/T11222Controller.js"></script>
-<style>
-    table.table tr.selected-row {
-        background-color: red !important;
-    }
-</style>
 
 <div class="container" ng-controller="T11222Controller">
-    @*<h3 class="text-decoration-underline">{{FormCode}}-{{FormName}}</h3>*@
-    <div class="float-end">
+    @*<div class="float-end mb-3">
         <input type="button" value="Save" class="btn btn-outline-success" ng-click="btnSaveClick()" />
         <input type="button" value="Clear" class="btn btn-outline-secondary" ng-click="btnClearClick()" />
         <input type="button" value="Delete" class="btn btn-outline-danger" ng-click="btnDeleteClick()" />
-    </div>
+    </div>*@
+
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+        <div class="col-lg-8 col-md-10">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                     <h4 class="mb-0">নতুন সাব ক্যাটাগরি যোগ করুন</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table">
-                        <tr>
-                            <td> <label for="subCategoryId" class="form-label float-end">Sub Category Id</label></td>
-                            <td> <input type="text" class="form-control w-50" ng-model="obj.T11222.SubCategoryId" id="subCategoryId"  readonly></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="categoryId" class="form-label float-end" >Category</label>
-                            </td>
-                            <td>
-                                <select id="ddlItemCategories" class="form-control" ng-model="obj.ddlItemCategories" placeholder="Select one" tabindex="1"
-                                        ng-options="V.Name for V in obj.categories track by V.CategoryId">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="subCategoryId" class="form-label">Sub Category Id</label>
+                                <input type="text" class="form-control" ng-model="obj.T11222.SubCategoryId" id="subCategoryId" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="ddlItemCategories" class="form-label">Category</label>
+                                <select id="ddlItemCategories" class="form-select" ng-model="obj.ddlItemCategories" ng-options="V.Name for V in obj.categories track by V.CategoryId" required>
                                     <option value="">Select One</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="subCategoryName" class="form-label float-end">Name</label></td>
-                            <td> <input type="text" class="form-control w-100" ng-model="obj.T11222.Name" id="subCategoryName" required></td>
-                        </tr>
-                        <tr>
-                            <td> <label for="subCategoryDescription" class="form-label float-end">Description</label></td>
-                            <td colspan="4"> <textarea class="form-control" ng-model="obj.T11222.Description" id="subCategoryDescription" rows="3"></textarea></td>
-                        </tr>
-                        @*<tr>
-                                <td colspan="4">
-                                    <button type="submit" class="btn btn-success w-100" ng-click="Save()">ক্যাটাগরি সংরক্ষণ করুন</button>
-                                </td>
-
-                            </tr>*@
-                    </table>
-                    @*<form>
-                            <div class="row mb-3">
-                                <div class="col-md-3 mb-3 mb-md-0">
-                                    <label for="categoryId" class="form-label">Category Id</label>
-                                    <input type="text" class="form-control" ng-model="obj.T11221.CategoryId" id="categoryId" placeholder="উদাহরণ: CAT001" readonly>
-                                </div>
-
-                                <div class="col-md-9">
-                                    <label for="categoryName" class="form-label">ক্যাটাগরির নাম</label>
-                                    <input type="text" class="form-control" ng-model="obj.T11221.Name" id="categoryName" placeholder="উদাহরণ: ইলেক্ট্রনিক্স" required>
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="mb-3">
-                                <label for="categoryDescription" class="form-label">ক্যাটাগরির বিবরণ</label>
-                                <textarea class="form-control" ng-model="obj.T11221.Description" id="categoryDescription" rows="3" placeholder="এই ক্যাটাগরি সম্পর্কে বিস্তারিত লিখুন..."></textarea>
+                        <div class="mb-3">
+                            <label for="subCategoryName" class="form-label">Name</label>
+                            <input type="text" class="form-control" ng-model="obj.T11222.Name" id="subCategoryName" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subCategoryDescription" class="form-label">Description</label>
+                            <textarea class="form-control" ng-model="obj.T11222.Description" id="subCategoryDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="row g-2 mt-3">
+                            <div class="col-12 col-md-auto">
+                                <button type="button" class="btn btn-outline-success w-100" ng-click="btnSaveClick()">Save</button>
                             </div>
-
-                            <button type="submit" class="btn btn-success w-100" ng-click="Save()">ক্যাটাগরি সংরক্ষণ করুন</button>
-                        </form>*@
+                            <div class="col-12 col-md-auto">
+                                <button type="button" class="btn btn-outline-secondary w-100" ng-click="btnClearClick()">Clear</button>
+                            </div>
+                            <div class="col-12 col-md-auto">
+                                <button type="button" class="btn btn-outline-danger w-100" ng-click="btnDeleteClick()">Delete</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <hr />
-    <!--<div class="float-end">
-        <button class="btn btn-link btn-sm float-right" ng-click="openModal()">Add New &nbsp;<span class="glyphicon glyphicon-plus"></span></button>-->
-    <!-- <button class="btn btn-default float-right" ng-click="openModal()">Add New Product</button>-->
-    <!--</div>-->
-    <div>
-        <!-- Search Box -->
-        <input type="text" class="form-control mb-3" placeholder="🔍 Search..." ng-model="searchText">
-        <table class="table table-sm table-striped">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Category Name</th>
-                    <th>Sub Category Name</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr dir-paginate="subCat in obj.subCategories | filter:searchText  | itemsPerPage: pageSize" ng-click="selectSubCategory(subCat)" ng-class="{'table-warning': selectedSubCategory === subCat.SubCategoryId}">
-                    <td>{{ subCat.SubCategoryId }}</td>
-                    @*<td>{{ subCat.CategoryId }}</td>*@
-                    <td>{{ subCat.CategoryName }}</td>
-                    <td>{{ subCat.Name }}</td>
-                    <td>{{ subCat.Description }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <dir-pagination-controls template-url="/Content/Template/pagination.html"> max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
 
-        <!--new table end-->
+    <hr />
+
+    <!-- Search and Table -->
+    <div class="mt-4">
+        <input type="text" class="form-control mb-3" placeholder="🔍 Search..." ng-model="searchText">
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Category Name</th>
+                        <th>Sub Category Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="subCat in obj.subCategories | filter:searchText | itemsPerPage: pageSize"
+                        ng-click="selectSubCategory(subCat)"
+                        ng-class="{'table-warning': selectedSubCategory === subCat.SubCategoryId}">
+                        <td>{{ subCat.SubCategoryId }}</td>
+                        <td>{{ subCat.CategoryName }}</td>
+                        <td>{{ subCat.Name }}</td>
+                        <td>{{ subCat.Description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <dir-pagination-controls template-url="/Content/Template/pagination.html"
+                                 max-size="5" direction-links="true" boundary-links="true">
+        </dir-pagination-controls>
     </div>
 </div>
+

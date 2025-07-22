@@ -1,4 +1,5 @@
 ﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", function ($scope, $rootScope, Service, Data, sweetAlertService) {
+    console.log("LayoutController initialized");
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11999 = {};
@@ -59,7 +60,7 @@
     
 
     function LoadCategories() {
-        Service.loadDataWithoutParm(baseUrl + '/Home/LoadCategory')
+        Service.loadDataWithoutParm('/Home/LoadCategory')
             .then(function (returnData) {
                 $scope.categories = JSON.parse(returnData);
                 // সব ক্যাটাগরিতে সাবক্যাটাগরির খালি অ্যারে অ্যাড করলাম
@@ -80,7 +81,7 @@
         //    return;
         //}
 
-        Service.loadDataSingleParm(baseUrl + '/Home/LoadSubCategory', cat.categoryid)
+        Service.loadDataSingleParm('/Home/LoadSubCategory', cat.categoryid)
             .then(function (returnData) {
                 $scope.hoveredCategory.subcategories = JSON.parse(returnData);
                 //cat.subLoaded = true;

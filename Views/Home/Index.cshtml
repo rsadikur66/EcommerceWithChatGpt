@@ -3,6 +3,20 @@
 }
 <script src="~/Apps/layoutController.js"></script>
 <style>
+    .card-title a {
+        font-size: 1rem;
+        line-height: 1.2rem;
+        display: block;
+        min-height: 48px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        min-height: 40px;
+    }
     /*.hero-banner-container {
         width: 100%;
         overflow: hidden;
@@ -47,14 +61,13 @@
         </button>
     </div>
     <h2 class="text-center mb-4">আমাদের পণ্যসমূহ</h2>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
         <!-- Loop through products array to create cards -->
         <div class="col" ng-repeat="product in products">
             <div class="card h-100 shadow-sm rounded-lg">
                 <!-- Product Image (now a clickable link) -->
                 <a ng-href="/Home/Details?id={{product.product_id}}">
-                    <img ng-src="./Images/{{product.image_url}}" class="card-img-top rounded-top-lg" alt="{{product.product_name}}"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E0E0/888888?text=Image+Not+Found';">
+                    <img ng-src="./Images/{{product.image_url}}" class="card-img-top img-fluid rounded-top-lg" alt="{{product.product_name}}" style="height: 200px; object-fit: contain;" onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E0E0/888888?text=Image+Not+Found';">
                 </a>
                 <div class="card-body d-flex flex-column">
                     <!-- Product Name (now a clickable link) -->

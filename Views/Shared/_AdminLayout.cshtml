@@ -1,246 +1,210 @@
+@{
+    Layout = null;
+}
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
 
+    <!-- ✅ Bootstrap 5 + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- ✅ AngularJS + Pagination -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <!-- SweetAlert CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <!-- SweetAlert JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
+
+    <!-- ✅ SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <!-- ✅ Custom Angular Scripts -->
     <script src="~/Apps/app.js"></script>
     <script src="~/Apps/Service/Service.js"></script>
-    @*<script src="~/Apps/layoutController.js"></script>
-        <script src="~/Apps/homepageController.js"></script>*@
     <script src="~/Apps/Common/ModuleController.js"></script>
 
     <style>
         .headerColor {
             background-color: #d3ae78;
-            /* background-color: #076c93b0;*/
         }
 
-        .sidenav {
-            height: 100%;
-            width: 188px;
+        .sidebar-fixed {
+            width: 200px;
+            height: 100vh;
             position: fixed;
-            z-index: 1;
-            /*top: 0;*/
+            top: 56px; /* Navbar height */
             left: 0;
             background-color: #696363;
-            /*   background-color: #076c93b0;*/
-            overflow-x: hidden;
-            transition: 0.5s;
-            /* padding-top: 60px;*/
+            overflow-y: auto;
+            z-index: 1030;
         }
 
-            .sidenav a {
-                padding: 0px 0px 0px 15px;
-                text-decoration: none;
-                font-size: 18px;
-                color: #ffffff;
-                /*background-color: #82afa0;*/
-                display: block;
-                transition: 0.3s;
+        .sidebar-fixed a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+        }
+
+        .sidebar-fixed a:hover {
+            background-color: #888;
+        }
+
+        .content-area {
+            margin-left: 200px;
+            padding: 20px;
+            margin-top: 50px; /* navbar height adjust */
+        }
+
+        @@media (max-width: 767.98px) {
+            .sidebar-fixed {
+                display: none;
             }
 
-                .sidenav a:hover {
-                    color: #f1f1f1;
-                }
-
-            .sidenav .closebtn {
-                position: absolute;
-                top: 0;
-                right: 25px;
-                font-size: 36px;
-                margin-left: 50px;
+            .content-area {
+                margin-left: 0;
+                margin-top: 50px; /* responsive mode এও margin-top রাখো */
             }
-
-        @@media screen and (max-height: 450px) {
-            .sidenav {
-                padding-top: 15px;
-            }
-
-                .sidenav a {
-                    font-size: 18px;
-                }
         }
 
         .footerlogout {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            margin-left: 15px;
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
             color: white;
-            text-align: center;
+            cursor: pointer;
         }
-        /* Loader Overlay Style */
-       /* .loader-overlay {
+
+        /* Loader */
+        .loader-overlay {
             position: fixed;
             top: 0;
             left: 0;
             height: 100%;
             width: 100%;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-        }*/
+            z-index: 1050;
+        }
 
+        .lds-dual-ring {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+        }
 
-        .loader-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-}
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border-radius: 50%;
+            border: 6px solid #198754;
+            border-color: #198754 transparent #198754 transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
 
-.lds-dual-ring {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-}
-.lds-dual-ring:after {
-    content: " ";
-    display: block;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border-radius: 50%;
-    border: 6px solid #198754;
-    border-color: #198754 transparent #198754 transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-}
+        @@keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
 
-@@keyframes lds-dual-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
-<body ng-app="myApp" ng-controller="ModuleController">
+<body ng-controller="ModuleController">
+    <!-- 🔰 Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark headerColor fixed-top shadow-sm">
+        <div class="container-fluid">
+            <!-- Mobile Sidebar Toggle -->
+            <button class="btn btn-outline-light d-md-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                <i class="bi bi-list"></i>
+            </button>
 
-    @*<header class="bg-light py-2 shadow-sm fixed-top">
-            <div class="container-fluid d-flex align-items-center justify-content-between">
-
-
-                <div>
-                    <a href="@Url.Action("Index", "Home")" class="navbar-brand fw-bold text-primary">
-                        <img src="~/Content/logo.png" alt="Logo" style="height:40px;" />
-                    </a>
-                </div>
-            </div>
-        </header>*@
-    <div class="ng-cloak">
-        <!-- 🔁 Loader Spinner Start -->
-        @*<div ng-show="isLoading" class="loader-overlay">
-            <div class="spinner-border text-danger" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>*@
-        <div ng-show="isLoading" class="loader-overlay">
-            <div class="lds-dual-ring"></div>
-            <p class="mt-3 fw-bold text-success">Loading...</p>
+            <a class="navbar-brand fw-bold" href="@Url.Action("Index", "Home")">bazar.com</a>
         </div>
+    </nav>
 
-        <!-- 🔁 Loader Spinner End -->
-        <div class="navbar headerColor navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>*@
-                    @Html.ActionLink("bazar.com", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                </div>
+    <!-- 🔰 Sidebar for large screen -->
+    <div class="sidebar-fixed d-none d-md-block">
+        <a href="~/Home/H00001">Home</a>
+        <a data-bs-toggle="collapse" href="#setupMenu">Setup</a>
+        <div id="setupMenu" class="collapse">
+            <div ng-repeat="S in obj.setupList">
+                <a class="ms-3" ng-click="PageRedirect_Clic(S.LinkText)">{{S.FormName}}</a>
             </div>
         </div>
-        <div id="mySidenav" class="sidenav">
-            <div class="panel-group" id="accordion" style="margin-top: 20px;">
-                <div class="panel panel-default" style="border:none;margin-bottom:10px">
-                    @*class="panel-heading"*@
-                    <div style="color: white">
-                        <h4 class="panel-title">
-                            <a href="~/Home/H00001">Home</a>
-                        </h4>
-                    </div>
-                    <div style="color: white">
-                        <h4 class="panel-title">
-                            <a data-bs-toggle="collapse" style="font-size:20px" data-bs-parent="#accordion" href="#collapse1">Setup</a>
-                        </h4>
-                    </div>
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <div ng-repeat="S in obj.setupList" class="panel-body" style="cursor: pointer; padding: 1px !important">
-                            <a style="margin-left:15px" ng-click="PageRedirect_Clic(S.LinkText)">{{S.FormName}}</a>
-                            @*<h3>{{S.FormName}}</h3>*@
-                        </div>
-                    </div>
-                </div>
 
-                <div class="panel panel-default" style="border: none;margin-top:10px; margin-bottom: 10px">
-                    <div style="color: white">
-                        <h4 class="panel-title">
-                            <a data-bs-toggle="collapse" style="font-size:20px" data-bs-parent="#accordion" href="#collapse2">Transaction</a>
-                        </h4>
-                    </div>
-                    <div id="collapse2" class="panel-collapse collapse">
-                        <div ng-repeat="T in obj.transList" class="panel-body" style="cursor: pointer; padding: 1px !important">
-                            <a style="margin-left:15px" ng-click="PageRedirect_Clic(T.LinkText)">{{T.FormName}}</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default" style="border: none; margin-top: 10px; margin-bottom: 10px">
-                    <div style="color: white">
-                        <h4 class="panel-title">
-                            <a data-bs-toggle="collapse" style="font-size:20px" data-bs-parent="#accordion" href="#collapse3">Report</a>
-                        </h4>
-                    </div>
-                    <div id="collapse3" class="panel-collapse collapse">
-                        <div ng-repeat="R in obj.reportList" class="panel-body" style="cursor: pointer; padding: 1px !important">
-                            <a style="margin-left:15px" ng-click="PageRedirect_Clic(R.LinkText)">{{R.FormName}}</a>
-                        </div>
-                    </div>
-                    <span class="footerlogout " title="Logout" style="font-size:25px;cursor:pointer;margin-top:12px" ng-click="Logout_Click()">Logout</span>
-                </div>
-
+        <a data-bs-toggle="collapse" href="#transMenu">Transaction</a>
+        <div id="transMenu" class="collapse">
+            <div ng-repeat="T in obj.transList">
+                <a class="ms-3" ng-click="PageRedirect_Clic(T.LinkText)">{{T.FormName}}</a>
             </div>
-
-        </div>
-        <div class="container" style="margin-top:2rem">
-            @RenderBody()
         </div>
 
+        <a data-bs-toggle="collapse" href="#reportMenu">Report</a>
+        <div id="reportMenu" class="collapse">
+            <div ng-repeat="R in obj.reportList">
+                <a class="ms-3" ng-click="PageRedirect_Clic(R.LinkText)">{{R.FormName}}</a>
+            </div>
+        </div>
 
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <span class="footerlogout" title="Logout" ng-click="Logout_Click()">Logout</span>
     </div>
+
+    <!-- 🔰 Sidebar for small screens -->
+    <div class="offcanvas offcanvas-start text-bg-dark" id="mobileSidebar">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <a href="~/Home/H00001" class="text-white">Home</a>
+            <a data-bs-toggle="collapse" href="#mSetupMenu" class="text-white">Setup</a>
+            <div id="mSetupMenu" class="collapse">
+                <div ng-repeat="S in obj.setupList">
+                    <a class="ms-3 text-white" ng-click="PageRedirect_Clic(S.LinkText)">{{S.FormName}}</a>
+                </div>
+            </div>
+            <a data-bs-toggle="collapse" href="#mTransMenu" class="text-white">Transaction</a>
+            <div id="mTransMenu" class="collapse">
+                <div ng-repeat="T in obj.transList">
+                    <a class="ms-3 text-white" ng-click="PageRedirect_Clic(T.LinkText)">{{T.FormName}}</a>
+                </div>
+            </div>
+            <a data-bs-toggle="collapse" href="#mReportMenu" class="text-white">Report</a>
+            <div id="mReportMenu" class="collapse">
+                <div ng-repeat="R in obj.reportList">
+                    <a class="ms-3 text-white" ng-click="PageRedirect_Clic(R.LinkText)">{{R.FormName}}</a>
+                </div>
+            </div>
+            <hr />
+            <a class="btn btn-danger w-100" ng-click="Logout_Click()">Logout</a>
+        </div>
+    </div>
+
+    <!-- 🔰 Loader -->
+    <div ng-show="isLoading" class="loader-overlay">
+        <div class="lds-dual-ring"></div>
+        <p class="mt-3 fw-bold text-success">Loading...</p>
+    </div>
+
+    <!-- 🔰 Main Content -->
+    <main class="content-area">
+        @RenderBody()
+    </main>
+
+    <!-- ✅ Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>
-

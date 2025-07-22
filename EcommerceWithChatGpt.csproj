@@ -231,6 +231,7 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Setup\T11221.cshtml" />
     <Content Include="Views\Setup\T11222.cshtml" />
+    <Content Include="Views\Setup\T11223.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,19 +21,25 @@
     }
 
     function LoadCategories() {
+        LoaderService.show();
         Service.loadDataWithoutParm(baseUrl + '/T11221/GetCatList')
             .then(function (returnData) {
                 $scope.obj.categories = JSON.parse(returnData);
                 console.log($scope.obj.categories);
                 //cat.subLoaded = true;
             });
+        LoaderService.hide();
     }
 
     $scope.btnSaveClick = function () {
 
-        if ($scope.obj.T11221.Name == "" || $scope.obj.T11221.Name == undefined) {
-            sweetAlertService.showError("Required!!!", "Please input required field.");
+        if ($scope.obj.T11222.Name == "" || $scope.obj.T11222.Name == undefined) {
+            sweetAlertService.showError("Required!!!", "Please input required Sub Category field.");
             return;
+        }
+        if (!$scope.obj.ddlItemCategories || !$scope.obj.ddlItemCategories.CategoryId) {
+            sweetAlertService.showError("Required!!!", "Please select required category field.");
+            return; // validation failed
         }
         //var file = document.getElementById('uploadFile').files[0];
         //var formdata = new FormData();
@@ -41,12 +47,13 @@
         //formdata.append('T_LANG2_NAME', $scope.obj.cat.T_LANG2_NAME);
         ////...
         //formdata.append('ICON', file);
-        console.log($scope.obj.T11221);
-        var save = Service.saveData(baseUrl +'/T11222/SaveData', $scope.obj.T11221);
+        $scope.obj.T11222.CategoryId = $scope.obj.ddlItemCategories.CategoryId;
+        console.log($scope.obj.T11222);
+        var save = Service.saveData(baseUrl +'/T11222/SaveData', $scope.obj.T11222);
         save.then(function (msg) {
             debugger;
             sweetAlertService.showResponseMessage(msg);
-            LoadCategories();
+            LoadGridData();
         })
 
 

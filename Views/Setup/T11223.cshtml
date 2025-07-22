@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "T11223";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>T11223-Add Product Setup Page</h2>
+
+<div class="container mt-4" ng-controller="AddProductController">
+    <h3 class="text-primary mb-4">➕ নতুন প্রোডাক্ট যোগ করুন</h3>
+
+    <form name="productForm" ng-submit="saveProduct()" novalidate>
+
+        <div class="mb-3">
+            <label class="form-label">প্রোডাক্ট নাম</label>
+            <input type="text" class="form-control" ng-model="product.name" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">ক্যাটাগরি</label>
+            <select class="form-select" ng-model="product.categoryId"
+                    ng-options="c.categoryid as c.name for c in categories"
+                    ng-change="loadSubcategories()" required>
+                <option value="">-- সিলেক্ট করুন --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">সাব-ক্যাটাগরি</label>
+            <select class="form-select" ng-model="product.subCategoryId"
+                    ng-options="s.SubCategoryId as s.Name for s in subcategories" required>
+                <option value="">-- সিলেক্ট করুন --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">দাম (৳)</label>
+            <input type="number" class="form-control" ng-model="product.price" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">বর্ণনা</label>
+            <textarea class="form-control" rows="4" ng-model="product.description"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">প্রোডাক্ট ছবি</label>
+            <input type="file" class="form-control" file-model="product.imageFile" onchange="angular.element(this).scope().previewImage(this)" />
+
+            <div class="mt-2" ng-if="imagePreviewUrl">
+                <label class="form-label d-block">📷 প্রিভিউ:</label>
+                <img ng-src="{{imagePreviewUrl}}" alt="Preview" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" ng-disabled="productForm.$invalid">
+            ✅ সেভ করুন
+        </button>
+    </form>
+</div>
+
+

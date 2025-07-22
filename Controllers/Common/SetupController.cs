@@ -14,7 +14,11 @@ namespace EcommerceWithChatGpt.Controllers.Common
         {
             return View();
         }
-         public ActionResult T11222()
+        public ActionResult T11222()
+        {
+            return View();
+        }
+        public ActionResult T11223()
         {
             return View();
         }
