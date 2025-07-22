@@ -47,8 +47,10 @@
     <Compile Include="Common\loginDAL.cs" />
     <Compile Include="DAL\Setup\T11221DAL.cs" />
     <Compile Include="DAL\Setup\T11222DAL.cs" />
+    <Compile Include="DAL\Setup\T11223DAL.cs" />
     <Compile Include="Models\T11221.cs" />
     <Compile Include="Models\T11222.cs" />
+    <Compile Include="Models\T11223.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -125,6 +125,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Setup\T11221Controller.cs" />
     <Compile Include="Controllers\Setup\T11222Controller.cs" />
+    <Compile Include="Controllers\Setup\T11223Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -142,6 +143,7 @@
     <Content Include="Apps\Service\Service.js" />
     <Content Include="Apps\Setup\T11221Controller.js" />
     <Content Include="Apps\Setup\T11222Controller.js" />
+    <Content Include="Apps\Setup\T11223Controller.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -239,6 +241,7 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\T11221\" />
+    <Folder Include="Views\T11223\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

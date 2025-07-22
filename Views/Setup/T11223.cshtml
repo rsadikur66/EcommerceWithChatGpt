@@ -3,10 +3,10 @@
     ViewBag.Title = "T11223";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+<script src="~/Apps/Setup/T11223Controller.js"></script>
 <h2>T11223-Add Product Setup Page</h2>
 
-<div class="container mt-4" ng-controller="AddProductController">
+<div class="container mt-4" ng-controller="T11223Controller">
     <h3 class="text-primary mb-4">➕ নতুন প্রোডাক্ট যোগ করুন</h3>
 
     <form name="productForm" ng-submit="saveProduct()" novalidate>
@@ -18,8 +18,8 @@
 
         <div class="mb-3">
             <label class="form-label">ক্যাটাগরি</label>
-            <select class="form-select" ng-model="product.categoryId"
-                    ng-options="c.categoryid as c.name for c in categories"
+            <select class="form-select" ng-model="obj.ddlItemCategories"
+                    ng-options="V.Name for V in obj.categories track by V.CategoryId"
                     ng-change="loadSubcategories()" required>
                 <option value="">-- সিলেক্ট করুন --</option>
             </select>
