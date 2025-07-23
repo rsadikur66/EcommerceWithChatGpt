@@ -7,7 +7,8 @@
         saveData_Model_List: saveData_Model_List,
         saveData_List: saveData_List,
         save_Data_Two_List: save_Data_Two_List,
-        login: login
+        login: login,
+        logout: logout
     };
     return data;
     function saveData(controller, model) {
@@ -136,6 +137,28 @@
                 method: "POST",
                 //data: params
                 data: { userId: userId, pass: pass }
+            }).then(function (results) {
+
+                return results.data;
+            }).catch(function (ex) {
+                throw ex;
+            });
+        } catch (ex) {
+            throw ex;
+        }
+    }
+
+    function logout() {
+        //var baseUrl = window.location.origin + window.location.pathname;
+        var baseUrl = window.location.origin;
+        try {
+            var url = baseUrl + '/Login/Logout';
+            var params = {};
+            return $http({
+                url: url,
+                method: "POST",
+                //data: params
+                data: { }
             }).then(function (results) {
 
                 return results.data;

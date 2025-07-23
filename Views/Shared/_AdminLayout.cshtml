@@ -131,6 +131,11 @@
             </button>
 
             <a class="navbar-brand fw-bold" href="@Url.Action("Index", "Home")">bazar.com</a>
+            <div>
+                <button class="btn btn-outline-light btn-sm" ng-click="Logout_Click()">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -158,7 +163,7 @@
             </div>
         </div>
 
-        <span class="footerlogout" title="Logout" ng-click="Logout_Click()">Logout</span>
+        <span class="footerlogout" title="Logout"  ng-click="Logout_Click()">Logout</span>
     </div>
 
     <!-- 🔰 Sidebar for small screens -->

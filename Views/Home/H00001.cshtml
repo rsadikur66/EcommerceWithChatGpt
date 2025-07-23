@@ -2,18 +2,223 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="~/Apps/Common/ModuleController.js"></script>
+<style>
+    body {
+        font-family: 'Inter', sans-serif; /* Using Inter as specified */
+        background-color: #f8f9fa; /* Light gray background */
+        overflow-x: hidden; /* Prevent horizontal scroll on body */
+    }
+
+    .card {
+        border-radius: 0.75rem; /* Rounded corners for cards */
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Subtle shadow */
+    }
+
+    .header-section {
+        background-color: #ffffff;
+        border-radius: 0.75rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .table thead th {
+        background-color: #e9ecef;
+        border-bottom: 2px solid #dee2e6;
+        /* border-top-left-radius: 0.75rem; /* Rounded corners for table header */
+        /* border-top-right-radius: 0.75rem; */
+    }
+
+    .status-badge {
+        padding: 0.35em 0.65em;
+        border-radius: 0.5rem;
+        font-weight: 600;
+    }
+
+    .status-complete {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .status-processing {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .status-cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    /* Responsive adjustments for smaller screens */
+    @@media (max-width: 767.98px) {
+        .header-section {
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card {
+            margin-bottom: 1rem;
+        }
+
+        .table-responsive {
+            border-radius: 0.75rem; /* Ensure table also has rounded corners */
+            overflow-x: auto; /* Allow horizontal scroll for table on small screens if needed */
+        }
+    }
+    /* Ensure container and main content do not cause overflow */
+    .container-fluid {
+        padding-right: var(--bs-gutter-x, 0.75rem);
+        padding-left: var(--bs-gutter-x, 0.75rem);
+    }
+
+    main {
+        overflow-x: hidden; /* Ensure main content area does not cause horizontal scroll */
+    }
+</style>
 <h2>H00001</h2>
-<div class="row" ng-controller="ModuleController">
-    <h3>{{moduleName}}</h3>
-    <div class="card" style="width: 18rem;" ng-repeat="mod in modules">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{mod.ModuleName}}</h5>
-            <p class="card-text">{{mod.ModuleDesc}}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+@*<div class="row" ng-controller="ModuleController">
+        <h3>{{moduleName}}</h3>
+        <div class="card" style="width: 18rem;" ng-repeat="mod in modules">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{mod.ModuleName}}</h5>
+                <p class="card-text">{{mod.ModuleDesc}}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
         </div>
-    </div>
+    </div>*@
+<div class="container-fluid p-4" ng-controller="ModuleController">
+    <!-- Top Bar (Desktop) - Adjusted for your layout's right side -->
+    <header class="header-section d-none d-md-flex justify-content-between align-items-center">
+        <h1 class="h3 mb-0 text-gray-800">ড্যাশবোর্ড ওভারভিউ</h1>
+        <div class="d-flex align-items-center">
+            <input type="text"
+                   placeholder="সার্চ করুন..."
+                   class="form-control rounded-md me-3"
+                   style="max-width: 250px;" />
+            <button class="btn btn-primary rounded-md">
+                <i class="fas fa-cog"></i> <!-- Settings icon -->
+            </button>
+        </div>
+    </header>
+
+    <!-- Top Bar (Mobile) - Adjusted for your layout's right side -->
+    <header class="header-section d-flex d-md-none justify-content-between align-items-center">
+        <h1 class="h5 mb-0 text-gray-800">ড্যাশবোর্ড ওভারভিউ</h1>
+        <!-- No menu button needed here as user's sidebar is external -->
+        <div></div> <!-- Placeholder for alignment -->
+    </header>
+
+    <!-- Key Metrics Cards -->
+    <section class="row g-4 mb-4">
+        <!-- Total Sales Card -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card p-4 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <p class="text-muted mb-1">মোট বিক্রয়</p>
+                    <h2 class="h3 fw-bold text-gray-800">৳ {{ metrics.totalSales | number }}</h2>
+                </div>
+                <i class="fas fa-dollar-sign fa-3x text-success"></i>
+            </div>
+        </div>
+
+        <!-- Total Orders Card -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card p-4 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <p class="text-muted mb-1">মোট অর্ডার</p>
+                    <h2 class="h3 fw-bold text-gray-800">{{ metrics.totalOrders | number }}</h2>
+                </div>
+                <i class="fas fa-shopping-cart fa-3x text-primary"></i>
+            </div>
+        </div>
+
+        <!-- New Customers Card -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card p-4 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <p class="text-muted mb-1">নতুন গ্রাহক</p>
+                    <h2 class="h3 fw-bold text-gray-800">{{ metrics.newCustomers | number }}</h2>
+                </div>
+                <i class="fas fa-users fa-3x text-info"></i>
+            </div>
+        </div>
+
+        <!-- Average Order Value Card -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card p-4 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <p class="text-muted mb-1">গড় অর্ডার মূল্য</p>
+                    <h2 class="h3 fw-bold text-gray-800">৳ {{ metrics.avgOrderValue | number }}</h2>
+                </div>
+                <i class="fas fa-hand-holding-usd fa-3x text-warning"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sales Trend Section (Simplified for AngularJS without charting library) -->
+    <section class="card p-4 mb-4">
+        <h2 class="h5 fw-semibold text-gray-800 mb-3">বিক্রয় প্রবণতা</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">মাস</th>
+                        <th scope="col">বিক্রয়</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in salesData">
+                        <td>{{ data.name }}</td>
+                        <td>৳ {{ data.sales | number }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-muted mt-3">
+            এখানে একটি গ্রাফ বা চার্ট প্রদর্শিত হবে। চার্ট.জেএস (Chart.js) এর মতো লাইব্রেরি ব্যবহার করে এটি তৈরি করা যেতে পারে।
+        </p>
+    </section>
+
+    <!-- Recent Orders Table -->
+    <section class="card p-4">
+        <h2 class="h5 fw-semibold text-gray-800 mb-3">সাম্প্রতিক অর্ডার</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">অর্ডার আইডি</th>
+                        <th scope="col">গ্রাহক</th>
+                        <th scope="col">তারিখ</th>
+                        <th scope="col">মোট</th>
+                        <th scope="col">অবস্থা</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="order in recentOrders">
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.customer }}</td>
+                        <td>{{ order.date }}</td>
+                        <td>৳ {{ order.total | number }}</td>
+                        <td>
+                            <span class="status-badge" ng-class="{
+                                    'status-complete': order.status === 'সম্পূর্ণ',
+                                    'status-processing': order.status === 'প্রক্রিয়াকরণ',
+                                    'status-cancelled': order.status === 'বাতিল'
+                                }">
+                                {{ order.status }}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </div>
+
+<!-- Bootstrap 5 JS (optional, for some components like dropdowns) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 

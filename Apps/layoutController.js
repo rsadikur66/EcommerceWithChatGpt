@@ -128,9 +128,10 @@
         } else {
             sweetAlertService.showWarning('Input Required', 'Please enter User ID and password.');
         }
+    }
 
-
-
+    $scope.Logout_Click = function () {
+        window.location.href = '/Login/Logout'; // অথবা তোমার actual logout URL
     }
 
 

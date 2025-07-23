@@ -23,7 +23,7 @@
     }
     LoadAllHomeProducts();
     function LoadAllHomeProducts() {
-        Service.loadDataWithoutParm(baseUrl + '/Home/LoadAllHomeProducts')
+        Service.loadDataWithoutParm('/Home/LoadAllHomeProducts')
             .then(function (returnData) {
                 $scope.products = JSON.parse(returnData);
                 for (let i = 0; i < $scope.products.length; i++) {

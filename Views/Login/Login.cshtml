@@ -1,0 +1,178 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="bn" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>লগইন করুন - Bootstrap</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="~/Apps/app.js"></script>
+    <script src="~/Apps/Service/Service.js"></script>
+    <script src="~/Apps/layoutController.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* ব্যাকগ্রাউন্ড গ্রেডিয়েন্ট */
+            background: linear-gradient(to right bottom, #8e2de2, #4a00e0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem; /* ছোট স্ক্রিনের জন্য প্যাডিং */
+        }
+
+        .login-card {
+            background: #ffffff; /* সম্পূর্ণ সাদা ব্যাকগ্রাউন্ড */
+            border-radius: 1.5rem; /* গোলাকার কিনারা */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* বড় শ্যাডো */
+            transition: all 0.5s ease-in-out; /* মসৃণ ট্রানজিশন */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* হালকা বর্ডার */
+        }
+
+            .login-card:hover {
+                transform: scale(1.01); /* সামান্য বড় হবে হোভার করলে */
+            }
+
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label,
+        .form-floating > .form-select:focus ~ label,
+        .form-floating > .form-select:not(:placeholder-shown) ~ label {
+            opacity: 0.65;
+            transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+            color: #4a00e0; /* ফোকাস করলে লেবেলের রঙ পরিবর্তন */
+        }
+
+        .form-control:focus {
+            border-color: #4a00e0; /* ফোকাস করলে বর্ডারের রঙ পরিবর্তন */
+            box-shadow: 0 0 0 0.25rem rgba(74, 0, 224, 0.25); /* ফোকাস শ্যাডো */
+        }
+
+        .btn-gradient {
+            background: linear-gradient(to right, #6610f2, #8e2de2); /* গ্রেডিয়েন্ট বাটন */
+            border: none;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .btn-gradient:hover {
+                transform: translateY(-2px); /* সামান্য উপরে উঠে আসবে */
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* শ্যাডো আরও স্পষ্ট হবে */
+                background: linear-gradient(to right, #8e2de2, #6610f2); /* হোভারে গ্রেডিয়েন্ট পরিবর্তন */
+            }
+
+        /* লুসিড আইকন স্টাইল */
+        .lucide {
+            display: inline-block;
+            vertical-align: middle;
+            width: 1em;
+            height: 1em;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .input-group-text {
+            background-color: transparent;
+            border-right: none;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body ng-controller="LayoutController">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="login-card p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <h2 class="display-5 fw-bold text-dark mb-2">স্বাগতম!</h2>
+                        <p class="lead text-secondary">লগইন করতে আপনার তথ্য দিন</p>
+                    </div>
+
+                    <form>
+                        <div class="mb-4">
+                            <label for="email" class="form-label visually-hidden">ইমেল</label>
+                            <div class="input-group">
+                                <span class="input-group-text rounded-start-pill border-end-0" id="basic-addon1">
+                                    <i data-lucide="mail" class="lucide w-5 h-5"></i>
+                                </span>
+                                <div class="form-floating flex-grow-1">
+                                    <input type="text" class="form-control rounded-end-pill" ng-model="obj.T11999.username" id="email" placeholder="আপনার ইমেল লিখুন">
+                                    <label for="email">ইমেল</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="password" class="form-label visually-hidden">পাসওয়ার্ড</label>
+                            <div class="input-group">
+                                <span class="input-group-text rounded-start-pill border-end-0" id="basic-addon2">
+                                    <i data-lucide="lock" class="lucide w-5 h-5"></i>
+                                </span>
+                                <div class="form-floating flex-grow-1">
+                                    <input type="password" class="form-control rounded-end-pill" id="password"  ng-model="obj.T11999.password" placeholder="আপনার পাসওয়ার্ড লিখুন">
+                                    <label for="password">পাসওয়ার্ড</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mb-4">
+                            <button type="submit" class="btn btn-gradient text-white fw-bold py-3 rounded-pill fs-5" ng-click="LoginClick()"> লগইন করুন</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-primary text-decoration-none fw-medium">পাসওয়ার্ড ভুলে গেছেন?</a>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-center my-4">
+                        <hr class="flex-grow-1 border-gray-300">
+                        <span class="mx-3 text-secondary text-sm fw-medium">অথবা</span>
+                        <hr class="flex-grow-1 border-gray-300">
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <button class="btn btn-outline-secondary py-3 rounded-pill d-flex align-items-center justify-content-center fw-medium">
+                            <i data-lucide="mail" class="lucide w-5 h-5 me-2"></i> গুগল দিয়ে লগইন করুন
+                        </button>
+                        <button class="btn btn-outline-secondary py-3 rounded-pill d-flex align-items-center justify-content-center fw-medium">
+                            <i data-lucide="facebook" class="lucide w-5 h-5 me-2"></i> ফেসবুক দিয়ে লগইন করুন
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-4 text-secondary text-sm">
+                        আপনার কি কোনো অ্যাকাউন্ট নেই? <a href="#" class="text-primary text-decoration-none fw-medium">সাইন আপ করুন</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS CDN (Popper.js and Bootstrap JS bundle) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Lucide Icons CDN for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide-icons@0.321.0/dist/umd/lucide.min.js"></script>
+    @*<script>
+        // লুসিড আইকন ইনিশিয়ালাইজেশন
+        window.onload = function () {
+            lucide.createIcons();
+        };
+    </script>*@
+</body>
+</html>
+
