@@ -27,8 +27,8 @@
 
         <div class="mb-3">
             <label class="form-label">সাব-ক্যাটাগরি</label>
-            <select class="form-select" ng-model="product.subCategoryId"
-                    ng-options="s.SubCategoryId as s.Name for s in subcategories" required>
+            <select class="form-select" ng-model="obj.ddlItemSubCategories"
+                    ng-options="V.Name for V in obj.subCategories track by V.CategoryId" required>
                 <option value="">-- সিলেক্ট করুন --</option>
             </select>
         </div>

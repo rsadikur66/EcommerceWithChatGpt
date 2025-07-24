@@ -34,6 +34,10 @@ namespace EcommerceWithChatGpt.Controllers
         }
         public ActionResult H00001()
         {
+            if (Session["UserCode"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             return View();
         }
 

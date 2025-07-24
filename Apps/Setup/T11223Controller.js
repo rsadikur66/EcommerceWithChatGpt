@@ -9,7 +9,7 @@
     $scope.FormCode = "T11223";
     $scope.FormName = "Add Product Setup Page";
     $scope.selectedCategory = null;
-
+    //loadSubcategories();
 
     //function LoadGridData() {
     //    LoaderService.show();
@@ -25,14 +25,19 @@
         Service.loadDataWithoutParm(baseUrl + '/T11221/GetCatList')
             .then(function (returnData) {
                 $scope.obj.categories = JSON.parse(returnData);
-                //console.log($scope.obj.categories);
-                //cat.subLoaded = true;
             });
         LoaderService.hide();
     }
     $scope.loadSubcategories = function () {
-        console.log($scope.obj.ddlItemCategories.CategoryId);
-    }
+        var categoryId = $scope.obj.ddlItemCategories.CategoryId;
+        LoaderService.show();
+        Service.loadDataSingleParm(baseUrl + '/T11223/GetSubCatList')
+            .then(function (returnData) {
+                $scope.obj.categories = JSON.parse(returnData);
+            });
+        LoaderService.hide();
+        
+    };
     $scope.btnSaveClick = function () {
 
         if ($scope.obj.T11222.Name == "" || $scope.obj.T11222.Name == undefined) {
