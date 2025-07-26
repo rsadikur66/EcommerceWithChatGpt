@@ -1,4 +1,4 @@
-﻿app.controller('ModuleController', ["$scope", "$rootScope", "Service", "Data", function ($scope, $rootScope, Service, Data) {
+﻿app.controller('ModuleController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "LoaderService", function ($scope, $rootScope, Service, Data, sweetAlertService, LoaderService) {
 
     $scope.obj = {};
     $scope.obj = Data;
@@ -7,6 +7,7 @@
     var baseUrl = window.location.origin;
     LoadModules();
     function LoadModules() {
+        LoaderService.show();
         Service.loadDataWithoutParm(baseUrl + '/Home/LoadModules')
             .then(function (returnData) {
                 var data = JSON.parse(returnData);
@@ -16,6 +17,7 @@
                 $scope.obj.transLength = $scope.obj.transList.length;
                 $scope.obj.reportList = data.filter(x => x.T_LINK_SEPARATION === "3");
                 $scope.obj.reportLength = $scope.obj.reportList.length;
+                LoaderService.hide();
             });
     }
     // Sample Data for Metrics

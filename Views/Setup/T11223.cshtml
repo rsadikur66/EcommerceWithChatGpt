@@ -13,7 +13,7 @@
 
         <div class="mb-3">
             <label class="form-label">প্রোডাক্ট নাম</label>
-            <input type="text" class="form-control" ng-model="product.name" required />
+            <input type="text" class="form-control" ng-model="obj.T11223.name" required />
         </div>
 
         <div class="mb-3">
@@ -28,19 +28,19 @@
         <div class="mb-3">
             <label class="form-label">সাব-ক্যাটাগরি</label>
             <select class="form-select" ng-model="obj.ddlItemSubCategories"
-                    ng-options="V.Name for V in obj.subCategories track by V.CategoryId" required>
+                    ng-options="V.Name for V in obj.subCategories track by V.SubCategoryId" required>
                 <option value="">-- সিলেক্ট করুন --</option>
             </select>
         </div>
 
         <div class="mb-3">
             <label class="form-label">দাম (৳)</label>
-            <input type="number" class="form-control" ng-model="product.price" required />
+            <input type="number" class="form-control" ng-model="obj.T11223.price" required />
         </div>
 
         <div class="mb-3">
             <label class="form-label">বর্ণনা</label>
-            <textarea class="form-control" rows="4" ng-model="product.description"></textarea>
+            <textarea class="form-control" rows="4" ng-model="obj.T11223.description"></textarea>
         </div>
 
         <div class="mb-3">

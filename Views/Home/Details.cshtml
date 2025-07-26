@@ -11,12 +11,12 @@
             <div class="col-md-6">
                 <div class="card-body p-4 d-flex flex-column justify-content-between">
                     <div>
-                        <h1 class="card-title text-primary mb-3">{{selectedProduct.product_name}}</h1>
+                        <h1 class="card-title text-primary mb-3">{{selectedProduct.ProductName}}</h1>
                         <p class="card-text text-muted fs-5 mb-4">{{selectedProduct.short_description}}</p>
-                        <p class="card-text fs-6 mb-4">{{selectedProduct.product_description}}</p>
+                        <p class="card-text fs-6 mb-4">{{selectedProduct.ProductDescription}}</p>
                     </div>
                     <div class="mt-auto">
-                        <h3 class="card-text text-success fw-bold mb-3">{{selectedProduct.price}}</h3>
+                        <h3 class="card-text text-success fw-bold mb-3">{{selectedProduct.Price}}</h3>
                         <button class="btn btn-primary w-100 rounded-pill fs-5" ng-click="addToCart(selectedProduct)">
                             <i class="fas fa-shopping-cart me-2"></i> {{selectedProduct.buttonText}}
                         </button>

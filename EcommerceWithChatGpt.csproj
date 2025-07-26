@@ -163,6 +163,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\1.jpg" />
     <Content Include="Images\AC_Common_Big_Banner_2_1_.jpg" />
     <Content Include="Images\big_banner_copy_1__1.jpg" />
     <Content Include="Images\Gadget_Big_Banner_copy_1_1_.jpg" />

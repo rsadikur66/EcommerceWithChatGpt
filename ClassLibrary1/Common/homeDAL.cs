@@ -20,7 +20,8 @@ namespace DataAccessLayer.Common
          public DataTable GetAllHomeProducts()
         {
             DataTable sql = new DataTable();
-            sql = Query($"select * from T12002");
+            //sql = Query($"select * from T12002");
+            sql = Query($"select * from T11223");
             return sql;
         }
 

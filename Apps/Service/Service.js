@@ -7,6 +7,7 @@
         saveData_Model_List: saveData_Model_List,
         saveData_List: saveData_List,
         save_Data_Two_List: save_Data_Two_List,
+        saveDataWithFile: saveDataWithFile, // ✅ এখানে যোগ করো
         login: login,
         logout: logout
     };
@@ -169,5 +170,23 @@
             throw ex;
         }
     }
-}
-]);
+
+    function saveDataWithFile(controller, formData) {
+        try {
+            var url = controller;
+            return $http.post(url, formData, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).then(function (results) {
+                return results.data;
+            }).catch(function (ex) {
+                throw ex;
+            });
+        } catch (ex) {
+            throw ex;
+        }
+    }
+
+
+
+}]);

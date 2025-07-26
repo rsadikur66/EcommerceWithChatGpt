@@ -19,7 +19,19 @@
     //        });
     //    LoaderService.hide();
     //}
+    $scope.imagePreviewUrl = null;
 
+    $scope.previewImage = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $scope.$apply(function () {
+                    $scope.imagePreviewUrl = e.target.result;
+                });
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
     function LoadCategories() {
         LoaderService.show();
         Service.loadDataWithoutParm(baseUrl + '/T11221/GetCatList')
@@ -31,52 +43,67 @@
     $scope.loadSubcategories = function () {
         var categoryId = $scope.obj.ddlItemCategories.CategoryId;
         LoaderService.show();
-        Service.loadDataSingleParm(baseUrl + '/T11223/GetSubCatList')
+        Service.loadDataSingleParm(baseUrl + '/T11223/GetSubCatList', categoryId)
             .then(function (returnData) {
-                $scope.obj.categories = JSON.parse(returnData);
+                $scope.obj.subCategories = JSON.parse(returnData);
             });
         LoaderService.hide();
         
     };
-    $scope.btnSaveClick = function () {
 
-        if ($scope.obj.T11222.Name == "" || $scope.obj.T11222.Name == undefined) {
-            sweetAlertService.showError("Required!!!", "Please input required Sub Category field.");
+    $scope.saveProduct = function () {
+        // ✅ Validation
+        if (!$scope.obj.T11223.name) {
+            sweetAlertService.showError("প্রয়োজনীয়!", "দয়া করে প্রোডাক্ট নাম লিখুন।");
             return;
         }
         if (!$scope.obj.ddlItemCategories || !$scope.obj.ddlItemCategories.CategoryId) {
-            sweetAlertService.showError("Required!!!", "Please select required category field.");
-            return; // validation failed
+            sweetAlertService.showError("প্রয়োজনীয়!", "দয়া করে ক্যাটাগরি সিলেক্ট করুন।");
+            return;
         }
-        //var file = document.getElementById('uploadFile').files[0];
-        //var formdata = new FormData();
-        //formdata.append('CATEGORY_ID', $scope.obj.cat.CATEGORY_ID);
-        //formdata.append('T_LANG2_NAME', $scope.obj.cat.T_LANG2_NAME);
-        ////...
-        //formdata.append('ICON', file);
-        $scope.obj.T11222.CategoryId = $scope.obj.ddlItemCategories.CategoryId;
-        console.log($scope.obj.T11222);
-        var save = Service.saveData(baseUrl + '/T11222/SaveData', $scope.obj.T11222);
-        save.then(function (msg) {
-            debugger;
-            sweetAlertService.showResponseMessage(msg);
-            LoadGridData();
-        })
+        if (!$scope.obj.ddlItemSubCategories || !$scope.obj.ddlItemSubCategories.SubCategoryId) {
+            sweetAlertService.showError("প্রয়োজনীয়!", "দয়া করে সাব-ক্যাটাগরি সিলেক্ট করুন।");
+            return;
+        }
+
+        // ✅ FormData তৈরি
+        var formData = new FormData();
+        formData.append("Name", $scope.obj.T11223.name);
+        formData.append("CategoryId", $scope.obj.ddlItemCategories.CategoryId);
+        formData.append("SubCategoryId", $scope.obj.ddlItemSubCategories.SubCategoryId);
+        formData.append("Price", $scope.obj.T11223.price);
+        formData.append("Description", $scope.obj.T11223.description || "");
+
+        if ($scope.product && $scope.product.imageFile) {
+            formData.append("ImageFile", $scope.product.imageFile);
+        }
+
+        LoaderService.show();
+
+        // ✅ Image সহ Data সেভ
+        Service.saveDataWithFile(baseUrl + '/T11223/SaveProduct', formData)
+            .then(function (response) {
+                LoaderService.hide();
+
+                if (response == "success") {
+                    sweetAlertService.showSuccess("সফল", "প্রোডাক্ট সফলভাবে সংরক্ষণ হয়েছে!");
+
+                    // ফর্ম ক্লিয়ার
+                    $scope.obj.T11223 = {};
+                    $scope.imagePreviewUrl = null;
+                    $scope.product.imageFile = null;
+                } else {
+                    sweetAlertService.showError("ব্যর্থ", "সেভ করা সম্ভব হয়নি!");
+                }
+            })
+            .catch(function (error) {
+                LoaderService.hide();
+                sweetAlertService.showError("ত্রুটি", "সার্ভারে সমস্যা হয়েছে!");
+                console.error(error);
+            });
+    };
 
 
-        //var insert = Service.saveData($scope.obj.T11221);
-        //insert.then(function (data) {
-        //    if (data) {
-        //        alert("Data Save Successfully.")
-        //    } else {
-        //        alert("Data not Saved. Try Again.")
-        //    }
-        //    //var msg = data;
-        //    //alert(msg);
-        //    getCategoriesData();
-        //    clear();
-        //});
-    }
 
     $scope.selectSubCategory = function (data) {
         $scope.obj.T11222.SubCategoryId = data.SubCategoryId;
@@ -95,4 +122,20 @@
     $scope.btnClearClick = function () {
         $scope.obj.T11222 = {};
     }
+}]);
+
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
 }]);
