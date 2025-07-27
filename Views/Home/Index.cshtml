@@ -4,18 +4,33 @@
 <script src="~/Apps/layoutController.js"></script>
 <style>
     .card-title a {
-        font-size: 1rem;
+        /*font-size: 1rem;
         line-height: 1.2rem;
         display: block;
         min-height: 48px;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
+        white-space: nowrap;*/
+        font-size: 1rem;
+        line-height: 1.2rem;
+        display: -webkit-box; /* মাল্টি-লাইন ট্রাঙ্কেশন এর জন্য */
+        -webkit-line-clamp: 2; /* সর্বোচ্চ ২ লাইন দেখাবে */
+        -webkit-box-orient: vertical; /* উল্লম্বভাবে টেক্সট সাজানোর জন্য */
+        overflow: hidden; /* অতিরিক্ত টেক্সট লুকিয়ে রাখবে */
+        text-overflow: ellipsis; /* ট্রাঙ্কেট হলে ... দেখাবে */
+        /* min-height: 48px; - এটি আর প্রয়োজন নেই কারণ line-clamp উচ্চতা নিয়ন্ত্রণ করবে */
     }
 
     .card-text {
+        /* font-size: 0.9rem;
+        min-height: 40px;*/
         font-size: 0.9rem;
-        min-height: 40px;
+        /* min-height: 40px; - যদি বিবরণও ট্রাঙ্কেট করতে চান, তাহলে নিচের মত করে পরিবর্তন করুন */
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* বিবরণের জন্য সর্বোচ্চ ৩ লাইন দেখাবে, আপনার প্রয়োজন অনুযায়ী পরিবর্তন করুন */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     /*.hero-banner-container {
         width: 100%;
@@ -71,16 +86,16 @@
                 </a>
                 <div class="card-body d-flex flex-column">
                     <!-- Product Name (now a clickable link) -->
-                    <h5 class="card-title text-primary">
+                    <h6 class="card-title text-primary">
                         <a ng-href="@Url.Content("~/Home/Details")?id={{product.ProductId}}" class="text-decoration-none text-primary">
                             {{product.ProductName}}
                         </a>
                         @*ng-click="viewProductDetails(product); $event.preventDefault();"*@
-                    </h5>
+                    </h6>
                     <!-- Product Description -->
-                    <p class="card-text text-muted flex-grow-1">{{product.ProductDescription}}</p>
+                    @*<p class="card-text text-muted text-decoration-none">{{product.ProductDescription}}</p>*@
                     <!-- Product Price -->
-                    <h4 class="card-text text-success fw-bold mt-2 mb-3">{{product.Price}}</h4>
+                    <h3 class="card-text text-success fw-bold mt-2 mb-3">TK. {{product.Price}}</h3>
                     <!-- Add to Cart Button -->
                     <button class="btn btn-primary w-100 rounded-pill" ng-click="addToCart(product); $event.stopPropagation();">
                         {{product.buttonText}}

@@ -34,5 +34,17 @@ namespace EcommerceWithChatGpt.Controllers.Common
             }
             return View();
         }
+        public ActionResult T11224()
+        {
+            if (Session["UserCode"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return View();
+        }
+
+
+
+
     }
 }
