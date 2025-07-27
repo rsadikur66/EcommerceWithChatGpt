@@ -89,9 +89,7 @@
                     sweetAlertService.showSuccess("সফল", "প্রোডাক্ট সফলভাবে সংরক্ষণ হয়েছে!");
 
                     // ফর্ম ক্লিয়ার
-                    $scope.obj.T11223 = {};
-                    $scope.imagePreviewUrl = null;
-                    $scope.product.imageFile = null;
+                    clear();
                 } else {
                     sweetAlertService.showError("ব্যর্থ", "সেভ করা সম্ভব হয়নি!");
                 }
@@ -118,9 +116,15 @@
         /* $("#myCategoryModal").modal();*/
     };
 
-
+    function clear() {
+        $scope.obj.T11223 = {};
+        $scope.imagePreviewUrl = null;
+        $scope.obj.ddlItemCategories = null;
+        $scope.obj.ddlItemSubCategories = null;
+        $scope.product.imageFile = null;
+    }
     $scope.btnClearClick = function () {
-        $scope.obj.T11222 = {};
+        clear();
     }
 }]);
 
