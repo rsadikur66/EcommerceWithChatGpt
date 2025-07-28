@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th>পণ্য</th>
-                    <th>SKU</th>
+                    @*<th>SKU</th>*@
                     <th>পরিমাণ</th>
                     <th>মূল্য</th>
                     <th>মোট</th>
@@ -24,13 +24,13 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in cartItems">
-                    <td>{{ item.product_name }}</td>
-                    <td>{{ item.sku }}</td>
+                    <td>{{ item.ProductName }}</td>
+                    @*<td>{{ item.SKU }}</td>*@
                     <td>
                         <input type="number" ng-model="item.quantity" ng-change="updateCartItem(item)" min="1" class="form-control" style="width: 80px;">
                     </td>
-                    <td>{{ item.price | currency:'৳'}}</td>
-                    <td>{{ (item.quantity * item.price) | currency:'৳' }}</td>
+                    <td>{{ item.Price | currency:'৳'}}</td>
+                    <td>{{ (item.quantity * item.Price) | currency:'৳' }}</td>
                     <td>
                         <button class="btn btn-danger btn-sm" ng-click="removeFromCart(item)">মুছে ফেলুন</button>
                     </td>

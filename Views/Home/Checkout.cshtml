@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<script src="~/Apps/checkoutController.js"></script>
 <h2>আপনার অর্ডার চূড়ান্ত করুন</h2>
 
 <div ng-app="myApp" ng-controller="checkoutController">
@@ -29,10 +29,10 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in cartItems">
-                                <td>{{ item.product_name }}</td>
+                                <td>{{ item.ProductName }}</td>
                                 <td>{{ item.quantity }}</td>
-                                <td>{{ item.price | currency:'৳' }}</td>
-                                <td>{{ (item.quantity * item.price) | currency:'৳' }}</td>
+                                <td>{{ item.Price | currency:'৳' }}</td>
+                                <td>{{ (item.quantity * item.Price) | currency:'৳' }}</td>
                             </tr>
                         </tbody>
                         <tfoot>

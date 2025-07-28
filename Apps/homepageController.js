@@ -39,8 +39,8 @@
         // পণ্যটি ইতিমধ্যেই কার্টে আছে কিনা তা পরীক্ষা করুন
         var found = false;
         for (var i = 0; i < $scope.cartItems.length; i++) {
-            if ($scope.cartItems[i].product_id === product.product_id) {
-                $scope.cartItems[i].price = product.price;
+            if ($scope.cartItems[i].ProductId === product.ProductId) {
+                $scope.cartItems[i].Price = product.Price;
                 $scope.cartItems[i].quantity++; // কার্টে থাকলে পরিমাণ বৃদ্ধি করুন
                 found = true;
                 break;
@@ -60,7 +60,7 @@
         // **গুরুত্বপূর্ণ:** এখানে একটি ইভেন্ট ব্রডকাস্ট করুন
         $rootScope.$broadcast('cartUpdated'); // 'cartUpdated' নামে একটি ইভেন্ট ব্রডকাস্ট করা হলো
         // ঐচ্ছিক: ব্যবহারকারীকে প্রতিক্রিয়া দিন (যেমন, একটি ছোট সফলতার বার্তা)
-        alert(product.product_name + " কার্টে যোগ করা হয়েছে! কার্ট সংখ্যা: " + $scope.cartItems.length);
+        alert(product.ProductName + " কার্টে যোগ করা হয়েছে! কার্ট সংখ্যা: " + $scope.cartItems.length);
     };
 
   

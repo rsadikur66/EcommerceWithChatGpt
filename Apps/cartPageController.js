@@ -37,7 +37,7 @@
     $scope.removeFromCart = function (itemToRemove) {
         // ... আপনার removeFromCart লজিক ...
         $scope.cartItems = $scope.cartItems.filter(function (item) {
-            return item.product_id !== itemToRemove.product_id;
+            return item.ProductId !== itemToRemove.ProductId;
         });
         localStorage.setItem('cart', JSON.stringify($scope.cartItems));
         $rootScope.$broadcast('cartUpdated'); // সরানোর পর ব্রডকাস্ট করুন
@@ -49,7 +49,7 @@
     $scope.getTotalCartPrice = function () {
         var total = 0;
         $scope.cartItems.forEach(function (item) {
-            total += item.quantity * (item.price || 0);
+            total += item.quantity * (item.Price || 0);
         });
         return total;
     };

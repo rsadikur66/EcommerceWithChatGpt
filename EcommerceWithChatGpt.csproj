@@ -122,11 +122,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Common\LoginController.cs" />
     <Compile Include="Controllers\Common\SetupController.cs" />
+    <Compile Include="Controllers\Common\TransactionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Setup\T11221Controller.cs" />
     <Compile Include="Controllers\Setup\T11222Controller.cs" />
     <Compile Include="Controllers\Setup\T11223Controller.cs" />
     <Compile Include="Controllers\Setup\T11224Controller.cs" />
+    <Compile Include="Controllers\Transaction\T11231Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +204,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Images\0990323_samsung-galaxy-s25-ultra-5g-12gb256gb.webp" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -239,11 +242,13 @@
     <Content Include="Views\Setup\T11223.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Setup\T11224.cshtml" />
+    <Content Include="Views\Transaction\T11231.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Template\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\T11231\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
