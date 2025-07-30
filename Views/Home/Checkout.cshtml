@@ -5,46 +5,45 @@
 <script src="~/Apps/checkoutController.js"></script>
 <h2>আপনার অর্ডার চূড়ান্ত করুন</h2>
 
-<div ng-app="myApp" ng-controller="checkoutController">
+<div ng-controller="checkoutController">
     <div ng-if="cartItems.length === 0" class="alert alert-warning">
         আপনার কার্ট খালি! অনুগ্রহ করে কিছু পণ্য যোগ করুন।
         <a href="@Url.Action("Index", "Shop")" class="btn btn-primary btn-sm ms-2">কেনাকাটা করুন</a>
     </div>
 
     <div ng-if="cartItems.length > 0">
-        <form ng-submit="placeOrder()" name="checkoutForm" novalidate>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h4>1. অর্ডার সারাংশ</h4>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>পণ্য</th>
-                                <th>পরিমাণ</th>
-                                <th>মূল্য</th>
-                                <th>মোট</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in cartItems">
-                                <td>{{ item.ProductName }}</td>
-                                <td>{{ item.quantity }}</td>
-                                <td>{{ item.Price | currency:'৳' }}</td>
-                                <td>{{ (item.quantity * item.Price) | currency:'৳' }}</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3" class="text-end"><strong>মোট মূল্য:</strong></td>
-                                <td><strong>{{ getTotalCartPrice() | currency:'৳' }}</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>1. অর্ডার সারাংশ</h4>
             </div>
-
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>পণ্য</th>
+                            <th>পরিমাণ</th>
+                            <th>মূল্য</th>
+                            <th>মোট</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in cartItems">
+                            <td>{{ item.ProductName }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.Price | currency:'৳' }}</td>
+                            <td>{{ (item.quantity * item.Price) | currency:'৳' }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>মোট মূল্য:</strong></td>
+                            <td><strong>{{ getTotalCartPrice() | currency:'৳' }}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        @*<form ng-submit="placeOrder()" name="checkoutForm" novalidate>*@
             <div class="card mb-4">
                 <div class="card-header">
                     <h4>2. শিপিং ঠিকানা</h4>
@@ -52,27 +51,27 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="fullName" class="form-label">পুরো নাম <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="fullName" ng-model="order.fullName" required>
+                        <input type="text" class="form-control" id="fullName" ng-model="checkoutForm.fullName" required>
                         <div ng-show="checkoutForm.fullName.$touched && checkoutForm.fullName.$invalid" class="text-danger">নাম আবশ্যক।</div>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">ফোন নম্বর <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="phone" ng-model="order.phone" required pattern="[0-9]{11}">
+                        <input type="text" class="form-control" id="phone" ng-model="checkoutForm.phone" required pattern="[0-9]{11}">
                         <div ng-show="checkoutForm.phone.$touched && checkoutForm.phone.$invalid" class="text-danger">সঠিক ফোন নম্বর আবশ্যক (যেমন: 01XXXXXXXXX)।</div>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">ঠিকানা <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="address" ng-model="order.address" rows="3" required></textarea>
+                        <textarea class="form-control" id="address" ng-model="checkoutForm.address" rows="3" required></textarea>
                         <div ng-show="checkoutForm.address.$touched && checkoutForm.address.$invalid" class="text-danger">ঠিকানা আবশ্যক।</div>
                     </div>
                     <div class="mb-3">
                         <label for="city" class="form-label">শহর / জেলা <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="city" ng-model="order.city" required>
+                        <input type="text" class="form-control" id="city" ng-model="checkoutForm.city" required>
                         <div ng-show="checkoutForm.city.$touched && checkoutForm.city.$invalid" class="text-danger">শহর/জেলা আবশ্যক।</div>
                     </div>
                     <div class="mb-3">
                         <label for="zipCode" class="form-label">পোস্ট কোড</label>
-                        <input type="text" class="form-control" id="zipCode" ng-model="order.zipCode">
+                        <input type="text" class="form-control" id="zipCode" ng-model="checkoutForm.zipCode">
                     </div>
                 </div>
             </div>
@@ -83,13 +82,13 @@
                 </div>
                 <div class="card-body">
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" ng-model="order.paymentMethod" value="COD" checked required>
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" ng-model="checkoutForm.paymentMethod" value="COD" checked required>
                         <label class="form-check-label" for="cod">
                             ক্যাশ অন ডেলিভারি (COD)
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="online" ng-model="order.paymentMethod" value="OnlinePayment" disabled>
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="online" ng-model="checkoutForm.paymentMethod" value="OnlinePayment" disabled>
                         <label class="form-check-label" for="online">
                             অনলাইন পেমেন্ট (বিকাশ, নগদ, রকেট - শীঘ্রই আসছে!)
                         </label>
@@ -99,17 +98,17 @@
             </div>
 
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-success btn-lg" ng-disabled="checkoutForm.$invalid">
+                <button type="submit" class="btn btn-success btn-lg" ng-click="placeOrder()">
                     অর্ডার চূড়ান্ত করুন
                 </button>
-                <div ng-if="orderPlacedMessage" class="alert alert-success mt-3" role="alert">
+                @*<div ng-if="orderPlacedMessage" class="alert alert-success mt-3" role="alert">
                     {{ orderPlacedMessage }}
                 </div>
                 <div ng-if="errorMessage" class="alert alert-danger mt-3" role="alert">
                     {{ errorMessage }}
-                </div>
+                </div>*@
             </div>
-        </form>
+        @*</form>*@
     </div>
 </div>
 

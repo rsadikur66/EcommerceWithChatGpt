@@ -1,5 +1,7 @@
-﻿app.controller('checkoutController', ["$scope", "$rootScope", "Service", function ($scope, $rootScope, Service) {
-
+﻿app.controller('checkoutController', ["$scope", "$rootScope", "Data", "Service", function ($scope, $rootScope,Data, Service) {
+    $scope.obj = {};
+    $scope.obj = Data;
+    $scope.obj.checkout = {};
     $scope.cartItems = [];
     $scope.order = {
         fullName: '',
@@ -52,52 +54,49 @@
         $scope.errorMessage = '';
 
         console.log($scope.checkoutForm);
-        $timeout(function () {
+        //$timeout(function () {
             if (!$scope.checkoutForm || $scope.checkoutForm.$invalid) {
                 $scope.errorMessage = "ফর্মের সবগুলো ঘর সঠিকভাবে পূরণ করুন।";
                 return;
             }
-        //if ($scope.checkoutForm.$invalid) {
-        //    $scope.errorMessage = "অনুগ্রহ করে ফর্মের সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন।";
-        //    return;
-        //}
 
-        var orderData = {
-            customerInfo: $scope.order,
-            orderItems: $scope.cartItems.map(function (item) {
-                return {
-                    productId: item.ProductId,
-                    quantity: item.quantity,
-                    price: item.Price
-                };
-            }),
-            totalAmount: $scope.getTotalCartPrice()
-        };
+            var orderData = {
+                customerInfo: $scope.order,
+                orderItems: $scope.cartItems.map(function (item) {
+                    return {
+                        productId: item.ProductId,
+                        quantity: item.quantity,
+                        price: item.Price
+                    };
+                }),
+                totalAmount: $scope.getTotalCartPrice()
+            };
 
-        console.log(orderData);
-        //$http.post('/api/order/placeorder', orderData)
-        //    .then(function (response) {
-        //        $scope.orderPlacedMessage = 'আপনার অর্ডার সফলভাবে প্লেস করা হয়েছে! অর্ডার আইডি: ' + response.data.orderId;
+            console.log(orderData);
+            //$http.post('/api/order/placeorder', orderData)
+            //    .then(function (response) {
+            //        $scope.orderPlacedMessage = 'আপনার অর্ডার সফলভাবে প্লেস করা হয়েছে! অর্ডার আইডি: ' + response.data.orderId;
 
-                
-        //        localStorage.removeItem('cart'); 
-        //        $scope.cartItems = []; 
-        //        $scope.order = {}; 
+            //        localStorage.removeItem('cart');
+            //        $scope.cartItems = [];
+            //        $scope.order = {};
 
-        //        $rootScope.$broadcast('cartUpdated'); 
+            //        $rootScope.$broadcast('cartUpdated');
 
-        //        // ঐচ্ছিক: অর্ডার নিশ্চিতকরণ পেজে রিডাইরেক্ট করুন
-        //        // $window.location.href = '/Shop/OrderConfirmation/' + response.data.orderId;
+            //        // ঐচ্ছিক: অর্ডার নিশ্চিতকরণ পেজে রিডাইরেক্ট করুন
+            //        // $window.location.href = '/Shop/OrderConfirmation/' + response.data.orderId;
 
-        //    })
-        //    .catch(function (error) {
-        //        console.error("অর্ডার প্লেস করতে সমস্যা হয়েছে:", error);
-        //        $scope.errorMessage = "অর্ডার প্লেস করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
-        //        if (error.data && error.data.message) {
-        //            $scope.errorMessage += " " + error.data.message;
-        //        }
-        //    });
+            //    })
+            //    .catch(function (error) {
+            //        console.error("অর্ডার প্লেস করতে সমস্যা হয়েছে:", error);
+            //        $scope.errorMessage = "অর্ডার প্লেস করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
+            //        if (error.data && error.data.message) {
+            //            $scope.errorMessage += " " + error.data.message;
+            //        }
+            //    });
+        //}); // 🔴 এটা আগে ছিল না, এখন ঠিক করা হয়েছে
     };
+
 
     // কন্ট্রোলার লোড হওয়ার সময় কার্ট লোড করুন
     $scope.loadCartItems();
