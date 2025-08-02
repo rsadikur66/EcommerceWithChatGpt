@@ -201,9 +201,10 @@
                         {{ cartItemCount }} <span class="visually-hidden">unread messages</span>
                     </span>
                 </a>
-                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                @*<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
                     🔐 Login / Register
-                </button>
+                </button>*@
+            <a href="@Url.Action("Login","Login")" class="btn btn-outline-primary"> 🔐 Login / Register</a>
             </div>
         </div>
     </header>

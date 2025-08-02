@@ -51,27 +51,27 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="fullName" class="form-label">পুরো নাম <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="fullName" ng-model="checkoutForm.fullName" required>
+                        <input type="text" class="form-control" id="fullName" ng-model="obj.checkoutForm.fullName" required>
                         <div ng-show="checkoutForm.fullName.$touched && checkoutForm.fullName.$invalid" class="text-danger">নাম আবশ্যক।</div>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">ফোন নম্বর <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="phone" ng-model="checkoutForm.phone" required pattern="[0-9]{11}">
+                        <input type="text" class="form-control" id="phone" ng-model="obj.checkoutForm.phone" required pattern="[0-9]{11}">
                         <div ng-show="checkoutForm.phone.$touched && checkoutForm.phone.$invalid" class="text-danger">সঠিক ফোন নম্বর আবশ্যক (যেমন: 01XXXXXXXXX)।</div>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">ঠিকানা <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="address" ng-model="checkoutForm.address" rows="3" required></textarea>
+                        <textarea class="form-control" id="address" ng-model="obj.checkoutForm.address" rows="3" required></textarea>
                         <div ng-show="checkoutForm.address.$touched && checkoutForm.address.$invalid" class="text-danger">ঠিকানা আবশ্যক।</div>
                     </div>
                     <div class="mb-3">
                         <label for="city" class="form-label">শহর / জেলা <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="city" ng-model="checkoutForm.city" required>
+                        <input type="text" class="form-control" id="city" ng-model="obj.checkoutForm.city" required>
                         <div ng-show="checkoutForm.city.$touched && checkoutForm.city.$invalid" class="text-danger">শহর/জেলা আবশ্যক।</div>
                     </div>
                     <div class="mb-3">
                         <label for="zipCode" class="form-label">পোস্ট কোড</label>
-                        <input type="text" class="form-control" id="zipCode" ng-model="checkoutForm.zipCode">
+                        <input type="text" class="form-control" id="zipCode" ng-model="obj.checkoutForm.zipCode">
                     </div>
                 </div>
             </div>
@@ -82,13 +82,13 @@
                 </div>
                 <div class="card-body">
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" ng-model="checkoutForm.paymentMethod" value="COD" checked required>
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" ng-model="obj.checkoutForm.paymentMethod" value="COD" checked required>
                         <label class="form-check-label" for="cod">
                             ক্যাশ অন ডেলিভারি (COD)
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="online" ng-model="checkoutForm.paymentMethod" value="OnlinePayment" disabled>
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="online" ng-model="obj.checkoutForm.paymentMethod" value="OnlinePayment" disabled>
                         <label class="form-check-label" for="online">
                             অনলাইন পেমেন্ট (বিকাশ, নগদ, রকেট - শীঘ্রই আসছে!)
                         </label>

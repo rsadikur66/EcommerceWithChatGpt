@@ -53,7 +53,7 @@
         $scope.orderPlacedMessage = '';
         $scope.errorMessage = '';
 
-        console.log($scope.checkoutForm);
+        console.log($scope.obj.checkoutForm);
         //$timeout(function () {
             if (!$scope.checkoutForm || $scope.checkoutForm.$invalid) {
                 $scope.errorMessage = "ফর্মের সবগুলো ঘর সঠিকভাবে পূরণ করুন।";
