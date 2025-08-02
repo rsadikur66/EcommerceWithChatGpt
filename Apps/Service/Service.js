@@ -128,8 +128,8 @@
     }
 
     function login(userId, pass) {
-        //var baseUrl = window.location.origin + window.location.pathname;
-        var baseUrl = window.location.origin;
+        var baseUrl = window.location.origin + "/sadikislam6610";
+        //var baseUrl = window.location.origin;
         try {
             var url = baseUrl + '/Login/UserLogin';
             var params = {};
