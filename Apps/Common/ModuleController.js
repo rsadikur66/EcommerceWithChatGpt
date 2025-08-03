@@ -1,12 +1,13 @@
-﻿app.controller('ModuleController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "LoaderService", function ($scope, $rootScope, Service, Data, sweetAlertService, LoaderService) {
+﻿app.controller('ModuleController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "LoaderService", "baseUrlService", function ($scope, $rootScope, Service, Data, sweetAlertService, LoaderService,baseUrlService) {
 
     $scope.obj = {};
     $scope.obj = Data;
     $scope.modules = [];
     $scope.moduleName = 'Products';
-    var baseUrl = window.location.origin;
+    var baseUrl = baseUrlService.getBaseUrl();
     LoadModules();
     function LoadModules() {
+        debugger;
         LoaderService.show();
         Service.loadDataWithoutParm(baseUrl + '/Home/LoadModules')
             .then(function (returnData) {
@@ -46,7 +47,7 @@
     ];
     $scope.PageRedirect_Clic = function (link) {
         //loader(true)
-        window.location.href = link;
+        window.location.href = baseUrl + link;
         //window.location = link;
         //  $location.path(link);
 

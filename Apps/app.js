@@ -172,10 +172,18 @@ app.factory('baseUrlService', function () {
             var origin = window.location.origin;
             var pathSegments = window.location.pathname.split('/').filter(p => p);
 
-            if (pathSegments.length > 0) {
-                return origin + '/' + pathSegments[0];
+            // লোকালহোস্ট হলে সরাসরি origin রিটার্ন করো
+            if (origin.includes("localhost")) {
+                return origin ;
             }
-            return origin;
+
+            // hosted ভার্সন হলে origin এর সাথে প্রথম segment যুক্ত করে রিটার্ন করো
+            if (origin.includes("bsite.net") && pathSegments.length > 0) {
+                return origin + "/" + pathSegments[0] + "/";
+            }
+
+            // fallback
+            return origin ;
         }
     };
 });
