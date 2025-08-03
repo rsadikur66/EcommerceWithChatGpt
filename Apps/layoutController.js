@@ -1,9 +1,9 @@
-﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", function ($scope, $rootScope, Service, Data, sweetAlertService) {
+﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "baseUrlService", function ($scope, $rootScope, Service, Data, sweetAlertService, baseUrlService) {
     console.log("LayoutController initialized");
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11999 = {};
-    var baseUrl = window.location.origin + window.location.pathname;
+    var baseUrl = baseUrlService.getBaseUrl();
     $scope.sidebarVisible = false;
     $scope.hoveredCategory = null;
     $scope.activeCategory = null; // New variable to track active category for styling
@@ -60,7 +60,7 @@
     
 
     function LoadCategories() {
-        Service.loadDataWithoutParm('/Home/LoadCategory')
+        Service.loadDataWithoutParm(baseUrl +'/Home/LoadCategory')
             .then(function (returnData) {
                 $scope.categories = JSON.parse(returnData);
                 // সব ক্যাটাগরিতে সাবক্যাটাগরির খালি অ্যারে অ্যাড করলাম
@@ -81,7 +81,7 @@
         //    return;
         //}
 
-        Service.loadDataSingleParm('/Home/LoadSubCategory', cat.categoryid)
+        Service.loadDataSingleParm(baseUrl +'/Home/LoadSubCategory', cat.categoryid)
             .then(function (returnData) {
                 $scope.hoveredCategory.subcategories = JSON.parse(returnData);
                 //cat.subLoaded = true;
@@ -109,13 +109,13 @@
                 if (myArray[0] == '1') {
                     if (myArray[1] == '120') {
                         sweetAlertService.showSuccess('Login Successful!', 'Welcome back!');
-                        window.location.href = "/Home/H00001";
+                        window.location.href = baseUrl +"/Home/H00001";
                         // window.location.href = "/DT01111/DT01111";
                     } else if (myArray[1] == '101') {
-                        window.location.href = "/Home/H00001";
+                        window.location.href = baseUrl +"/Home/H00001";
                         /*window.location.href = "/Transaction/AT13001";*/
                     } else {
-                        window.location.href = "/Home/H00001";
+                        window.location.href = baseUrl +"/Home/H00001";
                     }
                     // window.location.href = "/Transaction/SendSms";
                     // loader(false);
@@ -131,7 +131,7 @@
     }
 
     $scope.Logout_Click = function () {
-        window.location.href = '/Login/Logout'; // অথবা তোমার actual logout URL
+        window.location.href = baseUrl +'/Login/Logout'; // অথবা তোমার actual logout URL
     }
 
 

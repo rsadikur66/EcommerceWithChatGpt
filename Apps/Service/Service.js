@@ -9,7 +9,7 @@
         save_Data_Two_List: save_Data_Two_List,
         saveDataWithFile: saveDataWithFile, // ✅ এখানে যোগ করো
         login: login,
-        logout: logout
+        logout: logout,
     };
     return data;
     function saveData(controller, model) {
@@ -126,9 +126,21 @@
             throw ex;
         }
     }
+    function getBaseUrl() {
+        var origin = window.location.origin;
+        var pathSegments = window.location.pathname.split('/').filter(p => p);
+
+        // যদি দ্বিতীয় segment থাকে, মানে hosted subfolder আছে
+        if (pathSegments.length > 0) {
+            return origin + '/' + pathSegments[0];
+        }
+
+        return origin;
+    }
 
     function login(userId, pass) {
-        var baseUrl = window.location.origin + "/sadikislam6610";
+        //var baseUrl = window.location.origin + "/sadikislam6610";
+        var baseUrl = getBaseUrl();
         //var baseUrl = window.location.origin;
         try {
             var url = baseUrl + '/Login/UserLogin';

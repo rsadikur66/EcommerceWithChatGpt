@@ -166,3 +166,18 @@ app.factory('LoaderService', function ($rootScope) {
     };
 });
 
+app.factory('baseUrlService', function () {
+    return {
+        getBaseUrl: function () {
+            var origin = window.location.origin;
+            var pathSegments = window.location.pathname.split('/').filter(p => p);
+
+            if (pathSegments.length > 0) {
+                return origin + '/' + pathSegments[0];
+            }
+            return origin;
+        }
+    };
+});
+
+
