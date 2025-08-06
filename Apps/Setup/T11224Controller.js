@@ -1,8 +1,8 @@
-﻿app.controller('T11224Controller', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "LoaderService", function ($scope, $rootScope, Service, Data, sweetAlertService, LoaderService) {
+﻿app.controller('T11224Controller', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "LoaderService","baseUrlService", function ($scope, $rootScope, Service, Data, sweetAlertService, LoaderService, baseUrlService) {
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11224 = {};
-    var baseUrl = window.location.origin;
+    var baseUrl = baseUrlService.getBaseUrl();
     $scope.pageSize = 5;
     LoadCategories();
     //LoadGridData();
