@@ -3,14 +3,14 @@
     $scope.obj = Data;
     $scope.obj.checkout = {};
     $scope.cartItems = [];
-    $scope.order = {
-        fullName: '',
-        phone: '',
-        address: '',
-        city: '',
-        zipCode: '',
-        paymentMethod: 'COD'
-    };
+    //$scope.order = {
+    //    fullName: '',
+    //    phone: '',
+    //    address: '',
+    //    city: '',
+    //    zipCode: '',
+    //    paymentMethod: 'COD'
+    //};
     $scope.orderPlacedMessage = '';
     $scope.errorMessage = '';
 
@@ -54,6 +54,7 @@
         $scope.errorMessage = '';
 
         console.log($scope.obj.checkoutForm);
+        console.log($scope.cartItems);
         //$timeout(function () {
             if (!$scope.checkoutForm || $scope.checkoutForm.$invalid) {
                 $scope.errorMessage = "ফর্মের সবগুলো ঘর সঠিকভাবে পূরণ করুন।";
@@ -61,7 +62,7 @@
             }
 
             var orderData = {
-                customerInfo: $scope.order,
+                customerInfo: $scope.obj.checkoutForm,
                 orderItems: $scope.cartItems.map(function (item) {
                     return {
                         productId: item.ProductId,
