@@ -73,7 +73,9 @@
                 totalAmount: $scope.getTotalCartPrice()
             };
 
-            console.log(orderData);
+        console.log(orderData);
+        saveData_Model_List
+        var Save = Service.saveData_Model_List(baseUrl + '/T11222/SaveData',order);
             //$http.post('/api/order/placeorder', orderData)
             //    .then(function (response) {
             //        $scope.orderPlacedMessage = 'আপনার অর্ডার সফলভাবে প্লেস করা হয়েছে! অর্ডার আইডি: ' + response.data.orderId;
