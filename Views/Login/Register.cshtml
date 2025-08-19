@@ -1,0 +1,101 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="bn" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>লগইন করুন - Bootstrap</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="~/Apps/app.js"></script>
+    <script src="~/Apps/Service/Service.js"></script>
+    <script src="~/Apps/layoutController.js"></script>
+   <style>
+
+   </style>
+</head>
+<body ng-controller="LayoutController">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="login-card p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <h2 class="display-5 fw-bold text-dark mb-2">স্বাগতম!</h2>
+                        <p class="lead text-secondary">আপনার তথ্য দিন</p>
+                    </div>
+
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">নাম</label>
+                            <input type="text" class="form-control" id="name" placeholder="আপনার পুরো নাম লিখুন" required>
+                            <div class="invalid-feedback">
+                                নাম প্রয়োজন।
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">ইমেল ঠিকানা</label>
+                            <input type="email" class="form-control" id="email" placeholder="আপনার ইমেল লিখুন" required>
+                            <div class="invalid-feedback">
+                                একটি বৈধ ইমেল ঠিকানা প্রয়োজন।
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">পাসওয়ার্ড</label>
+                            <input type="password" class="form-control" id="password" placeholder="আপনার পাসওয়ার্ড লিখুন (কমপক্ষে ৬ অক্ষর)" minlength="6" required>
+                            <div class="invalid-feedback">
+                                পাসওয়ার্ড প্রয়োজন এবং কমপক্ষে ৬ অক্ষরের হতে হবে।
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="confirm_password" class="form-label">পাসওয়ার্ড নিশ্চিত করুন</label>
+                            <input type="password" class="form-control" id="confirm_password" placeholder="আপনার পাসওয়ার্ড আবার লিখুন" required>
+                            <div class="invalid-feedback" id="confirmPasswordFeedback">
+                                পাসওয়ার্ড নিশ্চিত করুন।
+                            </div>
+                        </div>
+
+                        <!-- Message Box -->
+                        <div id="messageBox" class="alert-message mb-3" style="display: none;"></div>
+
+                        <button type="submit" class="btn btn-primary btn-register">রেজিস্টার করুন</button>
+                    </form>
+
+                    
+
+                   
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS CDN (Popper.js and Bootstrap JS bundle) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Lucide Icons CDN for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide-icons@0.321.0/dist/umd/lucide.min.js"></script>
+    @*<script>
+            // লুসিড আইকন ইনিশিয়ালাইজেশন
+            window.onload = function () {
+                lucide.createIcons();
+            };
+        </script>*@
+</body>
+</html>
+

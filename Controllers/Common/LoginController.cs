@@ -16,6 +16,12 @@ namespace EcommerceWithChatGpt.Controllers.Common
         {
             return View();
         }
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+
         // GET: Login
         [HttpPost]
         public ActionResult UserLogin(string userId, string pass)

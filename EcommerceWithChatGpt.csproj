@@ -242,6 +242,7 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Setup\T11224.cshtml" />
     <Content Include="Views\Transaction\T11231.cshtml" />
+    <Content Include="Views\Login\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
