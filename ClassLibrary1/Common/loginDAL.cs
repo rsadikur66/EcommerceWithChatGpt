@@ -1,10 +1,6 @@
 ﻿using DataAccessLayer.Common;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ClassLibrary1.Models;
 
 namespace ClassLibrary1.Common
 {
@@ -16,5 +12,14 @@ namespace ClassLibrary1.Common
             sql = Query($"select * from T11999 where Username='{userName}' and PasswordHash='{pass}' and IsActive != 0");
             return sql;
         }
+
+        public string CustomerRegistration(RegisterModel model)
+        {
+            string sms = "";
+
+            return sms;
+        }
+
+
     }
 }

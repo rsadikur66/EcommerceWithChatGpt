@@ -1,4 +1,5 @@
 ﻿using ClassLibrary1.Common;
+using ClassLibrary1.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +11,7 @@ namespace EcommerceWithChatGpt.Controllers.Common
 {
     public class LoginController : Controller
     {
-        loginDAL loginDAL = new loginDAL();
+        loginDAL repository = new loginDAL();
 
         public ActionResult Login()
         {
@@ -19,6 +20,21 @@ namespace EcommerceWithChatGpt.Controllers.Common
         public ActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CustomerRegister(RegisterModel model)
+        {
+            try
+            {
+                var data = repository.CustomerRegistration(model);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                throw;
+            }
         }
 
 
@@ -34,7 +50,7 @@ namespace EcommerceWithChatGpt.Controllers.Common
                               //var sr = "G9N0CV01J96835A";
                               //if (sr == "G9N0CV01J96835A")
                               //{
-                var data = loginDAL.GetData(userId, pass);
+                var data = repository.GetData(userId, pass);
                 if (data.Rows.Count > 0)
                 {
                     foreach (DataRow i in data.Rows)
@@ -52,11 +68,6 @@ namespace EcommerceWithChatGpt.Controllers.Common
                 {
                     sms = "2";
                 }
-                //}
-                //else
-                //{
-                //    sms = "3";
-                //}
 
                 return Json(sms, JsonRequestBehavior.AllowGet);
             }

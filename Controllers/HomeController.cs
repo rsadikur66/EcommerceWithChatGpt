@@ -124,12 +124,6 @@ namespace EcommerceWithChatGpt.Controllers
             }
         }
 
-
-
-
-
-
-
         [HttpPost]
         public ActionResult ProductsDetailsByIdData(string param)
         {

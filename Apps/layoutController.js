@@ -97,6 +97,17 @@
         $scope.showDetailsPage = true; // বিস্তারিত পেজ দেখান
     };
 
+    $scope.SignUpClick = function () {
+        if (true) {
+
+        }
+        if ($scope.obj.T11999.MobileNo != undefined && $scope.obj.T11999.MobileNo != '' && $scope.obj.T11999.PasswordHash != undefined && $scope.obj.T11999.PasswordHash != '') {
+            var SaveIntoT11999 = Service.saveData("/Login/CustomerRegister", $scope.obj.T11999);
+            SaveIntoT11999.then(function (msg) {
+                sweetAlertService.showResponseMessage(msg);
+            })
+        }
+    }
 
     $scope.LoginClick = function () {
         debugger;

@@ -50,6 +50,7 @@
     <Compile Include="DAL\Setup\T11223DAL.cs" />
     <Compile Include="DAL\Setup\T11224DAL.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\T11221.cs" />
     <Compile Include="Models\T11222.cs" />
     <Compile Include="Models\T11223.cs" />

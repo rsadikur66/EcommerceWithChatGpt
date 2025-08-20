@@ -22,9 +22,8 @@
     <script src="~/Apps/app.js"></script>
     <script src="~/Apps/Service/Service.js"></script>
     <script src="~/Apps/layoutController.js"></script>
-   <style>
-
-   </style>
+    <style>
+    </style>
 </head>
 <body ng-controller="LayoutController">
 
@@ -37,50 +36,65 @@
                         <p class="lead text-secondary">আপনার তথ্য দিন</p>
                     </div>
 
-                    <form>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">নাম</label>
-                            <input type="text" class="form-control" id="name" placeholder="আপনার পুরো নাম লিখুন" required>
-                            <div class="invalid-feedback">
-                                নাম প্রয়োজন।
-                            </div>
-                        </div>
+                    @*<form name="myForm">
+                        <p>
+                            Name:
+                            <input name="myName" ng-model="myName" required>
+                            <span ng-show="myForm.myName.$touched && myForm.myName.$invalid">The name is required.</span>
+                        </p>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">ইমেল ঠিকানা</label>
-                            <input type="email" class="form-control" id="email" placeholder="আপনার ইমেল লিখুন" required>
-                            <div class="invalid-feedback">
-                                একটি বৈধ ইমেল ঠিকানা প্রয়োজন।
-                            </div>
-                        </div>
+                        <p>
+                            Address:
+                            <input name="myAddress" ng-model="myAddress" required>
+                        </p>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">পাসওয়ার্ড</label>
-                            <input type="password" class="form-control" id="password" placeholder="আপনার পাসওয়ার্ড লিখুন (কমপক্ষে ৬ অক্ষর)" minlength="6" required>
-                            <div class="invalid-feedback">
-                                পাসওয়ার্ড প্রয়োজন এবং কমপক্ষে ৬ অক্ষরের হতে হবে।
-                            </div>
-                        </div>
+                    </form>*@
 
-                        <div class="mb-4">
-                            <label for="confirm_password" class="form-label">পাসওয়ার্ড নিশ্চিত করুন</label>
-                            <input type="password" class="form-control" id="confirm_password" placeholder="আপনার পাসওয়ার্ড আবার লিখুন" required>
-                            <div class="invalid-feedback" id="confirmPasswordFeedback">
-                                পাসওয়ার্ড নিশ্চিত করুন।
-                            </div>
-                        </div>
+                <form name="registerForm">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="firstName" ng-model="obj.T11999.FirstName" placeholder="First Name" required>
+                        <span class="text-danger" ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">
+                            First Name is required!!!
+                        </span>
+                    </div>
 
-                        <!-- Message Box -->
-                        <div id="messageBox" class="alert-message mb-3" style="display: none;"></div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" ng-model="obj.T11999.LastName" placeholder="Last Name" required>
+                        <span class="text-danger" ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">
+                            Last Name is required!!!
+                        </span>
+                    </div>
 
-                        <button type="submit" class="btn btn-primary btn-register">রেজিস্টার করুন</button>
-                    </form>
+                    <div class="mb-3">
+                        <label for="mobileNo" class="form-label">Mobile No</label>
+                        <input type="text" class="form-control" name="mobileNo" ng-pattern="/^[0-9]{11}$/" maxlength="11" ng-keypress="($event.charCode >= 48 && $event.charCode <= 57) ? true : $event.preventDefault()" ng-model="obj.T11999.MobileNo" placeholder="11 digit Mobile Number" required>
+                        <span class="text-danger" ng-show="registerForm.mobileNo.$touched && registerForm.mobileNo.$invalid">
+                            Mobile number is required!!!
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" ng-model="obj.T11999.PasswordHash" placeholder="আপনার পাসওয়ার্ড লিখুন (কমপক্ষে ৬ অক্ষর)" minlength="6" required>
+                        <span class="text-danger" ng-show="registerForm.password.$touched && registerForm.password.$invalid">
+                            Password is required!!!
+                        </span>
+                    </div>
 
-                    
+                    <div class="mb-4">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirm_password" ng-model="obj.T11999.ConfirmPassword" placeholder="আপনার পাসওয়ার্ড আবার লিখুন" required>
+                        <span class="text-danger"
+                              ng-show="obj.T11999.PasswordHash !== obj.T11999.ConfirmPassword">
+                            পাসওয়ার্ড মেলেনি
+                        </span>
+                    </div>
 
-                   
 
-                   
+                    <button type="submit" ng-disabled="registerForm.$invalid || obj.T11999.PasswordHash !== obj.T11999.ConfirmPassword" class="btn btn-primary btn-register" ng-click="SignUpClick()">রেজিস্টার করুন</button>
+                </form>
+
                 </div>
             </div>
         </div>
