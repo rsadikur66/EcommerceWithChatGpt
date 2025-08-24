@@ -75,6 +75,21 @@
                         </span>
                     </div>
                     <div class="mb-3">
+                        <label for="emailId" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="emailId" ng-model="obj.T11999.Email" placeholder="Email Address" required>
+                        <span class="text-danger" ng-show="registerForm.emailId.$touched && registerForm.emailId.$invalid">
+                            Email Address is required!!!
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">User Name</label>
+                        <input type="text" class="form-control" name="userName" ng-model="obj.T11999.Username" placeholder="User Name" required>
+                        <span class="text-danger" ng-show="registerForm.userName.$touched && registerForm.userName.$invalid">
+                            User Name is required!!!
+                        </span>
+                    </div>
+                    <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" name="password" ng-model="obj.T11999.PasswordHash" placeholder="আপনার পাসওয়ার্ড লিখুন (কমপক্ষে ৬ অক্ষর)" minlength="6" required>
                         <span class="text-danger" ng-show="registerForm.password.$touched && registerForm.password.$invalid">

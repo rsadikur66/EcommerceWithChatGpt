@@ -22,8 +22,9 @@ namespace ClassLibrary1.Common
             {
                 string maxUserCode = Query($"select max(UserCode) + 1 maxUserCode from T11999").Rows[0]["maxUserCode"].ToString();
                 int maximumUserCode = Convert.ToInt32(maxUserCode);
+                //string dateTimeNow = System.DateTime.Now.ToString("dd-MM-yyyy");
                 //insert
-                var insertT11999 = Command($"insert into T11999 (UserCode, Username, Email, PasswordHash, FirstName, LastName, RoleCode, IsActive, CreatedAt ) values ({maximumUserCode},'{model.Username}','{model.Email}','{model.PasswordHash}','{model.FirstName}','{model.LastName}',122,1,getdate())");
+                var insertT11999 = Command($"insert into T11999 (UserCode, Username, Email, PasswordHash, FirstName, LastName, RoleCode, IsActive, CreatedAt ) values ({maximumUserCode},'{model.Username}','{model.Email}','{model.PasswordHash}','{model.FirstName}','{model.LastName}',122,1,'{DateTime.Now:yyyy-MM-dd HH:mm:ss}')");
 
                 if (insertT11999)
                 {
@@ -34,18 +35,7 @@ namespace ClassLibrary1.Common
                     sms = "Do not Save-0";
                 }
             }
-            else
-            {
-                //var updateT11221 = Command($"UPDATE T11221 SET Name='{t11221.Name}',Description='{t11221.Description}' WHERE CategoryId ={t11221.CategoryId}");
-                //if (updateT11221)
-                //{
-                //    sms = "Update Successfully-1";
-                //}
-                //else
-                //{
-                //    sms = "Do not Update-0";
-                //}
-            }
+            
 
 
             return sms;

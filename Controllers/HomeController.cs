@@ -146,7 +146,7 @@ namespace EcommerceWithChatGpt.Controllers
         {
             try
             {
-                var data = repository.GetFormsData();
+                var data = repository.GetFormsData(Session["RoleCode"].ToString());
                 string JSONString = string.Empty;
                 JSONString = JsonConvert.SerializeObject(data);
                 return Json(JSONString, JsonRequestBehavior.AllowGet);

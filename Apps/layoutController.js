@@ -105,6 +105,7 @@
             var SaveIntoT11999 = Service.saveData("/Login/CustomerRegister", $scope.obj.T11999);
             SaveIntoT11999.then(function (msg) {
                 sweetAlertService.showResponseMessage(msg);
+                window.location.href = "/Login/Login";
             })
         }
     }
@@ -122,7 +123,7 @@
                         sweetAlertService.showSuccess('Login Successful!', 'Welcome back!');
                         window.location.href = baseUrl +"/Home/H00001";
                         // window.location.href = "/DT01111/DT01111";
-                    } else if (myArray[1] == '101') {
+                    } else if (myArray[1] == '122') {
                         window.location.href = baseUrl +"/Home/H00001";
                         /*window.location.href = "/Transaction/AT13001";*/
                     } else {

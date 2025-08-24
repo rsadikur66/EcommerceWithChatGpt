@@ -39,10 +39,10 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
-        public DataTable GetFormsData()
+        public DataTable GetFormsData(string RoleCode)
         {
             DataTable sql = new DataTable();
-            sql = Query($"select * from T11996 where RoleCode=120;");
+            sql = Query($"select * from T11996 where RoleCode={RoleCode}");
             return sql;
         }
     }
