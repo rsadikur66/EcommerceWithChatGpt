@@ -123,11 +123,11 @@
                         sweetAlertService.showSuccess('Login Successful!', 'Welcome back!');
                         window.location.href = baseUrl +"/Home/H00001";
                         // window.location.href = "/DT01111/DT01111";
-                    } else if (myArray[1] == '122') {
+                    } else if (myArray[1] == '120') {
                         window.location.href = baseUrl +"/Home/H00001";
                         /*window.location.href = "/Transaction/AT13001";*/
                     } else {
-                        window.location.href = baseUrl +"/Home/H00001";
+                        window.location.href = baseUrl +"/Home/H00002";
                     }
                     // window.location.href = "/Transaction/SendSms";
                     // loader(false);

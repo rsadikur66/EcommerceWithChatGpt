@@ -108,12 +108,24 @@ namespace EcommerceWithChatGpt.Controllers
             }
         }
 
-         [HttpPost]
-        public ActionResult OrdersSave(OrderModel param)
+        [HttpPost]
+        public ActionResult OrderPlaced(OrderModel param)
         {
             try
             {
-                var data = repository.GetAllHomeProducts();
+                if (Session["UserCode"] == null)
+                {
+                    return Json(new { success = false, message = "0001" },
+                        JsonRequestBehavior.AllowGet);
+                }
+
+                
+
+                // 3. UserCode নিয়ে order save করা
+                var userCode = Session["UserCode"].ToString();
+
+                //var result = orderDAL.SaveOrder(order, userCode);
+                var data = repository.OrderPlacedSaved(param,userCode);
                 string JSONString = string.Empty;
                 JSONString = JsonConvert.SerializeObject(data);
                 return Json(JSONString, JsonRequestBehavior.AllowGet);

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using ClassLibrary1.Models;
+using System.Data;
 
 namespace DataAccessLayer.Common
 {
@@ -45,5 +46,39 @@ namespace DataAccessLayer.Common
             sql = Query($"select * from T11996 where RoleCode={RoleCode}");
             return sql;
         }
+
+        public string OrderPlacedSaved(OrderModel model,string userCode)
+        {
+            var sms = "";
+            //if (t11221.CategoryId == 0)
+            //{
+            //    //insert
+            //    var insertT11221 = Command($"insert into t11221(Name, Description) values('{t11221.Name}','{t11221.Description}')");
+
+            //    if (insertT11221)
+            //    {
+            //        sms = "Save Successfully-1";
+            //    }
+            //    else
+            //    {
+            //        sms = "Do not Save-0";
+            //    }
+            //}
+            //else
+            //{
+            //    var updateT11221 = Command($"UPDATE T11221 SET Name='{t11221.Name}',Description='{t11221.Description}' WHERE CategoryId ={t11221.CategoryId}");
+            //    if (updateT11221)
+            //    {
+            //        sms = "Update Successfully-1";
+            //    }
+            //    else
+            //    {
+            //        sms = "Do not Update-0";
+            //    }
+            //}
+            return sms;
+        }
+
+
     }
 }

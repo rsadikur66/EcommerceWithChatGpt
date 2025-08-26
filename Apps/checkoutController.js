@@ -1,8 +1,9 @@
-﻿app.controller('checkoutController', ["$scope", "$rootScope", "Data", "Service", function ($scope, $rootScope,Data, Service) {
+﻿app.controller('checkoutController', ["$scope", "$rootScope", "Data", "Service", "baseUrlService", function ($scope, $rootScope, Data, Service, baseUrlService) {
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.checkout = {};
     $scope.cartItems = [];
+    var baseUrl = baseUrlService.getBaseUrl();
     //$scope.order = {
     //    fullName: '',
     //    phone: '',
@@ -56,7 +57,7 @@
         console.log($scope.obj.checkoutForm);
         console.log($scope.cartItems);
         //$timeout(function () {
-            if (!$scope.checkoutForm || $scope.checkoutForm.$invalid) {
+        if (!$scope.obj.checkoutForm || $scope.obj.checkoutForm.$invalid) {
                 $scope.errorMessage = "ফর্মের সবগুলো ঘর সঠিকভাবে পূরণ করুন।";
                 return;
             }
@@ -74,30 +75,16 @@
             };
 
         console.log(orderData);
-        saveData_Model_List
-        var Save = Service.saveData_Model_List(baseUrl + '/T11222/SaveData',order);
-            //$http.post('/api/order/placeorder', orderData)
-            //    .then(function (response) {
-            //        $scope.orderPlacedMessage = 'আপনার অর্ডার সফলভাবে প্লেস করা হয়েছে! অর্ডার আইডি: ' + response.data.orderId;
-
-            //        localStorage.removeItem('cart');
-            //        $scope.cartItems = [];
-            //        $scope.order = {};
-
-            //        $rootScope.$broadcast('cartUpdated');
-
-            //        // ঐচ্ছিক: অর্ডার নিশ্চিতকরণ পেজে রিডাইরেক্ট করুন
-            //        // $window.location.href = '/Shop/OrderConfirmation/' + response.data.orderId;
-
-            //    })
-            //    .catch(function (error) {
-            //        console.error("অর্ডার প্লেস করতে সমস্যা হয়েছে:", error);
-            //        $scope.errorMessage = "অর্ডার প্লেস করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
-            //        if (error.data && error.data.message) {
-            //            $scope.errorMessage += " " + error.data.message;
-            //        }
-            //    });
-        //}); // 🔴 এটা আগে ছিল না, এখন ঠিক করা হয়েছে
+        /*saveData_Model_List*/
+        var Save = Service.saveData(baseUrl + '/Home/OrderPlaced', orderData);
+        Save.then(function (msg) {
+            if (msg == "0001") {
+                sweetAlertService.showResponseMessage('You must login before placing an order.');
+            }
+            debugger;
+           
+            //LoadGridData();
+        })            
     };
 
 
