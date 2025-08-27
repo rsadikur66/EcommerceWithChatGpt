@@ -109,7 +109,8 @@ namespace EcommerceWithChatGpt.Controllers
         }
 
         [HttpPost]
-        public ActionResult OrderPlaced(OrderModel param)
+        public ActionResult OrderPlaced(OrderInformation_T11224 model,List<OrderItems_T11225> list)
+        //public ActionResult OrderPlaced(OrderModel model)
         {
             try
             {
@@ -125,7 +126,8 @@ namespace EcommerceWithChatGpt.Controllers
                 var userCode = Session["UserCode"].ToString();
 
                 //var result = orderDAL.SaveOrder(order, userCode);
-                var data = repository.OrderPlacedSaved(param,userCode);
+                var data = repository.OrderPlacedSaved(model, list, userCode);
+                //var data = repository.OrderPlacedSaved(model,userCode);
                 string JSONString = string.Empty;
                 JSONString = JsonConvert.SerializeObject(data);
                 return Json(JSONString, JsonRequestBehavior.AllowGet);

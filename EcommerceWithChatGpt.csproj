@@ -138,6 +138,7 @@
     <Content Include="Apps\app.js" />
     <Content Include="Apps\cartPageController.js" />
     <Content Include="Apps\checkoutController.js" />
+    <Content Include="Apps\Common\H00002Controller.js" />
     <Content Include="Apps\Common\ModuleController.js" />
     <Content Include="Apps\homepageController.js" />
     <Content Include="Apps\layoutController.js" />

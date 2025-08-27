@@ -8,8 +8,8 @@ namespace ClassLibrary1.Models
 {
     public class OrderModel
     {
-        OrderInformation_T11224 OrderInfo { get; set; }
-        List<OrderItems_T11225> OrderItems { get; set; }
+        OrderInformation_T11224 customerInfo { get; set; }
+        List<OrderItems_T11225> orderItems { get; set; }
     }
     public class OrderInformation_T11224
     {

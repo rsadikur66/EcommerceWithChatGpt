@@ -1,4 +1,5 @@
 ﻿using ClassLibrary1.Models;
+using System.Collections.Generic;
 using System.Data;
 
 namespace DataAccessLayer.Common
@@ -47,7 +48,8 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
-        public string OrderPlacedSaved(OrderModel model,string userCode)
+        public string OrderPlacedSaved(OrderInformation_T11224 model, List<OrderItems_T11225> list,string userCode)        
+        //public string OrderPlacedSaved(OrderModel model,string userCode)
         {
             var sms = "";
             //if (t11221.CategoryId == 0)
