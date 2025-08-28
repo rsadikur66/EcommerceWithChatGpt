@@ -3,6 +3,7 @@
     $scope.obj = Data;
     $scope.obj.checkout = {};
     $scope.cartItems = [];
+    $scope.shippingCharge = 100;
     var baseUrl = baseUrlService.getBaseUrl();
     //$scope.order = {
     //    fullName: '',
@@ -73,8 +74,8 @@
                 ProductId: item.ProductId,
                 quantity: item.quantity,
                 Price: item.Price,
-                //TotalPrice: item.quantity * item.Price
-                TotalPrice: 5 * 10
+                TotalPrice: item.quantity * item.Price
+                //TotalPrice: 5 * 10
             };
         });
             //var orderData = {
@@ -99,7 +100,7 @@
         //console.log(orderData);
         /*saveData_Model_List*/
         //var Save = Service.saveData(baseUrl + '/Home/OrderPlaced', orderData);
-        var Save = Service.saveData_Model_List(baseUrl + '/Home/OrderPlaced', $scope.obj.checkoutForm, $scope.cartItems);
+        var Save = Service.saveData_Model_List(baseUrl + '/Home/OrderPlaced', orderInformation, $scope.cartItems);
         Save.then(function (msg) {
             if (msg.message == "0001") {
                 sweetAlertService.showResponseMessage('You must login before placing an order.-0')

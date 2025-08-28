@@ -35,9 +35,18 @@
                         </tr>
                     </tbody>
                     <tfoot>
+                        <!-- Shipping charge row -->
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>শিপিং চার্জ:</strong></td>
+                            <td><strong>{{ shippingCharge | currency:'৳' }}</strong></td>
+                        </tr>
+
+                        <!-- Grand Total row -->
                         <tr>
                             <td colspan="3" class="text-end"><strong>মোট মূল্য:</strong></td>
-                            <td><strong>{{ getTotalCartPrice() | currency:'৳' }}</strong></td>
+                            <td>
+                                <strong>{{ getTotalCartPrice() + shippingCharge | currency:'৳' }}</strong>
+                            </td>
                         </tr>
                     </tfoot>
                 </table>
