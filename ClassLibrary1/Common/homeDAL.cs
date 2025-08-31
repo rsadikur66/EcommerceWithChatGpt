@@ -1,4 +1,5 @@
 ﻿using ClassLibrary1.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -52,20 +53,20 @@ namespace DataAccessLayer.Common
         //public string OrderPlacedSaved(OrderModel model,string userCode)
         {
             var sms = "";
-            //if (t11221.CategoryId == 0)
-            //{
-            //    //insert
-            //    var insertT11221 = Command($"insert into t11221(Name, Description) values('{t11221.Name}','{t11221.Description}')");
+            if (model.OrderID == 0)
+            {
+                //insert
+                var insertT11221 = Command($"insert into T11224(CustomerID, OrderDate, OrderStatus, PaymentStatus, PaymentMethod, ShippingAddress, TotalAmount, ShippingCost, CreatedAt, RecipientPhone, RecipientName) values ({userCode}, '{DateTime.Now}', '{1}', '{1}', '{model.PaymentMethod}', '{model.ShippingAddress}', {model.TotalAmount}, {model.ShippingCost},'{DateTime.Now}', '{model.RecipientPhone}', '{model.RecipientName}')");
 
-            //    if (insertT11221)
-            //    {
-            //        sms = "Save Successfully-1";
-            //    }
-            //    else
-            //    {
-            //        sms = "Do not Save-0";
-            //    }
-            //}
+                if (insertT11221)
+                {
+                    sms = "Save Successfully-1";
+                }
+                else
+                {
+                    sms = "Do not Save-0";
+                }
+            }
             //else
             //{
             //    var updateT11221 = Command($"UPDATE T11221 SET Name='{t11221.Name}',Description='{t11221.Description}' WHERE CategoryId ={t11221.CategoryId}");

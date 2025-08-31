@@ -67,7 +67,8 @@
             ShippingAddress: $scope.obj.checkoutForm.ShippingAddress,
             PaymentMethod: $scope.obj.checkoutForm.PaymentMethod,
             ShippingCost: 50,
-            TotalAmount: $scope.getTotalCartPrice()
+            TotalAmount: $scope.getTotalCartPrice(),
+            GrandTotal: $scope.getTotalCartPrice() + $scope.shippingCharge
         }
         $scope.cartItemsWithTotal = $scope.cartItems.map(function (item) {
             return {
@@ -75,6 +76,7 @@
                 quantity: item.quantity,
                 Price: item.Price,
                 TotalPrice: item.quantity * item.Price
+                //GrandTotal: item.quantity * item.Price
                 //TotalPrice: 5 * 10
             };
         });
