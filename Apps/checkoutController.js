@@ -64,6 +64,8 @@
         }
 
         var orderInformation = {
+            RecipientName: $scope.obj.checkoutForm.fullName,
+            RecipientPhone: $scope.obj.checkoutForm.phone,
             ShippingAddress: $scope.obj.checkoutForm.ShippingAddress,
             PaymentMethod: $scope.obj.checkoutForm.PaymentMethod,
             ShippingCost: 50,
@@ -80,28 +82,7 @@
                 //TotalPrice: 5 * 10
             };
         });
-            //var orderData = {
-            //    customerInfo: {
-            //        CustomerID: 101,
-            //        ShippingAddress: $scope.obj.checkoutForm.ShippingAddress,
-            //        BillingAddress: "Karwan Bazar",
-            //        PaymentMethod: $scope.obj.checkoutForm.PaymentMethod,
-            //        TotalAmount: $scope.getTotalCartPrice()
-            //    },
-            //    orderItems: $scope.cartItems.map(function (item) {
-            //        return {
-            //            ProductID: item.ProductId,
-            //            Quantity: item.quantity,
-            //            UnitPrice: item.Price,
-            //            TotalPrice: item.quantity * item.Price
-            //        };
-            //    }),
-            //    //totalAmount: $scope.getTotalCartPrice()
-            //};
-
-        //console.log(orderData);
-        /*saveData_Model_List*/
-        //var Save = Service.saveData(baseUrl + '/Home/OrderPlaced', orderData);
+            
         var Save = Service.saveData_Model_List(baseUrl + '/Home/OrderPlaced', orderInformation, $scope.cartItems);
         Save.then(function (msg) {
             if (msg.message == "0001") {
