@@ -119,16 +119,22 @@
             d.then(function (data) {
                 const myArray = data.split("-");
                 if (myArray[0] == '1') {
-                    if (myArray[1] == '120') {
-                        sweetAlertService.showSuccess('Login Successful!', 'Welcome back!');
-                        window.location.href = baseUrl +"/Home/H00001";
-                        // window.location.href = "/DT01111/DT01111";
-                    } else if (myArray[1] == '120') {
-                        window.location.href = baseUrl +"/Home/H00001";
-                        /*window.location.href = "/Transaction/AT13001";*/
+                    // Success Login
+
+                    // 1️⃣ returnUrl check
+                    var urlParams = new URLSearchParams(window.location.search);
+                    var returnUrl = urlParams.get('returnUrl');
+                    if (returnUrl) {
+                        // returnUrl থাকলে সেখানে redirect
+                        window.location.href = decodeURIComponent(returnUrl);
                     } else {
-                        window.location.href = baseUrl +"/Home/H00002";
-                    }
+                        if (myArray[1] == '120') {
+                            sweetAlertService.showSuccess('Login Successful!', 'Welcome back!');
+                            window.location.href = baseUrl + "/Home/H00001";
+                        } else {
+                            window.location.href = baseUrl + "/Home/H00002";
+                        }
+                    }                    
                     // window.location.href = "/Transaction/SendSms";
                     // loader(false);
                 } else if (data == '2') {

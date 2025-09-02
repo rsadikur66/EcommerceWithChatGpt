@@ -228,6 +228,22 @@ namespace DataAccessLayer.Common
             oracleDataAdapter.Fill(dataTable);
             return dataTable;
         }
+        public object ExecuteScalar(string query)
+        {
+            // Connection string নেবো Configuration থেকে
+            string connString = ConfigurationManager.ConnectionStrings["SqlCon"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    return cmd.ExecuteScalar();
+                }
+            }
+        }
+
+
         public bool permission(string roll, string form, string mod)
         {
             //Boolean result = false;

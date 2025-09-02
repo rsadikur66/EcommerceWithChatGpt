@@ -54,7 +54,8 @@
     $scope.placeOrder = function () {
         $scope.orderPlacedMessage = '';
         $scope.errorMessage = '';
-
+        var returnUrl = "/Home/Checkout";
+        localStorage.setItem("returnUrl", returnUrl);
         //console.log($scope.obj.checkoutForm);
         //console.log($scope.cartItems);
         //$timeout(function () {
@@ -83,13 +84,15 @@
             };
         });
             
-        var Save = Service.saveData_Model_List(baseUrl + '/Home/OrderPlaced', orderInformation, $scope.cartItems);
+        var Save = Service.saveData_Model_List(baseUrl + '/Home/OrderPlaced', orderInformation, $scope.cartItemsWithTotal);
         Save.then(function (msg) {
             if (msg.message == "0001") {
                 sweetAlertService.showResponseMessage('You must login before placing an order.-0')
                     .then(function (result) {
                         if (result.isConfirmed) {
-                            window.location.href = baseUrl + "/Login/Login";
+                            //window.location.href = baseUrl + "/Login/Login";
+                            var storedReturnUrl = localStorage.getItem("returnUrl") || "/Home/Checkout";
+                            window.location.href = baseUrl + "/Login/Login?returnUrl=" + encodeURIComponent(storedReturnUrl);
                         }
                     })
             }

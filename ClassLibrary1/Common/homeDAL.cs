@@ -20,7 +20,7 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
-         public DataTable GetAllHomeProducts()
+        public DataTable GetAllHomeProducts()
         {
             DataTable sql = new DataTable();
             //sql = Query($"select * from T12002");
@@ -35,7 +35,7 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
-         public DataTable GetModulesData()
+        public DataTable GetModulesData()
         {
             DataTable sql = new DataTable();
             sql = Query($"select distinct t.ModuleCode,e.ModuleName,e.ModuleDesc from dbo.T11996 t  join dbo.t11997 e on t.ModuleCode = e.ModuleCode where t.RoleCode =120");
@@ -49,17 +49,33 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
-        public string OrderPlacedSaved(OrderInformation_T11224 model, List<OrderItems_T11225> list,string userCode)        
-        //public string OrderPlacedSaved(OrderModel model,string userCode)
+        public string OrderPlacedSaved(OrderInformation_T11224 model, List<OrderItems_T11225> list, string userCode)
         {
             var sms = "";
             if (model.OrderID == 0)
             {
-                //insert
-                var insertT11221 = Command($"insert into T11224(CustomerID, OrderDate, OrderStatus, PaymentStatus, PaymentMethod, ShippingAddress, TotalAmount, ShippingCost, CreatedAt, RecipientPhone, RecipientName) values ({userCode}, '{DateTime.Now}', '{1}', '{1}', '{model.PaymentMethod}', '{model.ShippingAddress}', {model.TotalAmount}, {model.ShippingCost},'{DateTime.Now}', '{model.RecipientPhone}', '{model.RecipientName}')");
+                // Insert into T11224 and return generated OrderID
+                string queryT11224 = $@"
+            INSERT INTO T11224
+            (CustomerID, OrderDate, OrderStatus, PaymentStatus, PaymentMethod, ShippingAddress, TotalAmount, ShippingCost, CreatedAt, RecipientPhone, RecipientName)
+            VALUES
+            ({userCode}, '{DateTime.Now}', 1, 1, '{model.PaymentMethod}', '{model.ShippingAddress}', {model.TotalAmount}, {model.ShippingCost}, '{DateTime.Now}', '{model.RecipientPhone}', '{model.RecipientName}');
+            SELECT SCOPE_IDENTITY();";
 
-                if (insertT11221)
+                // ধরলাম আপনার Command ফাংশন object scalar return করতে পারে
+                var orderIdObj = ExecuteScalar(queryT11224);
+                int newOrderId = Convert.ToInt32(orderIdObj);
+
+                if (newOrderId > 0)
                 {
+                    foreach (var item in list)
+                    {
+                        string queryT11225 = $@"
+                    INSERT INTO T11225 (OrderID, ProductID, Quantity, UnitPrice)
+                    VALUES ({newOrderId}, {item.ProductID}, {item.Quantity}, {item.UnitPrice})";
+
+                        Command(queryT11225);
+                    }
                     sms = "Save Successfully-1";
                 }
                 else
@@ -67,20 +83,10 @@ namespace DataAccessLayer.Common
                     sms = "Do not Save-0";
                 }
             }
-            //else
-            //{
-            //    var updateT11221 = Command($"UPDATE T11221 SET Name='{t11221.Name}',Description='{t11221.Description}' WHERE CategoryId ={t11221.CategoryId}");
-            //    if (updateT11221)
-            //    {
-            //        sms = "Update Successfully-1";
-            //    }
-            //    else
-            //    {
-            //        sms = "Do not Update-0";
-            //    }
-            //}
+
             return sms;
         }
+
 
 
     }
