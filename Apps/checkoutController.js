@@ -94,7 +94,11 @@
                             var storedReturnUrl = localStorage.getItem("returnUrl") || "/Home/Checkout";
                             window.location.href = baseUrl + "/Login/Login?returnUrl=" + encodeURIComponent(storedReturnUrl);
                         }
+
                     })
+            } else {
+                $scope.cartItems = [];
+                sweetAlertService.showResponseMessage(msg)
             }
             debugger;
            

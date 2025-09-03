@@ -1,7 +1,9 @@
 ﻿using ClassLibrary1.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer.Common
 {
@@ -49,45 +51,86 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
+        //public string OrderPlacedSaved(OrderInformation_T11224 model, List<OrderItems_T11225> list, string userCode)
+        //{
+        //    var sms = "";
+        //    if (model.OrderID == 0)
+        //    {
+        //        // Insert into T11224 and return generated OrderID
+        //        string queryT11224 = $@"
+        //    INSERT INTO T11224
+        //    (CustomerID, OrderDate, OrderStatus, PaymentStatus, PaymentMethod, ShippingAddress, TotalAmount, ShippingCost, CreatedAt, RecipientPhone, RecipientName)
+        //    VALUES
+        //    ({userCode}, '{DateTime.Now}', 1, 1, '{model.PaymentMethod}', '{model.ShippingAddress}', {model.TotalAmount}, {model.ShippingCost}, '{DateTime.Now}', '{model.RecipientPhone}', '{model.RecipientName}');
+        //    SELECT SCOPE_IDENTITY();";
+
+        //        // ধরলাম আপনার Command ফাংশন object scalar return করতে পারে
+        //        var orderIdObj = ExecuteScalar(queryT11224);
+        //        int newOrderId = Convert.ToInt32(orderIdObj);
+
+        //        if (newOrderId > 0)
+        //        {
+        //            foreach (var item in list)
+        //            {
+        //                string queryT11225 = $@"
+        //            INSERT INTO T11225 (OrderID, ProductID, Quantity, UnitPrice)
+        //            VALUES ({newOrderId}, {item.ProductID}, {item.Quantity}, {item.UnitPrice})";
+
+        //                Command(queryT11225);
+        //            }
+        //            sms = "Order Placed Successfully-1";
+        //        }
+        //        else
+        //        {
+        //            sms = "Do not Save-0";
+        //        }
+        //    }
+
+        //    return sms;
+        //}
+
         public string OrderPlacedSaved(OrderInformation_T11224 model, List<OrderItems_T11225> list, string userCode)
         {
             var sms = "";
-            if (model.OrderID == 0)
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlCon"].ConnectionString))
             {
-                // Insert into T11224 and return generated OrderID
+             
+                conn.Open();
+
+                // 1. Application user set করা
+                using (SqlCommand cmdCtx = new SqlCommand("EXEC sp_set_session_context @key, @value", conn))
+                {
+                    cmdCtx.Parameters.AddWithValue("@key", "ChangedBy");
+                    cmdCtx.Parameters.AddWithValue("@value", userCode);  // Controller থেকে pathano
+                    cmdCtx.ExecuteNonQuery();
+                }
+
+                // 2. Order insert T11224
                 string queryT11224 = $@"
-            INSERT INTO T11224
-            (CustomerID, OrderDate, OrderStatus, PaymentStatus, PaymentMethod, ShippingAddress, TotalAmount, ShippingCost, CreatedAt, RecipientPhone, RecipientName)
-            VALUES
-            ({userCode}, '{DateTime.Now}', 1, 1, '{model.PaymentMethod}', '{model.ShippingAddress}', {model.TotalAmount}, {model.ShippingCost}, '{DateTime.Now}', '{model.RecipientPhone}', '{model.RecipientName}');
-            SELECT SCOPE_IDENTITY();";
+        INSERT INTO T11224
+        (CustomerID, OrderDate, OrderStatus, PaymentStatus, PaymentMethod, ShippingAddress, TotalAmount, ShippingCost, CreatedAt, RecipientPhone, RecipientName)
+        VALUES
+        ({userCode}, '{DateTime.Now}', 1, 1, '{model.PaymentMethod}', '{model.ShippingAddress}', {model.TotalAmount}, {model.ShippingCost}, '{DateTime.Now}', '{model.RecipientPhone}', '{model.RecipientName}');
+        SELECT SCOPE_IDENTITY();";
 
-                // ধরলাম আপনার Command ফাংশন object scalar return করতে পারে
-                var orderIdObj = ExecuteScalar(queryT11224);
-                int newOrderId = Convert.ToInt32(orderIdObj);
+                int newOrderId = Convert.ToInt32(new SqlCommand(queryT11224, conn).ExecuteScalar());
 
-                if (newOrderId > 0)
+                // 3. OrderItems insert T11225
+                foreach (var item in list)
                 {
-                    foreach (var item in list)
-                    {
-                        string queryT11225 = $@"
-                    INSERT INTO T11225 (OrderID, ProductID, Quantity, UnitPrice)
-                    VALUES ({newOrderId}, {item.ProductID}, {item.Quantity}, {item.UnitPrice})";
+                    string queryT11225 = $@"
+            INSERT INTO T11225 (OrderID, ProductID, Quantity, UnitPrice)
+            VALUES ({newOrderId}, {item.ProductID}, {item.Quantity}, {item.UnitPrice})";
 
-                        Command(queryT11225);
-                    }
-                    sms = "Save Successfully-1";
+                    new SqlCommand(queryT11225, conn).ExecuteNonQuery();
                 }
-                else
-                {
-                    sms = "Do not Save-0";
-                }
+
+                conn.Close();
             }
 
             return sms;
+
         }
-
-
 
     }
 }
