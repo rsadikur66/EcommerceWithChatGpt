@@ -94,7 +94,7 @@ namespace DataAccessLayer.Common
             var sms = "";
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlCon"].ConnectionString))
             {
-             
+
                 conn.Open();
 
                 // 1. Application user set করা
