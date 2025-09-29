@@ -168,14 +168,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\1.jpg" />
-    <Content Include="Images\AC_Common_Big_Banner_2_1_.jpg" />
-    <Content Include="Images\big_banner_copy_1__1.jpg" />
-    <Content Include="Images\Gadget_Big_Banner_copy_1_1_.jpg" />
-    <Content Include="Images\Galaxy S23 - 256GB Silver.jpg" />
-    <Content Include="Images\iPhone-14-Blue-7810.jpg" />
-    <Content Include="Images\Lifestyle_big_banner_copy_1_.jpg" />
-    <Content Include="Images\website logo.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -204,7 +196,6 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Images\0990323_samsung-galaxy-s25-ultra-5g-12gb256gb.webp" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -249,6 +240,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Template\" />
+    <Folder Include="Images\" />
     <Folder Include="Models\" />
     <Folder Include="Views\T11231\" />
   </ItemGroup>

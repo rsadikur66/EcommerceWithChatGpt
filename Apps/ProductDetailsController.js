@@ -7,6 +7,7 @@
     var Id = getQueryParam("id");
     console.log(Id);
     if (Id != null || Id != undefined) {
+        debugger;
         loadProductsDetailsById(Id)
     }
     
@@ -28,6 +29,7 @@
     //            //cat.subLoaded = true;
     //        });
     //}
+
     function loadProductsDetailsById(productId) {
         /*  loader(true)*/
         var load = Service.loadDataSingleParm('/Home/ProductsDetailsByIdData', productId);

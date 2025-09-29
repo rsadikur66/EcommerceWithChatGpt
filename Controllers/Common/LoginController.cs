@@ -1,9 +1,7 @@
 ﻿using ClassLibrary1.Common;
 using ClassLibrary1.Models;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -29,14 +27,13 @@ namespace EcommerceWithChatGpt.Controllers.Common
             {
                 var data = repository.CustomerRegistration(model);
                 return Json(data, JsonRequestBehavior.AllowGet);
-            }
+            }   
             catch (Exception ex)
             {
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
                 throw;
             }
         }
-
 
         // GET: Login
         [HttpPost]

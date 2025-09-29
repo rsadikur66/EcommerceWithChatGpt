@@ -44,10 +44,19 @@
         /* $("#myCategoryModal").modal();*/
     };
 
+    $scope.editProduct = function () {
+        alert('Edit button clicked!!!');
+    }
+    $scope.deleteProduct = function () {
+        alert('Delete button clicked!!!');
+    }
 
     $scope.btnClearClick = function () {
         $scope.obj.T11222 = {};
     }
+
+
+
 }]);
 
 

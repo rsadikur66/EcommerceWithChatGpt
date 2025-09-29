@@ -28,6 +28,14 @@
                     <td>{{ product.ProductName }}</td>
                     <td>{{ product.Price }}</td>
                     <td>{{ product.ProductDescription }}</td>
+                    <td>
+                        @*<input type="button" class="btn btn-danger" value="Delete" />*@
+                        <i class="bi bi-trash text-danger fs-4 cursor-pointer" ng-click="deleteProduct()"></i>                       
+                    </td>
+                    <td>
+                        <i class="bi bi-pencil-square text-primary fs-4 cursor-pointer" ng-click="editProduct()"></i>
+                    </td>
+
                 </tr>
             </tbody>
         </table>
