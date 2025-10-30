@@ -26,7 +26,7 @@ namespace DataAccessLayer.Common
         {
             DataTable sql = new DataTable();
             //sql = Query($"select * from T12002");
-            sql = Query($"select * from T11223");
+            sql = Query($"select * from T11223 where isactive=1");
             return sql;
         }
 

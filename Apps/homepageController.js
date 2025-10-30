@@ -28,6 +28,8 @@
                 $scope.products = JSON.parse(returnData);
                 for (let i = 0; i < $scope.products.length; i++) {
                     $scope.products[i].buttonText = "Add to cart";
+                    $scope.products[i].ImageUrl = baseUrl + $scope.products[i].ImageUrl;
+                    console.log($scope.products[i].ImageUrl);
                 }
                 console.log($scope.products);
             });
