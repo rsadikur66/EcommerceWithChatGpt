@@ -33,7 +33,7 @@ namespace DataAccessLayer.Common
         public DataTable GetProDetailsById(string ProductId)
         {
             DataTable sql = new DataTable();
-            sql = Query($"select * from t12002 where product_id='{ProductId}'");
+            sql = Query($"select * from T11223 where ProductId='{ProductId}'");
             return sql;
         }
 

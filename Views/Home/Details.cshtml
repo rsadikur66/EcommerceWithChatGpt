@@ -6,13 +6,13 @@
     <div class="card shadow-lg rounded-lg">
         <div class="row g-0">
             <div class="col-md-6">
-                <img ng-src="@Url.Content("~/Images/"){{selectedProduct.image_url}}" class="img-fluid rounded-start-lg w-100 h-100 object-fit-cover" alt="{{selectedProduct.product_name}}">
+                <img ng-src="{{selectedProduct.ImageUrl}}" class="img-fluid rounded-start-lg w-100 h-100 object-fit-cover" alt="{{selectedProduct.ProductName}}">
             </div>
             <div class="col-md-6">
                 <div class="card-body p-4 d-flex flex-column justify-content-between">
                     <div>
                         <h1 class="card-title text-primary mb-3">{{selectedProduct.ProductName}}</h1>
-                        <p class="card-text text-muted fs-5 mb-4">{{selectedProduct.short_description}}</p>
+                        <p class="card-text text-muted fs-5 mb-4">{{selectedProduct.ShortDescription}}</p>
                         <p class="card-text fs-6 mb-4">{{selectedProduct.ProductDescription}}</p>
                     </div>
                     <div class="mt-auto">
