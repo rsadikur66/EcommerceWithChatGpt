@@ -168,7 +168,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\celebrat-pb-11-01-500x500.jpg" />
     <Content Include="Images\wallpaper.png" />
+    <Content Include="Images\xiaomi-wifi-repeater-pro-dual-antenna-300m.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

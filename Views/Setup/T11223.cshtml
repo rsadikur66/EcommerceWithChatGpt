@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <script src="~/Apps/Setup/T11223Controller.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
 <h2>T11223-Add Product Setup Page</h2>
 
 <div class="container mt-4" ng-controller="T11223Controller">
@@ -40,7 +42,7 @@
 
         <div class="mb-3">
             <label class="form-label">বর্ণনা</label>
-            <textarea class="form-control" rows="4" ng-model="obj.T11223.description"></textarea>
+            <textarea class="form-control" id="description" rows="4" ng-model="obj.T11223.description"></textarea>
         </div>
 
         <div class="mb-3">

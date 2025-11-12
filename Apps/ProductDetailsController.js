@@ -1,11 +1,12 @@
-﻿app.controller('ProductDetailsController', ["$scope", "$rootScope", "Service", function ($scope,$rootScope, Service) {
-    var baseUrl = window.location.origin + window.location.pathname;
+﻿app.controller('ProductDetailsController', ["$scope", "$rootScope", "Service", "baseUrlService", function ($scope, $rootScope, Service, baseUrlService) {
+    //var baseUrl = window.location.origin + window.location.pathname;
+    var baseUrl = baseUrlService.getBaseUrl();
     function getQueryParam(param) {
         var params = new URLSearchParams(window.location.search);
         return params.get(param);
     }
     var Id = getQueryParam("id");
-    console.log(Id);
+    //console.log(Id);
     if (Id != null || Id != undefined) {
         debugger;
         loadProductsDetailsById(Id)
@@ -32,11 +33,12 @@
 
     function loadProductsDetailsById(productId) {
         /*  loader(true)*/
-        var load = Service.loadDataSingleParm('/Home/ProductsDetailsByIdData', productId);
+        var load = Service.loadDataSingleParm(baseUrl+'/Home/ProductsDetailsByIdData', productId);
         load.then(function (returnData) {
             var dataArray = JSON.parse(returnData);
             for (let i = 0; i < dataArray.length; i++) {
                 dataArray[i].buttonText = "Add to cart";
+                dataArray[i].ImageUrl = baseUrl + dataArray[i].ImageUrl;
             }
             $scope.selectedProduct = dataArray[0];
 

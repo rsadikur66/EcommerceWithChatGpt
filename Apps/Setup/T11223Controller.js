@@ -2,6 +2,10 @@
     $scope.obj = {};
     $scope.obj = Data;
     $scope.obj.T11223 = {};
+    // Initialize CKEditor
+    setTimeout(function () {
+        CKEDITOR.replace('description');
+    }, 100);
     var baseUrl = baseUrlService.getBaseUrl();
     $scope.pageSize = 5;
     LoadCategories();

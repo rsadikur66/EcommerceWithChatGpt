@@ -137,6 +137,7 @@
 
         // hosted ভার্সন হলে origin এর সাথে প্রথম segment যুক্ত করে রিটার্ন করো
         if (origin.includes("bsite.net") && pathSegments.length > 0) {
+            debugger;
             return origin + "/" + pathSegments[0] + "/";
         }
 
