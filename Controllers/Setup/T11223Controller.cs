@@ -2,11 +2,7 @@
 using ClassLibrary1.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EcommerceWithChatGpt.Controllers.Setup
@@ -26,7 +22,7 @@ namespace EcommerceWithChatGpt.Controllers.Setup
         public ActionResult SaveProduct(T11223 model)
         {
             var request = System.Web.HttpContext.Current.Request;
-
+             model.Description = Uri.UnescapeDataString(model.Description ?? "");
             //string name = request.Form["Name"];
             //string categoryId = request.Form["CategoryId"];
             //string subCategoryId = request.Form["SubCategoryId"];

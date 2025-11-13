@@ -1,4 +1,4 @@
-﻿app.controller('ProductDetailsController', ["$scope", "$rootScope", "Service", "baseUrlService", function ($scope, $rootScope, Service, baseUrlService) {
+﻿app.controller('ProductDetailsController', ["$scope", "$rootScope", "$sce", "Service", "baseUrlService", function ($scope, $rootScope, $sce, Service, baseUrlService) {
     //var baseUrl = window.location.origin + window.location.pathname;
     var baseUrl = baseUrlService.getBaseUrl();
     function getQueryParam(param) {
@@ -11,7 +11,9 @@
         debugger;
         loadProductsDetailsById(Id)
     }
-    
+    $scope.bindProductDescription = function (desc) {
+        return $sce.trustAsHtml(desc);
+    };
     $scope.cartItems = [];
     // **গুরুত্বপূর্ণ:** কন্ট্রোলার লোড হওয়ার সাথে সাথে localStorage থেকে কার্ট লোড করুন
     var storedCart = localStorage.getItem('cart');

@@ -1,4 +1,4 @@
-﻿var app = angular.module('myApp', ['angularUtils.directives.dirPagination']);
+﻿var app = angular.module('myApp', ['angularUtils.directives.dirPagination', 'ngSanitize']);
 
 app.factory('Data', function () {
     return { obj: '' };

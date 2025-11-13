@@ -69,6 +69,14 @@
             sweetAlertService.showError("প্রয়োজনীয়!", "দয়া করে সাব-ক্যাটাগরি সিলেক্ট করুন।");
             return;
         }
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+
+        var descriptionData = "";
+        if (CKEDITOR.instances['description']) {
+            $scope.obj.T11223.description = CKEDITOR.instances['description'].getData();
+        }
 
         // ✅ FormData তৈরি
         var formData = new FormData();
@@ -76,7 +84,7 @@
         formData.append("CategoryId", $scope.obj.ddlItemCategories.CategoryId);
         formData.append("SubCategoryId", $scope.obj.ddlItemSubCategories.SubCategoryId);
         formData.append("Price", $scope.obj.T11223.price);
-        formData.append("Description", $scope.obj.T11223.description || "");
+        formData.append("Description", encodeURIComponent($scope.obj.T11223.description || ""));
 
         if ($scope.product && $scope.product.imageFile) {
             formData.append("ImageFile", $scope.product.imageFile);
