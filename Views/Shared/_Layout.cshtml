@@ -196,18 +196,53 @@
                 🔐 Login / Register
             </button>
         </div>*@
-            <div>
-                <a href="@Url.Action("Cart","Home")" class="btn btn-outline-dark me-2 position-relative">
-                    <i class="bi bi-cart"></i> 🛒 Cart
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{ cartItemCount }} <span class="visually-hidden">unread messages</span>
-                    </span>
-                </a>
-                @*<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    🔐 Login / Register
-                </button>*@
+        <div>
+            <a href="@Url.Action("Cart","Home")" class="btn btn-outline-dark me-2 position-relative">
+                <i class="bi bi-cart"></i> 🛒 Cart
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ cartItemCount }} <span class="visually-hidden">unread messages</span>
+                </span>
+            </a>
+            @*<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+            🔐 Login / Register
+        </button>*@
             <a href="@Url.Action("Login","Login")" class="btn btn-outline-primary"> 🔐 Login / Register</a>
-            </div>
+            @*<a ng-if="!layout.isLoggedIn()" ng-click="layout.mockLogin()"
+               class="btn btn-outline-primary" style="min-width: 130px;">
+                <i class="bi bi-person-circle me-1"></i> Login / Register
+            </a>*@
+
+            <!--<div ng-if="layout.isLoggedIn()" class="dropdown ms-2">-->
+
+                <!-- প্রোফাইল আইকন বাটন -->
+                <!--<button class="btn btn-light p-1 rounded-circle border-0 shadow-sm d-flex align-items-center"
+                        type="button"
+                        ng-click="layout.toggleDropdown()"
+                        aria-expanded="{{layout.dropdownOpen}}">-->
+                    <!-- ইউজার ছবি -->
+                    <!--<img ng-src="{{ layout.user.profilePic }}"
+                         alt="{{ layout.user.name }} Profile"
+                         class="rounded-circle border border-light user-profile-pic-sm">
+                </button>-->
+
+                <!-- ড্রপডাউন মেনু -->
+                <!-- Bootstrap-এর 'show' ক্লাস এবং 'dropdown-menu-end' ব্যবহার করা হলো -->
+                <!--<ul class="dropdown-menu dropdown-menu-end shadow-lg"
+                    ng-class="{'show': layout.dropdownOpen}"
+                    style="min-width: 220px;">
+
+                    <li><h6 class="dropdown-header">স্বাগতম, {{ layout.user.name }}</h6></li>
+                    <li><hr class="dropdown-divider"></li>
+
+                    <li><a class="dropdown-item" href="@Url.Action("Dashboard","User")"><i class="bi bi-speedometer2 me-2"></i> ড্যাশবোর্ড</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("MyOrders","User")"><i class="bi bi-box-seam me-2"></i> আমার অর্ডারসমূহ</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Settings","User")"><i class="bi bi-gear me-2"></i> সেটিংস</a></li>
+
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#" ng-click="layout.logout()"><i class="bi bi-box-arrow-right me-2"></i> লগআউট</a></li>
+                </ul>
+            </div>-->
+        </div>
         </div>
     </header>
 
