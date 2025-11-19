@@ -62,7 +62,17 @@
         // **গুরুত্বপূর্ণ:** এখানে একটি ইভেন্ট ব্রডকাস্ট করুন
         $rootScope.$broadcast('cartUpdated'); // 'cartUpdated' নামে একটি ইভেন্ট ব্রডকাস্ট করা হলো
         // ঐচ্ছিক: ব্যবহারকারীকে প্রতিক্রিয়া দিন (যেমন, একটি ছোট সফলতার বার্তা)
-        alert(product.ProductName + " কার্টে যোগ করা হয়েছে! কার্ট সংখ্যা: " + $scope.cartItems.length);
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            background: '#FAC332',
+            title: product.ProductName + " কার্টে যোগ করা হয়েছে! কার্ট সংখ্যা: " + $scope.cartItems.length,
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+        //alert(product.ProductName + " কার্টে যোগ করা হয়েছে! কার্ট সংখ্যা: " + $scope.cartItems.length);
     };
 
   

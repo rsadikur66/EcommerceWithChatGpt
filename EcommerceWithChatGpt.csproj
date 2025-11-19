@@ -168,11 +168,17 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\1345910_jmary-mw-16-24g-wireless-microphone-for-mobile-camera.jpeg" />
+    <Content Include="Images\bdh-382vraydenoiseffr.jpg" />
     <Content Include="Images\celebrat-pb-11-01-500x500.jpg" />
+    <Content Include="Images\gsmarena_000.jpg" />
+    <Content Include="Images\lg-tv-17-12-24_1.jpg" />
     <Content Include="Images\mr30g.jpg" />
     <Content Include="Images\samsung-galaxy-a07-4gb-11-9-25-1.jpg" />
     <Content Include="Images\samsung-galaxy-a36-8gb-119-25-2.jpg" />
+    <Content Include="Images\sdc-3118view-001dsdsd.jpg" />
     <Content Include="Images\tp-link-archer-c6-ac1200-dual-band-mu-mimo-gigabit-router-_version-4_-9-11-25.jpg" />
+    <Content Include="Images\tv-2_.jpg" />
     <Content Include="Images\wallpaper.png" />
     <Content Include="Images\xiaomi-wifi-repeater-pro-dual-antenna-300m.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />

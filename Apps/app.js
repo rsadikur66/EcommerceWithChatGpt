@@ -188,4 +188,41 @@ app.factory('baseUrlService', function () {
     };
 });
 
+app.filter('indianNumber', function () {
+    return function (input, fractionSize) {
+        if (input === null || input === undefined || input === '') return '';
+        // যদি fractionSize দেয়া থাকে, রাউন্ড করে string বানানো হবে
+        var num;
+        if (typeof fractionSize === 'number') {
+            num = Number(input).toFixed(fractionSize);
+        } else {
+            // preserve existing decimals (avoid scientific notation)
+            num = String(input);
+        }
+
+        // handle sign
+        var sign = '';
+        if (num[0] === '-') {
+            sign = '-';
+            num = num.slice(1);
+        }
+
+        // split integer and decimal
+        var parts = num.split('.');
+        var intPart = parts[0];
+        var decPart = parts.length > 1 ? '.' + parts[1] : '';
+
+        // if intPart length <= 3, simple return
+        if (intPart.length <= 3) {
+            return sign + intPart + decPart;
+        }
+
+        // take last 3 digits, then group remaining by 2s
+        var last3 = intPart.slice(-3);
+        var rest = intPart.slice(0, -3);
+        rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+        return sign + rest + ',' + last3 + decPart;
+    };
+});
+
 
