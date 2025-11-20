@@ -168,11 +168,13 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\1279257_rfl-double-built-in-glass-hobgas-stovesgas-burner-marigold-natural-gas.jpeg" />
     <Content Include="Images\1345910_jmary-mw-16-24g-wireless-microphone-for-mobile-camera.jpeg" />
     <Content Include="Images\bdh-382vraydenoiseffr.jpg" />
     <Content Include="Images\celebrat-pb-11-01-500x500.jpg" />
     <Content Include="Images\gsmarena_000.jpg" />
     <Content Include="Images\lg-tv-17-12-24_1.jpg" />
+    <Content Include="Images\logo.jpg" />
     <Content Include="Images\mr30g.jpg" />
     <Content Include="Images\samsung-galaxy-a07-4gb-11-9-25-1.jpg" />
     <Content Include="Images\samsung-galaxy-a36-8gb-119-25-2.jpg" />

@@ -56,7 +56,6 @@
     };
 
     $scope.saveProduct = function () {
-        // ✅ Validation
         if (!$scope.obj.T11223.name) {
             sweetAlertService.showError("প্রয়োজনীয়!", "দয়া করে প্রোডাক্ট নাম লিখুন।");
             return;
@@ -78,7 +77,7 @@
             $scope.obj.T11223.description = CKEDITOR.instances['description'].getData();
         }
 
-        // ✅ FormData তৈরি
+        // FormData তৈরি
         var formData = new FormData();
         formData.append("Name", $scope.obj.T11223.name);
         formData.append("CategoryId", $scope.obj.ddlItemCategories.CategoryId);
@@ -92,15 +91,13 @@
 
         LoaderService.show();
 
-        // ✅ Image সহ Data সেভ
+        // Image সহ Data সেভ
         Service.saveDataWithFile(baseUrl + '/T11223/SaveProduct', formData)
             .then(function (response) {
                 LoaderService.hide();
 
                 if (response == "success") {
                     sweetAlertService.showSuccess("সফল", "প্রোডাক্ট সফলভাবে সংরক্ষণ হয়েছে!");
-
-                    // ফর্ম ক্লিয়ার
                     clear();
                 } else {
                     sweetAlertService.showError("ব্যর্থ", "সেভ করা সম্ভব হয়নি!");

@@ -7,10 +7,10 @@
     //console.log(Id);
     //if (Id != null || Id != undefined) {
     //    loadProductsDetailsById(Id)
-    //}
-    // কার্ট আইটেমগুলি রাখার জন্য একটি খালি অ্যারে শুরু করুন
+    //}    
     var baseUrl = baseUrlService.getBaseUrl();
-    $scope.cartItems = [];
+   
+    $scope.cartItems = []; // কার্ট আইটেমগুলি রাখার জন্য একটি খালি অ্যারে শুরু করুন
     // **গুরুত্বপূর্ণ:** কন্ট্রোলার লোড হওয়ার সাথে সাথে localStorage থেকে কার্ট লোড করুন
     var storedCart = localStorage.getItem('cart');
     if (storedCart) {
