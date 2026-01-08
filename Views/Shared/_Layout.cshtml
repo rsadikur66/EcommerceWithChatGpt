@@ -183,9 +183,12 @@
             </div>
 
             <div class="flex-grow-1 mx-4">
-                <form method="get" action="/Search/Results">
-                    <input type="text" name="q" class="form-control form-control-lg" placeholder="পণ্য খুঁজুন..." />
-                </form>
+                <input type="text"
+                       class="form-control form-control-lg"
+                       placeholder="পণ্য খুঁজুন..."
+                       ng-model="searchText"
+                       ng-change="onSearchChange()" />
+
             </div>
 
             @*<div>

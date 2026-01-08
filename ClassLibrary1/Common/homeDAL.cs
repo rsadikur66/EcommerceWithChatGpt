@@ -51,6 +51,12 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
+        // public DataTable GetSearchTextData(string RoleCode)
+        //{
+        //    DataTable sql = new DataTable();
+        //    sql = Query($"select * from T11996 where RoleCode={RoleCode}");
+        //    return sql;
+        //}
         //public string OrderPlacedSaved(OrderInformation_T11224 model, List<OrderItems_T11225> list, string userCode)
         //{
         //    var sms = "";

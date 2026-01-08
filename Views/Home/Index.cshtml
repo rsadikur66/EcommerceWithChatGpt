@@ -83,10 +83,10 @@
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            @*<div class="carousel-item active">
                 <img src="~/Images/Banner1.jpg" style="object-fit:cover" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
+            </div>*@
+            <div class="carousel-item active">
                 <img src="~/Images/Banner2.jpg" style="object-fit:cover" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
@@ -105,7 +105,7 @@
     <h2 class="text-center mb-4">আমাদের পণ্যসমূহ</h2>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
         <!-- Loop through products array to create cards -->
-        <div class="col" ng-repeat="product in products">
+        <div class="col" ng-repeat="product in filteredProducts">
             <div class="card h-100 shadow-sm rounded-lg">
                 <!-- Product Image (now a clickable link) -->
                 <a ng-href="/Home/Details?id={{product.ProductId}}">

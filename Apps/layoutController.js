@@ -8,7 +8,12 @@
     $scope.hoveredCategory = null;
     $scope.activeCategory = null; // New variable to track active category for styling
     $scope.categories = [];   // Category লোড হওয়ার পর ভরবে
+    
+    $scope.searchText = "";
 
+    $scope.onSearchChange = function () {
+        $rootScope.$broadcast("productSearch", $scope.searchText);
+    };
     // লোডার স্ট্যাটাস ট্র্যাকিং এর জন্য নতুন প্রপার্টি
     $scope.isLoading = false;
 

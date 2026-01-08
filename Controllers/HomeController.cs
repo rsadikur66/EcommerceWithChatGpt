@@ -109,7 +109,7 @@ namespace EcommerceWithChatGpt.Controllers
         }
 
         [HttpPost]
-        public ActionResult OrderPlaced(OrderInformation_T11224 model,List<OrderItems_T11225> list)
+        public ActionResult OrderPlaced(OrderInformation_T11224 model, List<OrderItems_T11225> list)
         //public ActionResult OrderPlaced(OrderModel model)
         {
             try
@@ -120,7 +120,7 @@ namespace EcommerceWithChatGpt.Controllers
                         JsonRequestBehavior.AllowGet);
                 }
 
-                
+
 
                 // 3. UserCode নিয়ে order save করা
                 var userCode = Session["UserCode"].ToString();
@@ -171,6 +171,22 @@ namespace EcommerceWithChatGpt.Controllers
             }
         }
         //For Module Page End
+
+        //public ActionResult SearchProduct(string id)
+        //{
+        //   try
+        //    {
+        //        var data = repository.GetSearchTextData(id);
+        //        string JSONString = string.Empty;
+        //        JSONString = JsonConvert.SerializeObject(data);
+        //        return Json(JSONString, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(ex.Message, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
 
     }
 }

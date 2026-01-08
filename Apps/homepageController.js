@@ -9,7 +9,31 @@
     //    loadProductsDetailsById(Id)
     //}    
     var baseUrl = baseUrlService.getBaseUrl();
-   
+   $rootScope.$on("productSearch", function (event, searchText) {
+    if (!searchText || searchText.trim() === "") {
+        // কোনো search text না থাকলে সব product দেখাও
+        $scope.filteredProducts = angular.copy($scope.products);
+    } else {
+        var lowerText = searchText.toLowerCase();
+        $scope.filteredProducts = $scope.products.filter(function(p) {
+            return p.ProductName.toLowerCase().includes(lowerText);
+        });
+    }
+});
+
+
+//function searchProducts(text) {
+  //  Service.loadDataSingleParm(baseUrl + '/Home/SearchProduct',text)
+    //    .then(function (returnData) {
+      //  $scope.products = JSON.parse(returnData);
+//
+  //      for (let i = 0; i < $scope.products.length; i++) {
+    //        $scope.products[i].buttonText = "Add to cart";
+      //      $scope.products[i].ImageUrl = baseUrl + $scope.products[i].ImageUrl;
+        //}
+    //});
+//}
+
     $scope.cartItems = []; // কার্ট আইটেমগুলি রাখার জন্য একটি খালি অ্যারে শুরু করুন
     // **গুরুত্বপূর্ণ:** কন্ট্রোলার লোড হওয়ার সাথে সাথে localStorage থেকে কার্ট লোড করুন
     var storedCart = localStorage.getItem('cart');
