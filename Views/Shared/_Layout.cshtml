@@ -23,10 +23,15 @@
     <script src="~/Apps/checkoutController.js"></script>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scroll when sidebar is open */
+        * {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
         }
+
+        /*.container {
+            background-color: bisque;
+        }*/
 
         .sidebar {
             position: fixed;
@@ -185,7 +190,7 @@
             <div class="flex-grow-1 mx-4">
                 <input type="text"
                        class="form-control form-control-lg"
-                       placeholder="পণ্য খুঁজুন..."
+                       placeholder="Search for products (e.g. eggs, milk, potato)"
                        ng-model="searchText"
                        ng-change="onSearchChange()" />
 
