@@ -60,6 +60,30 @@ namespace EcommerceWithChatGpt.Controllers
         }
 
 
+        public ActionResult LoadProducts(int? catid, int? subcatid)
+        {
+            //var products = db.Products.AsQueryable();
+
+            //if (catid != null)
+            //    products = products.Where(p => p.CategoryId == catid);
+
+            //if (subcatid != null)
+            //    products = products.Where(p => p.SubCategoryId == subcatid);
+
+            //return Json(products.ToList(), JsonRequestBehavior.AllowGet);
+            try
+            {
+                var data = repository.GetProductsByCategory(catid);
+                string JSONString = string.Empty;
+                JSONString = JsonConvert.SerializeObject(data);
+                return Json(JSONString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         public ActionResult LoadCategory()
         {

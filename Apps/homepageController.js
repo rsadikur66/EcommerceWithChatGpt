@@ -21,6 +21,33 @@
     }
 });
 
+   function getQueryParam(name) {
+       const params = new URLSearchParams(window.location.search);
+       return params.get(name);
+   }
+
+   var catid = getQueryParam("catid");
+   var subcatid = getQueryParam("subcatid");
+
+   loadProducts(catid, subcatid);
+    
+   function loadProducts(catid, subcatid) {
+       let url = baseUrl + "/Home/LoadProducts";
+
+       if (catid) {
+           url += "?catid=" + catid;
+       }
+       if (subcatid) {
+           url += "?subcatid=" + subcatid;
+       }
+
+       Service.loadDataWithoutParm(url)
+           .then(function (data) {
+               $scope.products = JSON.parse(data);
+               $scope.filteredProducts = $scope.products;
+           });
+   }
+
 
 //function searchProducts(text) {
   //  Service.loadDataSingleParm(baseUrl + '/Home/SearchProduct',text)

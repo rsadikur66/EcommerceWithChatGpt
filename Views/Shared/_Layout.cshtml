@@ -263,7 +263,7 @@
                 ng-repeat="cat in categories"
                 ng-mouseover="showSubcategories(cat)"
                 ng-class="{'active-category': activeCategory === cat}">
-                <a class="text-dark text-decoration-none" href="/Home/Product?catid={{cat.categoryid}}">
+                <a class="text-dark text-decoration-none" href="/Home/Index?catid={{cat.categoryid}}">
                     {{ cat.name }} <i class="bi bi-chevron-right hover-arrow"></i>
                 </a>
             </li>
@@ -274,7 +274,7 @@
             <h5 ng-if="hoveredCategory">{{ hoveredCategory.name }}</h5>
             <div class="row row-cols-1 g-1" ng-if="hoveredCategory && hoveredCategory.subcategories.length">
                 <div class="col" ng-repeat="sub in hoveredCategory.subcategories">
-                    <a class="subcategory-link" href="/Home/Product?subcatid={{sub.SubCategoryId}}">
+                    <a class="subcategory-link" href="/Home/Index?subcatid={{sub.SubCategoryId}}">
                         • {{ sub.Name }}
                     </a>
                 </div>

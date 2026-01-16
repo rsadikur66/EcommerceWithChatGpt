@@ -22,6 +22,13 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
+        public DataTable GetProductsByCategory(int? catId)
+        {
+            DataTable sql = new DataTable();
+            sql = Query($"select * from T11223 where CategoryId='{catId}'");
+            return sql;
+        }
+
         public DataTable GetAllHomeProducts()
         {
             DataTable sql = new DataTable();
