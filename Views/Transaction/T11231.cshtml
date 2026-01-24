@@ -3,6 +3,42 @@
     ViewBag.Title = "T11231";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<script src="~/Apps/Transaction/T11231Controller.js"></script>
+<h2 class="text-success">{{FormName}}</h2>
 
-<h2 class="text-success">T11231-ORDER LIST</h2>
+ <!-- Search and Table -->
+<div class="mt-4" ng-app="myApp" ng-controller="T11231Controller">
+    <input type="text" class="form-control mb-3" placeholder="🔍 Search..." ng-model="searchText">
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th style="width:7%">Order Id</th>
+                    <th style="width:13%">Order Date & Time</th>
+                    <th style="width:15%">Customer Name</th>
+                    <th style="width:10%">Mobile No</th>
+                    <th style="width:10%">Grand Total</th>
+                    <th style="width:30%">Shipping Address</th>
+                    <th style="width:5%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="orders in obj.orderlists | filter:searchText | itemsPerPage: pageSize track by orders.OrderID">
+                    <td style="width:7%">{{ orders.OrderID }}</td>
+                    <td style="width:13%">{{ orders.OrderDate_Time }}</td>
+                    <td style="width:15%">{{ orders.RecipientName }}</td>
+                    <td style="width:10%">{{ orders.RecipientPhone }}</td>
+                    <td style="width:10%">{{orders.GrandTotal}}</td>
+                    <td style="width:30%">{{orders.ShippingAddress}}</td>
+                    <td style="width:10%"><input type="button" ng-click="btnOrderDetails" value="Order Details" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <dir-pagination-controls template-url="/Content/Template/pagination.html"
+                             max-size="5" direction-links="true" boundary-links="true">
+    </dir-pagination-controls>
+</div>
 

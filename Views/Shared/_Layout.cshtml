@@ -192,7 +192,7 @@
                        class="form-control form-control-lg"
                        placeholder="Search for products (e.g. eggs, milk, potato)"
                        ng-model="searchText"
-                       ng-change="onSearchChange()" />
+                       ng-keyup="$event.keyCode == 13 && searchProduct()" />
 
             </div>
 

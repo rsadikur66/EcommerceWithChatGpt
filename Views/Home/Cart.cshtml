@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in cartItems">
+                <tr ng-repeat="item in cartItems track by item.ProductId">
                     <td>{{ item.ProductName }}</td>
                     @*<td>{{ item.SKU }}</td>*@
                     <td>

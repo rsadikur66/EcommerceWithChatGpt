@@ -22,10 +22,28 @@ namespace DataAccessLayer.Common
             return sql;
         }
 
-        public DataTable GetProductsByCategory(int? catId)
+        public DataTable GetProductsByCatAndSubCat(int? catId,int? subCat)
         {
             DataTable sql = new DataTable();
-            sql = Query($"select * from T11223 where CategoryId='{catId}'");
+            if (catId != null)
+            {
+                sql = Query($"select * from T11223 where CategoryId='{catId}'");   
+            }else if (subCat != null)
+            {
+                    sql = Query($"select * from T11223 where SubCategoryId='{subCat}'");
+            }
+            else
+            {
+                sql = Query($"select * from T11223 where isactive=1");
+            }
+            
+            return sql;
+        }
+
+        public DataTable GetProductsBySearchText(string text)
+        {
+            DataTable sql = new DataTable();
+            sql = Query($"select * from T11223 where ProductName like '%{text}%'");
             return sql;
         }
 

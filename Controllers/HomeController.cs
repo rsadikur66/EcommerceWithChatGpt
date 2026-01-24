@@ -73,7 +73,23 @@ namespace EcommerceWithChatGpt.Controllers
             //return Json(products.ToList(), JsonRequestBehavior.AllowGet);
             try
             {
-                var data = repository.GetProductsByCategory(catid);
+                var data = repository.GetProductsByCatAndSubCat(catid,subcatid);
+                string JSONString = string.Empty;
+                JSONString = JsonConvert.SerializeObject(data);
+                return Json(JSONString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SearchProduct(string text)
+        {
+            try
+            {
+                var data = repository.GetProductsBySearchText(text);
                 string JSONString = string.Empty;
                 JSONString = JsonConvert.SerializeObject(data);
                 return Json(JSONString, JsonRequestBehavior.AllowGet);

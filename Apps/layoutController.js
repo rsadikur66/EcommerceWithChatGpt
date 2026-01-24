@@ -1,4 +1,4 @@
-﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "baseUrlService", function ($scope, $rootScope, Service, Data, sweetAlertService, baseUrlService) {
+﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "baseUrlService", "$window", function ($scope, $rootScope, Service, Data, sweetAlertService, baseUrlService, $window) {
     console.log("LayoutController initialized");
     $scope.obj = {};
     $scope.obj = Data;
@@ -8,12 +8,21 @@
     $scope.hoveredCategory = null;
     $scope.activeCategory = null; // New variable to track active category for styling
     $scope.categories = [];   // Category লোড হওয়ার পর ভরবে
-    
-    $scope.searchText = "";
 
-    $scope.onSearchChange = function () {
-        $rootScope.$broadcast("productSearch", $scope.searchText);
+    //$scope.searchText = "";
+
+    //$scope.onSearchChange = function () {
+    //    $rootScope.$broadcast("productSearch", $scope.searchText);
+    //};
+
+    $scope.searchProduct = function () {
+        if (!$scope.searchText || $scope.searchText.trim() === "") return;
+
+        // Homepage এ redirect করো search query সহ
+        $window.location.href = "/Home/Index?search=" +
+            encodeURIComponent($scope.searchText);
     };
+
     // লোডার স্ট্যাটাস ট্র্যাকিং এর জন্য নতুন প্রপার্টি
     $scope.isLoading = false;
 
@@ -62,10 +71,10 @@
         //     $scope.loadCartCount();
         // });
     });
-    
+
 
     function LoadCategories() {
-        Service.loadDataWithoutParm(baseUrl +'/Home/LoadCategory')
+        Service.loadDataWithoutParm(baseUrl + '/Home/LoadCategory')
             .then(function (returnData) {
                 $scope.categories = JSON.parse(returnData);
                 // সব ক্যাটাগরিতে সাবক্যাটাগরির খালি অ্যারে অ্যাড করলাম
@@ -86,7 +95,7 @@
         //    return;
         //}
 
-        Service.loadDataSingleParm(baseUrl +'/Home/LoadSubCategory', cat.categoryid)
+        Service.loadDataSingleParm(baseUrl + '/Home/LoadSubCategory', cat.categoryid)
             .then(function (returnData) {
                 $scope.hoveredCategory.subcategories = JSON.parse(returnData);
                 //cat.subLoaded = true;
@@ -95,7 +104,7 @@
 
     LoadCategories();
 
-    
+
 
     $scope.viewProductDetails = function (product) {
         $scope.selectedProduct = product;
@@ -139,7 +148,7 @@
                         } else {
                             window.location.href = baseUrl + "/Home/H00002";
                         }
-                    }                    
+                    }
                     // window.location.href = "/Transaction/SendSms";
                     // loader(false);
                 } else if (data == '2') {
@@ -154,7 +163,7 @@
     }
 
     $scope.Logout_Click = function () {
-        window.location.href = baseUrl +'/Login/Logout'; // অথবা তোমার actual logout URL
+        window.location.href = baseUrl + '/Login/Logout'; // অথবা তোমার actual logout URL
     }
 
 

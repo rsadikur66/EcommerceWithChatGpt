@@ -7,29 +7,55 @@
     //console.log(Id);
     //if (Id != null || Id != undefined) {
     //    loadProductsDetailsById(Id)
-    //}    
-    var baseUrl = baseUrlService.getBaseUrl();
-   $rootScope.$on("productSearch", function (event, searchText) {
-    if (!searchText || searchText.trim() === "") {
-        // কোনো search text না থাকলে সব product দেখাও
-        $scope.filteredProducts = angular.copy($scope.products);
-    } else {
-        var lowerText = searchText.toLowerCase();
-        $scope.filteredProducts = $scope.products.filter(function(p) {
-            return p.ProductName.toLowerCase().includes(lowerText);
-        });
-    }
-});
+    //} 
 
+    var baseUrl = baseUrlService.getBaseUrl();
+    var searchText = getQueryParam("search");
+    var catid = getQueryParam("catid");
+    var subcatid = getQueryParam("subcatid");
+    if (searchText) {
+        searchProducts(searchText);
+    } else if (catid || subcatid) {
+        loadProducts(catid, subcatid);
+    } else {
+        loadProducts(catid, subcatid);
+    }
+
+    function searchProducts(text) {
+        Service.loadDataSingleParm(baseUrl + '/Home/SearchProduct', text)
+            .then(function (returnData) {
+                $scope.products = JSON.parse(returnData);
+
+                for (let i = 0; i < $scope.products.length; i++) {
+                    $scope.products[i].buttonText = "Add to cart";
+                    $scope.products[i].ImageUrl = baseUrl + $scope.products[i].ImageUrl;
+                }
+
+                $scope.filteredProducts = angular.copy($scope.products);
+            });
+    }
+
+    //
+
+//   $rootScope.$on("productSearch", function (event, searchText) {
+//    if (!searchText || searchText.trim() === "") {
+//        // কোনো search text না থাকলে সব product দেখাও
+//        $scope.filteredProducts = angular.copy($scope.products);
+//    } else {
+//        var lowerText = searchText.toLowerCase();
+//        $scope.filteredProducts = $scope.products.filter(function(p) {
+//            return p.ProductName.toLowerCase().includes(lowerText);
+//        });
+//    }
+//});
+  
+
+
+   //LoadAllHomeProducts();
    function getQueryParam(name) {
        const params = new URLSearchParams(window.location.search);
        return params.get(name);
-   }
-
-   var catid = getQueryParam("catid");
-   var subcatid = getQueryParam("subcatid");
-
-   loadProducts(catid, subcatid);
+   }  
     
    function loadProducts(catid, subcatid) {
        let url = baseUrl + "/Home/LoadProducts";
@@ -44,6 +70,11 @@
        Service.loadDataWithoutParm(url)
            .then(function (data) {
                $scope.products = JSON.parse(data);
+               for (let i = 0; i < $scope.products.length; i++) {
+                   $scope.products[i].buttonText = "Add to cart";
+                   $scope.products[i].ImageUrl = baseUrl + $scope.products[i].ImageUrl;
+                   //console.log($scope.products[i].ImageUrl);
+               }
                $scope.filteredProducts = $scope.products;
            });
    }
@@ -72,7 +103,7 @@
             $scope.cartItems = []; // পার্স করতে সমস্যা হলে খালি সেট করুন
         }
     }
-    LoadAllHomeProducts();
+    
     function LoadAllHomeProducts() {
         Service.loadDataWithoutParm(baseUrl + '/Home/LoadAllHomeProducts')
             .then(function (returnData) {
@@ -82,6 +113,7 @@
                     $scope.products[i].ImageUrl = baseUrl + $scope.products[i].ImageUrl;
                     console.log($scope.products[i].ImageUrl);
                 }
+                //$scope.filteredProducts = angular.copy($scope.products);
                 console.log($scope.products);
             });
     }

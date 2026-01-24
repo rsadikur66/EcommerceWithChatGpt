@@ -149,6 +149,7 @@
     <Content Include="Apps\Setup\T11222Controller.js" />
     <Content Include="Apps\Setup\T11223Controller.js" />
     <Content Include="Apps\Setup\T11224Controller.js" />
+    <Content Include="Apps\Transaction\T11231Controller.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
