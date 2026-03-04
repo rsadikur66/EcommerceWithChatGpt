@@ -14,6 +14,7 @@
     var catid = getQueryParam("catid");
     var subcatid = getQueryParam("subcatid");
     if (searchText) {
+        debugger;
         searchProducts(searchText);
     } else if (catid || subcatid) {
         loadProducts(catid, subcatid);

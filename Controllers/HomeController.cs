@@ -85,11 +85,11 @@ namespace EcommerceWithChatGpt.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchProduct(string text)
+        public ActionResult SearchProduct(string param)
         {
             try
             {
-                var data = repository.GetProductsBySearchText(text);
+                var data = repository.GetProductsBySearchText(param);
                 string JSONString = string.Empty;
                 JSONString = JsonConvert.SerializeObject(data);
                 return Json(JSONString, JsonRequestBehavior.AllowGet);

@@ -4,6 +4,7 @@
     $scope.obj = Data;
     $scope.obj.T11999 = {};
     var baseUrl = baseUrlService.getBaseUrl();
+    $scope.baseUrl = baseUrl;
     $scope.sidebarVisible = false;
     $scope.hoveredCategory = null;
     $scope.activeCategory = null; // New variable to track active category for styling
@@ -19,7 +20,7 @@
         if (!$scope.searchText || $scope.searchText.trim() === "") return;
 
         // Homepage এ redirect করো search query সহ
-        $window.location.href = "/Home/Index?search=" +
+        $window.location.href = baseUrl + "/Home/Index?search=" +
             encodeURIComponent($scope.searchText);
     };
 

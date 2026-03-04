@@ -20,7 +20,9 @@
             });
         LoaderService.hide();
     }
-
+    $scope.btnOrderDetails = function () {
+        window.open('/T11231/Customer_Order_InvoiceReport', '_blank');
+    };
     $scope.btnSaveClick = function () {
 
         if ($scope.obj.T11221.Name == "" || $scope.obj.T11221.Name == undefined) {
