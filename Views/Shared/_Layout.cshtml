@@ -2,14 +2,15 @@
 <html ng-app="myApp">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&family=Hind+Siliguri:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.min.js"></script>
@@ -24,275 +25,295 @@
 
     <style>
         * {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        /*.container {
-            background-color: bisque;
-        }*/
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            overflow-x: hidden;
+        }
 
+        header {
+            z-index: 1060 !important;
+        }
+
+        /* --- THE RESPONSIVE PUSH/DRAWER SIDEBAR --- */
         .sidebar {
             position: fixed;
             top: 0;
-            left: -260px; /* Initially hidden, adjust based on .sidebar-category-list width */
-            width: 260px; /* Initial width, will expand with subcategory */
+            left: -300px;
+            width: 260px;
             height: 100%;
             background-color: #fff;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: left 0.3s ease;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1050;
-            padding-top: 80px; /* Adjusted padding to clear header */
-            overflow: visible; /* Crucial for subcategory to appear outside initial sidebar width */
-            display: flex; /* Use flexbox for category/subcategory layout */
+            padding-top: 75px;
+            display: flex;
             flex-direction: row;
+            overflow: visible;
         }
 
-            .sidebar.show {
-                left: 0;
+        .sidebar.show {
+            left: 0 !important;
+        }
+
+        @@media (min-width: 992px) {
+            .sidebar.show.has-subcategory {
+                width: calc(260px + 280px) !important;
             }
-
-                /* When sidebar is showing and a subcategory is active, expand sidebar width */
-                .sidebar.show.has-subcategory {
-                    width: calc(260px + 280px); /* Category width + Subcategory width */
-                }
-
-        /* Prevent scroll behind sidebar */
-        body.sidebar-open {
-            overflow: hidden;
         }
 
         .hamburger-area {
             cursor: pointer;
-            padding: 5px;
-            border-radius: 5px;
-            transition: background-color 0.2s ease;
+            padding: 6px 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
             .hamburger-area:hover {
-                background-color: #e9ecef;
+                background-color: #e1fda0;
+                /*background-color: #e9ecef;*/
             }
 
-        /* Category List */
         .sidebar-category-list {
-            width: 260px; /* Fixed width for category column */
-            flex-shrink: 0; /* Prevent shrinking */
+            width: 260px;
+            flex-shrink: 0;
             padding: 0;
             margin: 0;
             list-style: none;
-            overflow-y: auto; /* Enable scrolling for categories if too many */
-            height: 100%; /* Ensure it takes full height of sidebar */
+            overflow-y: auto;
+            height: 100%;
+            border-right: 1px solid #f1f1f1;
         }
 
-            .sidebar-category-list .list-group-item {
-                border: none;
-                padding: 10px 15px;
-                transition: background-color 0.2s ease, color 0.2s ease;
-                cursor: pointer;
-                position: relative;
-            }
+        .sidebar-category-list .list-group-item {
+            border: none;
+            padding: 0;
+        }
 
-                .sidebar-category-list .list-group-item:hover,
-                .sidebar-category-list .list-group-item.active-category { /* Added active-category class */
-                    background-color: #f8f9fa;
-                    color: #0d6efd;
-                }
+        .category-item-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 14px 20px;
+            text-decoration: none;
+            color: #333;
+            font-size: 15px;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+            background: none;
+            border: none;
+            text-align: left;
+        }
 
-                .sidebar-category-list .list-group-item a {
-                    font-size: 15px;
-                    font-weight: 500;
-                    text-decoration: none;
-                    color: #343a40;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
+        .category-item-link:hover, .active-category-style {
+            /*background-color: #f8f9fa;*/
+            background-color: #e1fda0;
+            color: #0d6efd;
+        }
 
-                .sidebar-category-list .list-group-item:hover a,
-                .sidebar-category-list .list-group-item.active-category a {
-                    color: #0d6efd; /* Keep link color consistent on hover/active */
-                }
-
-
-        /* Subcategory Column */
-        .subcategory-column {
+        .subcategory-desktop-panel {
             position: absolute;
-            left: 260px; /* Position right next to the category column (width of .sidebar-category-list) */
-            top: 0; /* Adjust if header affects it */
-            margin-top: 80px; /* To align with padding-top of sidebar */
-            width: 280px; /* Adjust as needed */
-            height: calc(100% - 80px); /* Adjust height to match sidebar content area */
+            left: 260px;
+            top: 0;
+            margin-top: 75px;
+            width: 280px;
+            height: calc(100% - 75px);
             background-color: #fff;
-            box-shadow: 3px 0 7px rgba(0, 0, 0, 0.15); /* Slightly darker shadow */
-            z-index: 1060; /* Higher than sidebar */
-            padding: 15px;
-            display: none; /* Hidden by default */
-            opacity: 0; /* For fade transition */
-            transition: left 0.3s ease, opacity 0.3s ease; /* Transition for smooth appearance */
-            overflow-y: auto; /* Enable scrolling for subcategories if too many */
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1045;
+            border-left: 1px solid #f1f1f1;
+            display: none;
         }
 
-            .subcategory-column.show {
-                display: block;
-                opacity: 1;
-                left: 260px; /* Ensure it stays in place during transition */
+        @@media (min-width: 992px) {
+            .subcategory-desktop-panel.show-sub {
+                display: block !important;
             }
+        }
 
-            .subcategory-column h5 {
-                margin-bottom: 15px;
-                color: #0d6efd;
-                font-weight: bold;
-                font-size: 1.1rem;
-            }
+        .subcategory-mobile-drawer {
+            background-color: #fcfcfc;
+            border-bottom: 1px solid #eaeaea;
+            padding: 5px 0 10px 0;
+        }
 
-            .subcategory-column .subcategory-link {
-                font-size: 14px; /* Slightly larger font */
-                color: #555;
-                text-decoration: none;
-                display: block;
-                padding: 6px 0; /* More padding */
-                transition: color 0.2s ease;
-            }
+        .subcategory-mobile-link {
+            display: block;
+            padding: 10px 20px 10px 35px;
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
 
-                .subcategory-column .subcategory-link:hover {
-                    color: red; /* As per your request */
-                }
+        .subcategory-mobile-link:hover {
+            color: #dc3545;
+            background-color: #fff1f2;
+        }
 
         .hover-arrow {
             transition: transform 0.2s ease;
         }
 
-        .list-group-item:hover .hover-arrow,
-        .list-group-item.active-category .hover-arrow { /* Added active-category */
-            transform: translateX(3px); /* Slight movement on hover */
-            color: #0d6efd; /* Change arrow color on hover/active */
+        .main-content-wrapper {
+            transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            padding-top: 6.5rem;
+            padding-left: 0;
+        }
+
+        @@media (min-width: 992px) {
+            .main-content-wrapper {
+                padding-top: 5.5rem;
+            }
+            body.sidebar-open .main-content-wrapper {
+                padding-left: 260px;
+            }
+            body.sidebar-open-with-sub .main-content-wrapper {
+                padding-left: calc(260px + 280px);
+            }
+        }
+
+        .mobile-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1040;
+            display: none;
+        }
+
+        @@media (max-width: 991.98px) {
+            .mobile-backdrop.active {
+                display: block;
+            }
         }
     </style>
 </head>
 
-<body ng-controller="LayoutController"
-      ng-class="{ 'sidebar-open': sidebarVisible }">
+<body ng-controller="LayoutController" 
+      ng-class="{ 
+        'sidebar-open': sidebarVisible, 
+        'sidebar-open-with-sub': sidebarVisible && hoveredCategory && hoveredCategory.subcategories.length 
+      }">
 
-    <header class="bg-light py-2 shadow-sm fixed-top">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="mobile-backdrop" 
+         ng-class="{'active': sidebarVisible}" 
+         ng-click="sidebarVisible = false; hoveredCategory = null;"></div>
 
-            <div class="hamburger-area"
-                 ng-mouseenter="sidebarVisible = true">
-                <i class="bi bi-list" style="font-size: 1.8rem;"></i>
+    <header class="bg-white py-2 shadow-sm fixed-top border-bottom">
+        <div class="container-fluid">
+            <div class="row align-items-center gy-2">
+                
+                <div class="col-6 col-md-3 d-flex align-items-center gap-2">
+                    <div class="hamburger-area" ng-click="sidebarVisible = !sidebarVisible" ng-mouseenter="sidebarVisible = true">
+                        <i class="bi bi-list" style="font-size: 1.8rem; color: #222;"></i>
+                    </div>
+                    <a href="@Url.Action("Index", "Home")" class="navbar-brand m-0">
+                        <img src="~/Images/logo.jpg" alt="Logo" style="height: 38px; max-width: 100%; object-fit: contain;" />
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 order-3 order-md-2">
+                    <div class="position-relative mx-lg-3">
+                        <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text"
+                               class="form-control form-control-md ps-5"
+                               placeholder="Search for products (e.g. eggs, milk...)"
+                               ng-model="searchText"
+                               ng-keyup="$event.keyCode == 13 && searchProduct()"
+                               style="border-radius: 20px; background-color: #f1f3f4; border: 1px solid transparent;" />
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 order-2 order-md-3 d-flex align-items-center justify-content-end gap-2">
+                    <a href="@Url.Action("Cart","Home")" class="btn btn-light position-relative border rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                        <i class="bi bi-cart3 fs-5 text-dark"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px; padding: 4px 6px;">
+                            {{ cartItemCount }}
+                        </span>
+                    </a>
+                    <a href="@Url.Action("Login","Login")" class="btn btn-primary px-3 rounded-pill d-flex align-items-center gap-1">
+                        <i class="bi bi-person-circle fs-5"></i> 
+                        <span class="d-none d-sm-inline" style="text-transform: none; font-weight:600;">Login</span>
+                    </a>
+                </div>
+
             </div>
-            <div>
-                <a href="@Url.Action("Index", "Home")" class="navbar-brand fw-bold text-primary">
-                    <img src="~/Images/logo.jpg" alt="Logo" style="height:40px;cursor:pointer" />
-                </a>
-            </div>
-
-            <div class="flex-grow-1 mx-4">
-                <input type="text"
-                       class="form-control form-control-lg"
-                       placeholder="Search for products (e.g. eggs, milk, potato)"
-                       ng-model="searchText"
-                       ng-keyup="$event.keyCode == 13 && searchProduct()" />
-
-            </div>
-
-            @*<div>
-            <a href="@Url.Action("Cart", "Shop")" class="btn btn-outline-dark me-2">
-                <i class="bi bi-cart"></i> 🛒 Cart
-            </a>
-            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-                🔐 Login / Register
-            </button>
-        </div>*@
-        <div>
-            <a href="@Url.Action("Cart","Home")" class="btn btn-outline-dark me-2 position-relative">
-                <i class="bi bi-cart"></i> Cart
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {{ cartItemCount }} <span class="visually-hidden">unread messages</span>
-                </span>
-            </a>
-            @*<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-            🔐 Login / Register
-        </button>*@
-            <a href="@Url.Action("Login","Login")" class="btn btn-outline-primary"> 🔐 Login / Register</a>
-            @*<a ng-if="!layout.isLoggedIn()" ng-click="layout.mockLogin()"
-               class="btn btn-outline-primary" style="min-width: 130px;">
-                <i class="bi bi-person-circle me-1"></i> Login / Register
-            </a>*@
-
-            <!--<div ng-if="layout.isLoggedIn()" class="dropdown ms-2">-->
-
-                <!-- প্রোফাইল আইকন বাটন -->
-                <!--<button class="btn btn-light p-1 rounded-circle border-0 shadow-sm d-flex align-items-center"
-                        type="button"
-                        ng-click="layout.toggleDropdown()"
-                        aria-expanded="{{layout.dropdownOpen}}">-->
-                    <!-- ইউজার ছবি -->
-                    <!--<img ng-src="{{ layout.user.profilePic }}"
-                         alt="{{ layout.user.name }} Profile"
-                         class="rounded-circle border border-light user-profile-pic-sm">
-                </button>-->
-
-                <!-- ড্রপডাউন মেনু -->
-                <!-- Bootstrap-এর 'show' ক্লাস এবং 'dropdown-menu-end' ব্যবহার করা হলো -->
-                <!--<ul class="dropdown-menu dropdown-menu-end shadow-lg"
-                    ng-class="{'show': layout.dropdownOpen}"
-                    style="min-width: 220px;">
-
-                    <li><h6 class="dropdown-header">স্বাগতম, {{ layout.user.name }}</h6></li>
-                    <li><hr class="dropdown-divider"></li>
-
-                    <li><a class="dropdown-item" href="@Url.Action("Dashboard","User")"><i class="bi bi-speedometer2 me-2"></i> ড্যাশবোর্ড</a></li>
-                    <li><a class="dropdown-item" href="@Url.Action("MyOrders","User")"><i class="bi bi-box-seam me-2"></i> আমার অর্ডারসমূহ</a></li>
-                    <li><a class="dropdown-item" href="@Url.Action("Settings","User")"><i class="bi bi-gear me-2"></i> সেটিংস</a></li>
-
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="#" ng-click="layout.logout()"><i class="bi bi-box-arrow-right me-2"></i> লগআউট</a></li>
-                </ul>
-            </div>-->
-        </div>
         </div>
     </header>
 
     <div class="sidebar"
-         ng-mouseleave="sidebarVisible = false; hoveredCategory = null; activeCategory = null;"
+         ng-mouseleave="sidebarVisible = false; hoveredCategory = null;"
          ng-class="{ 'show': sidebarVisible, 'has-subcategory': sidebarVisible && hoveredCategory && hoveredCategory.subcategories.length }">
-        @*kjdfajkl*@
+        
         <ul class="sidebar-category-list">
-            <li class="list-group-item"
+            <li class="list-group-item" 
                 ng-repeat="cat in categories"
-                ng-mouseover="showSubcategories(cat)"
-                ng-class="{'active-category': activeCategory === cat}">
-                <a class="text-dark text-decoration-none" href="{{baseUrl}}/Home/Index?catid={{cat.categoryid}}">
-                    {{ cat.name }} <i class="bi bi-chevron-right hover-arrow"></i>
+                ng-mouseover="showSubcategories(cat)">
+                
+                <a class="category-item-link" 
+                   ng-href="{{baseUrl}}/Home/Index?catid={{cat.categoryid}}"
+                   ng-class="{'active-category-style': hoveredCategory === cat}">
+                    <span>{{ cat.name }}</span>
+                    <i class="bi bi-chevron-right hover-arrow text-muted fs-6" 
+                       ng-style="hoveredCategory === cat && {'transform': 'rotate(90deg)'}"></i>
                 </a>
+
+                <div class="subcategory-mobile-drawer d-block d-lg-none" ng-if="hoveredCategory === cat && cat.subcategories.length">
+                    <a class="subcategory-mobile-link" 
+                       ng-repeat="sub in cat.subcategories"
+                       href="{{baseUrl}}/Home/Index?subcatid={{sub.SubCategoryId}}">
+                        <i class="bi bi-arrow-right-short me-1 text-muted"></i> {{ sub.Name }}
+                    </a>
+                </div>
+                <div class="subcategory-mobile-drawer d-block d-lg-none" ng-if="hoveredCategory === cat && !cat.subcategories.length">
+                    <span class="text-muted small ps-4 py-2 d-block">কোনো সাব-ক্যাটাগরি নেই।</span>
+                </div>
+
             </li>
         </ul>
 
-        <div class="subcategory-column"
-             ng-class="{ 'show': hoveredCategory && hoveredCategory.subcategories.length }">
-            <h5 ng-if="hoveredCategory">{{ hoveredCategory.name }}</h5>
-            <div class="row row-cols-1 g-1" ng-if="hoveredCategory && hoveredCategory.subcategories.length">
+        <div class="subcategory-desktop-panel" 
+             ng-class="{'show-sub': hoveredCategory && hoveredCategory.subcategories.length}">
+            <h5 class="text-primary border-bottom pb-2 mb-3 fw-bold" ng-if="hoveredCategory">{{ hoveredCategory.name }}</h5>
+            <div class="row row-cols-1 g-2" ng-if="hoveredCategory">
                 <div class="col" ng-repeat="sub in hoveredCategory.subcategories">
-                    <a class="subcategory-link" href="{{baseUrl}}/Home/Index?subcatid={{sub.SubCategoryId}}">
+                    <a href="{{baseUrl}}/Home/Index?subcatid={{sub.SubCategoryId}}" 
+                       class="text-decoration-none text-dark d-block py-1 fs-6"
+                       style="transition: color 0.1s;"
+                       onmouseover="this.style.color='red'"
+                       onmouseout="this.style.color='#222'">
                         • {{ sub.Name }}
                     </a>
                 </div>
             </div>
-            <p ng-if="hoveredCategory && !hoveredCategory.subcategories.length" class="text-muted small mt-3">কোনো সাব-ক্যাটাগরি নেই।</p>
         </div>
     </div>
    
-    <div class="container" style="margin-top:5rem">
-        @RenderBody()
-    </div>
+    <main class="main-content-wrapper">
+        <div class="container-fluid px-3 px-md-4">
+            @RenderBody()
+        </div>
+    </main>
 
     @Html.Partial("_LoginModal")
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 </body>
 </html>
-

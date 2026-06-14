@@ -1,96 +1,169 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<script src="~/Apps/layoutController.js"></script>
+
 <style>
-    .card-title a {
-        /*font-size: 1rem;
-        line-height: 1.2rem;
-        display: block;
-        min-height: 48px;
+    /* --- CAROUSEL BANNER DESIGN OPTIMIZATION --- */
+    #carouselExampleIndicators {
+        border-radius: 16px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;*/
-        font-size: 0.8rem;
-        line-height: 1.2rem;
-        display: -webkit-box; /* মাল্টি-লাইন ট্রাঙ্কেশন এর জন্য */
-        -webkit-line-clamp: 2; /* সর্বোচ্চ ২ লাইন দেখাবে */
-        -webkit-box-orient: vertical; /* উল্লম্বভাবে টেক্সট সাজানোর জন্য */
-        overflow: hidden; /* অতিরিক্ত টেক্সট লুকিয়ে রাখবে */
-        text-overflow: ellipsis; /* ট্রাঙ্কেট হলে ... দেখাবে */
-        /* min-height: 48px; - এটি আর প্রয়োজন নেই কারণ line-clamp উচ্চতা নিয়ন্ত্রণ করবে */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-bottom: 40px;
     }
 
-    .card-text {
-        /* font-size: 0.9rem;
-        min-height: 40px;*/
-        font-size: 0.9rem;
-        /* min-height: 40px; - যদি বিবরণও ট্রাঙ্কেট করতে চান, তাহলে নিচের মত করে পরিবর্তন করুন */
+        #carouselExampleIndicators .carousel-item img {
+            height: 380px;
+            object-fit: cover;
+        }
+
+    @@media (max-width: 768px) {
+        #carouselExampleIndicators .carousel-item img {
+            height: 180px;
+        }
+    }
+
+    /* --- PREMIUM EYE-CATCHING CARD LAYOUT --- */
+    .product-grid-container {
+        padding: 10px 0;
+    }
+
+    .section-main-title {
+        font-weight: 700;
+        color: #222;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .premium-product-card {
+        border: 1px solid #eaeaea;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+        .premium-product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            border-color: #0d6efd;
+        }
+
+    .card-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background-color: #ff3838;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        z-index: 2;
+        box-shadow: 0 2px 5px rgba(255,56,56,0.3);
+    }
+
+    .product-img-wrapper {
+        position: relative;
+        width: 100%;
+        height: 180px;
+        background-color: #fafafa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        overflow: hidden;
+    }
+
+        .product-img-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+
+    .premium-product-card:hover .product-img-wrapper img {
+        transform: scale(1.05);
+    }
+
+    .product-details-content {
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .card-title-link {
+        font-size: 14px;
+        line-height: 1.3rem;
+        font-weight: 500;
+        color: #2d3436;
+        text-decoration: none;
         display: -webkit-box;
-        -webkit-line-clamp: 3; /* বিবরণের জন্য সর্বোচ্চ ৩ লাইন দেখাবে, আপনার প্রয়োজন অনুযায়ী পরিবর্তন করুন */
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    /*.hero-banner-container {
-        width: 100%;
-        overflow: hidden;
-        border-radius: 12px;
-        margin-bottom: 30px;*/ /* Space below banner */
-    /*box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        height: 2.6rem;
+        margin-bottom: 8px;
+        transition: color 0.2s;
     }
 
-        .hero-banner-container img {
-            width: 100%;
-            height: auto;
-            display: block;*/ /* Remove extra space below image */
-    /*object-fit: cover;*/ /* Cover the container, crop if necessary */
-    /*}*/
+        .card-title-link:hover {
+            color: #0d6efd;
+        }
+
+    .price-layout {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0d6efd;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+
+    .cart-interactive-btn {
+        background-color: #f1f3f4;
+        color: #333;
+        border: none;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 14px;
+        border-radius: 25px;
+        width: 100%;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+    }
+
+    .premium-product-card:hover .cart-interactive-btn {
+        background-color: #0d6efd;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
+    }
+
+    .cart-interactive-btn:active {
+        transform: scale(0.97);
+    }
 </style>
-<div ng-controller="HomepageController">
-    <!--<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" ng-repeat="banner in banners"
-                    data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide-to="{{$index}}"
-                    ng-class="{active: $index == 0}"
-                    aria-current="{{$index == 0 ? 'true' : 'false'}}"
-                    aria-label="Slide {{$index + 1}}"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item" ng-repeat="banner in banners" ng-class="{active: $index == 0}">-->
-    @*<img ng-src="{{baseUrl}}/Images/{{banner.imageUrl}}" class="d-block w-100" alt="{{banner.altText}}">*@
-    <!--<img ng-src="" class="d-block w-100" alt="{{banner.altText}}">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>{{banner.title}}</h5>
-                    <p>{{banner.description}}</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>-->
-    <div id="carouselExampleIndicators" class="carousel slide">
+
+<div ng-controller="HomepageController" class="product-grid-container">
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-            @*<div class="carousel-item active">
-                <img src="~/Images/Banner1.jpg" style="object-fit:cover" class="d-block w-100" alt="...">
-            </div>*@
             <div class="carousel-item active">
-                <img src="~/Images/Banner2.jpg" style="object-fit:cover" class="d-block w-100" alt="...">
+                <img src="~/Images/Banner2.jpg" class="d-block w-100" alt="Banner 1">
             </div>
             <div class="carousel-item">
-                <img src="~/Images/banner3.jpg" style="object-fit:cover" class="d-block w-100" alt="...">
+                <img src="~/Images/banner3.jpg" class="d-block w-100" alt="Banner 2">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -102,35 +175,40 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <h2 class="text-center mb-4">আমাদের পণ্যসমূহ</h2>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
-        <!-- Loop through products array to create cards -->
-        <div class="col" ng-repeat="product in filteredProducts">
-            <div class="card h-100 shadow-sm rounded-lg">
-                <!-- Product Image (now a clickable link) -->
-                <a ng-href="/Home/Details?id={{product.ProductId}}">
-                    <img ng-src="{{product.ImageUrl}}" class="card-img-top img-fluid rounded-top-lg" alt="{{product.ProductName}}" style="height: 200px; object-fit: contain;">
+
+    <h2 class="text-center mb-4 section-main-title">আমাদের পণ্যসমূহ</h2>
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+        <div class="col d-flex" ng-repeat="product in filteredProducts">
+
+            <div class="premium-product-card w-100 d-flex flex-column h-100">
+
+                <div class="card-badge">Sale</div>
+
+                <a ng-href="/Home/Details?id={{product.ProductId}}" class="product-img-wrapper">
+                    <img ng-src="{{product.ImageUrl}}" alt="{{product.ProductName}}">
                 </a>
-                <div class="card-body d-flex flex-column">
-                    <!-- Product Name (now a clickable link) -->
-                    <h6 class="card-title text-primary">
-                        <a ng-href="@Url.Content("~/Home/Details")?id={{product.ProductId}}" class="text-decoration-none text-dark text-sm-start fw-semibold">
+
+                <div class="product-details-content">
+                    <h6>
+                        <a ng-href="@Url.Content("~/Home/Details")?id={{product.ProductId}}" class="card-title-link">
                             {{product.ProductName}}
                         </a>
-                        @*ng-click="viewProductDetails(product); $event.preventDefault();"*@
                     </h6>
-                    <!-- Product Description -->
-                    @*<p class="card-text text-muted text-decoration-none">{{product.ProductDescription}}</p>*@
-                    <!-- Product Price -->
-                    <h3 class="card-text text-primary fw-bold mt-2 mb-3">&#2547;{{product.Price | indianNumber}}</h3>
-                    <!-- Add to Cart Button -->
-                    <button class="btn btn-primary btn-sm w-100 cursor-pointer rounded-pill" ng-click="addToCart(product); $event.stopPropagation();">
-                        {{product.buttonText}}
+
+                    <div class="price-layout mt-auto">
+                        <span>&#2547;{{product.Price | indianNumber}}</span>
+                    </div>
+
+                    <button class="cart-interactive-btn" ng-click="addToCart(product); $event.stopPropagation();">
+                        <i class="bi bi-cart-plus fs-6"></i>
+                        <span>{{product.buttonText || 'Add To Cart'}}</span>
                     </button>
                 </div>
+
             </div>
+
         </div>
     </div>
-
 
 </div>

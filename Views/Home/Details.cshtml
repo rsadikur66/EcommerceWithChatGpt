@@ -2,36 +2,246 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div ng-controller="ProductDetailsController">
-    <div class="card shadow-lg rounded-lg">
+<style>
+    /* --- ULTIMATE EYE-CATCHING PRODUCT DETAILS INTERFACE --- */
+    .premium-details-wrapper {
+        padding: 30px 0 60px 0;
+    }
+
+    .details-main-card {
+        background: #ffffff;
+        border: 1px solid #f0f0f0;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        margin-bottom: 40px;
+    }
+
+    /* Product Image Canvas Optimization */
+    .image-showcase-canvas {
+        background-color: #fafafa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        min-height: 480px;
+        max-height: 550px;
+        position: relative;
+    }
+
+        .image-showcase-canvas img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-showcase-canvas:hover img {
+            transform: scale(1.05); /* Soft premium zoom */
+        }
+
+    .premium-tag-badge {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 5px 14px;
+        border-radius: 30px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2);
+    }
+
+    /* Right Side Content Metrics Panel */
+    .content-specs-panel {
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .product-headline-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 15px;
+        line-height: 1.25;
+    }
+
+    .product-short-summary {
+        font-size: 16px;
+        color: #6c757d;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    /* Pricing Tag Element */
+    .premium-pricing-box {
+        font-size: 36px;
+        font-weight: 800;
+        color: #0d6efd;
+        margin-bottom: 35px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Custom Gradient Luxury Button Layout */
+    .luxury-cart-trigger {
+        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+        color: #ffffff;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 16px 40px;
+        border-radius: 50px;
+        width: 100%;
+        max-width: 360px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0 6px 20px rgba(13, 110, 253, 0.25);
+        cursor: pointer;
+    }
+
+        .luxury-cart-trigger:hover {
+            background: linear-gradient(135deg, #0b5ed7, #0a58ca);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.35);
+            transform: translateY(-3px);
+        }
+
+    /* Lower Block: Database Rich HTML Content Panel */
+    .description-details-block {
+        background: #ffffff;
+        border: 1px solid #f0f0f0;
+        border-radius: 20px;
+        padding: 45px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    }
+
+    .description-header-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a1a;
+        position: relative;
+        padding-bottom: 12px;
+        margin-bottom: 25px;
+        border-bottom: 2px solid #f1f3f5;
+    }
+
+        .description-header-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: #0d6efd;
+        }
+
+    /* Rich text compatibility system rules mapping */
+    .description-body-rich-text {
+        font-size: 15px;
+        color: #495057;
+        line-height: 1.8;
+    }
+
+        .description-body-rich-text ul, .description-body-rich-text ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .description-body-rich-text p {
+            margin-bottom: 15px;
+        }
+
+    /* Tablet and Mobile Screen Adjustments */
+    @@media (max-width: 991.98px) {
+        .content-specs-panel {
+            padding: 35px;
+        }
+
+        .product-headline-title {
+            font-size: 26px;
+        }
+    }
+
+    @@media (max-width: 767.98px) {
+        .image-showcase-canvas {
+            min-height: 320px;
+            padding: 25px;
+        }
+
+        .content-specs-panel {
+            padding: 25px;
+        }
+
+        .product-headline-title {
+            font-size: 22px;
+        }
+
+        .premium-pricing-box {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .luxury-cart-trigger {
+            max-width: 100%;
+            padding: 14px 25px;
+        }
+
+        .description-details-block {
+            padding: 25px;
+        }
+    }
+</style>
+
+<div ng-controller="ProductDetailsController" class="container premium-details-wrapper">
+
+    <div class="details-main-card">
         <div class="row g-0">
-            <div class="col-md-6">
-                <img ng-src="{{selectedProduct.ImageUrl}}" class="img-fluid rounded-start-lg w-100 h-100 object-fit-cover" alt="{{selectedProduct.ProductName}}">
-            </div>
-            <div class="col-md-6">
-                <div class="card-body p-4 d-flex flex-column justify-content-between">
-                    <div>
-                        <h1 class="card-title text-dark mb-3">{{selectedProduct.ProductName}}</h1>
-                        <p class="card-text text-muted fs-5 mb-4">{{selectedProduct.ShortDescription}}</p>
-                    </div>
-                    <div class="mt-auto">
-                        <h3 class="card-text text-primary fw-bold mb-3">&#2547;{{selectedProduct.Price | indianNumber}}</h3>
-                        <button class="btn btn-primary w-100 rounded-pill fs-5" ng-click="addToCart(selectedProduct)">
-                            <i class="fas fa-shopping-cart me-2"></i> {{selectedProduct.buttonText}}
-                        </button>
-                    </div>
+
+            <div class="col-md-6 border-end" style="border-color: #f0f0f0 !important;">
+                <div class="image-showcase-canvas">
+                    <span class="premium-tag-badge">Premium Product</span>
+                    <img ng-src="{{selectedProduct.ImageUrl}}" alt="{{selectedProduct.ProductName}}">
                 </div>
             </div>
-        </div>
 
-    </div>
-    <div class="card shadow-lg rounded-lg mt-4 p-5 w-auto">
-        <div class="row">
-            <h3>Description</h3>
+            <div class="col-md-6">
+                <div class="content-specs-panel">
+
+                    <h1 class="product-headline-title">{{selectedProduct.ProductName}}</h1>
+
+                    <p class="product-short-summary">{{selectedProduct.ShortDescription}}</p>
+
+                    <div class="premium-pricing-box">
+                        <span>&#2547;</span><span>{{selectedProduct.Price | indianNumber}}</span>
+                    </div>
+
+                    <div>
+                        <button class="luxury-cart-trigger" ng-click="addToCart(selectedProduct)">
+                            <i class="bi bi-bag-plus-fill fs-5"></i>
+                            <span>{{selectedProduct.buttonText || 'Add To Cart'}}</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-        <div class="row">
+    </div>
+
+    <div class="description-details-block">
+        <h3 class="description-header-title">পণ্য বিবরণী (Description)</h3>
+        <div class="description-body-rich-text">
             <div ng-bind-html="bindProductDescription(selectedProduct.ProductDescription)"></div>
         </div>
-        
     </div>
+
 </div>

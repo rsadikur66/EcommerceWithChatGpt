@@ -1,27 +1,24 @@
-﻿@{
+﻿<!--@{
     Layout = null;
 }
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
-
-    <!-- ✅ Bootstrap 5 + Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
-
-    <!-- ✅ AngularJS + Pagination -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.min.js"></script>
-    <!-- ✅ SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
-    <!-- ✅ Custom Angular Scripts -->
-    <script src="~/Apps/app.js"></script>
+    <title>@ViewBag.Title</title>-->
+<!-- ✅ Bootstrap 5 + Icons -->
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />-->
+<!-- ✅ AngularJS + Pagination -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.min.js"></script>-->
+<!-- ✅ SweetAlert2 -->
+<!--<script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>-->
+<!-- ✅ Custom Angular Scripts -->
+<!--<script src="~/Apps/app.js"></script>
     <script src="~/Apps/Service/Service.js"></script>
     <script src="~/Apps/Common/ModuleController.js"></script>
 
@@ -122,94 +119,447 @@
     </style>
 </head>
 
+<body ng-controller="ModuleController">-->
+<!-- 🔰 Top Navbar -->
+<!--<nav class="navbar navbar-expand-lg navbar-dark headerColor fixed-top shadow-sm">
+    <div class="container-fluid">-->
+<!-- Mobile Sidebar Toggle -->
+<!--<button class="btn btn-outline-light d-md-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <a class="navbar-brand fw-bold" href="@Url.Action("Index", "Home")">bazar.com</a>
+        <div>
+            <button class="btn btn-outline-light btn-sm" ng-click="Logout_Click()">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </div>
+    </div>
+</nav>-->
+<!-- 🔰 Sidebar for large screen -->
+<!--<div class="sidebar-fixed d-none d-md-block">
+    <a href="~/Home/H00001">Home</a>
+    <a data-bs-toggle="collapse" href="#setupMenu">Setup</a>
+    <div id="setupMenu" class="collapse">
+        <div ng-repeat="S in obj.setupList">
+            <a class="ms-3" ng-click="PageRedirect_Clic(S.LinkText)">{{S.FormName}}</a>
+        </div>
+    </div>
+
+    <a data-bs-toggle="collapse" href="#transMenu">Transaction</a>
+    <div id="transMenu" class="collapse">
+        <div ng-repeat="T in obj.transList">
+            <a class="ms-3" ng-click="PageRedirect_Clic(T.LinkText)">{{T.FormName}}</a>
+        </div>
+    </div>
+
+    <a data-bs-toggle="collapse" href="#reportMenu">Report</a>
+    <div id="reportMenu" class="collapse">
+        <div ng-repeat="R in obj.reportList">
+            <a class="ms-3" ng-click="PageRedirect_Clic(R.LinkText)">{{R.FormName}}</a>
+        </div>
+    </div>
+
+    <span class="footerlogout" title="Logout"  ng-click="Logout_Click()">Logout</span>
+</div>-->
+<!-- 🔰 Sidebar for small screens -->
+<!--<div class="offcanvas offcanvas-start text-bg-dark" id="mobileSidebar">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <a href="~/Home/H00001" class="text-white">Home</a>
+        <a data-bs-toggle="collapse" href="#mSetupMenu" class="text-white">Setup</a>
+        <div id="mSetupMenu" class="collapse">
+            <div ng-repeat="S in obj.setupList">
+                <a class="ms-3 text-white" ng-click="PageRedirect_Clic(S.LinkText)">{{S.FormName}}</a>
+            </div>
+        </div>
+        <a data-bs-toggle="collapse" href="#mTransMenu" class="text-white">Transaction</a>
+        <div id="mTransMenu" class="collapse">
+            <div ng-repeat="T in obj.transList">
+                <a class="ms-3 text-white" ng-click="PageRedirect_Clic(T.LinkText)">{{T.FormName}}</a>
+            </div>
+        </div>
+        <a data-bs-toggle="collapse" href="#mReportMenu" class="text-white">Report</a>
+        <div id="mReportMenu" class="collapse">
+            <div ng-repeat="R in obj.reportList">
+                <a class="ms-3 text-white" ng-click="PageRedirect_Clic(R.LinkText)">{{R.FormName}}</a>
+            </div>
+        </div>
+        <hr />
+        <a class="btn btn-danger w-100" ng-click="Logout_Click()">Logout</a>
+    </div>
+</div>-->
+<!-- 🔰 Loader -->
+<!--<div ng-show="isLoading" class="loader-overlay">
+    <div class="lds-dual-ring"></div>
+    <p class="mt-3 fw-bold text-success">Loading...</p>
+</div>-->
+<!-- 🔰 Main Content -->
+<!--<main class="content-area">
+    render body
+</main>-->
+<!-- ✅ Scripts -->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</body>
+</html>-->
+@*new design*@
+
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <!-- ✅ Google Fonts (Inter) - মডার্ন প্রিমিয়াম লুকের জন্য অবশ্যই প্রয়োজন -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ✅ Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- ✅ AngularJS + Plugins -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/angular-utils-pagination@0.11.1/dirPagination.js"></script>
+
+    <!-- ✅ SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <!-- ✅ Custom Angular Scripts -->
+    <script src="~/Apps/app.js"></script>
+    <script src="~/Apps/Service/Service.js"></script>
+    <script src="~/Apps/Common/ModuleController.js"></script>
+
+    <style>
+        :root {
+            --sb-width: 260px;
+            --navbar-height: 70px;
+            --primary-color: #2563EB; /* Enterprise Deep Blue */
+            --bg-light: #F8FAFC; /* Slate 50 background */
+            --text-main: #1E293B; /* Slate 800 */
+            --sidebar-bg: #0F172A; /* Slate 900 Premium Dark Sidebar */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* 🔰 Premium Top Navbar */
+        .navbar-custom {
+            height: var(--navbar-height);
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #E2E8F0;
+            z-index: 1040;
+        }
+
+        .navbar-brand-custom {
+            font-size: 1.25rem;
+            color: var(--primary-color) !important;
+            letter-spacing: -0.5px;
+        }
+
+        /* 🔰 Fixed Left Sidebar */
+        .sidebar-fixed {
+            width: var(--sb-width);
+            height: calc(100vh - var(--navbar-height));
+            position: fixed;
+            top: var(--navbar-height);
+            left: 0;
+            background-color: var(--sidebar-bg);
+            overflow-y: auto;
+            z-index: 1030;
+            transition: all 0.3s ease;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.02);
+            padding: 1.5rem 1rem;
+        }
+
+            /* Nav Item Styling */
+            .sidebar-fixed .nav-heading {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #64748B;
+                font-weight: 700;
+                margin-top: 1.5rem;
+                margin-bottom: 0.5rem;
+                padding-left: 0.75rem;
+            }
+
+            .sidebar-fixed a {
+                color: #94A3B8;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 10px 14px;
+                border-radius: 8px;
+                font-weight: 500;
+                font-size: 0.925rem;
+                margin-bottom: 4px;
+                transition: all 0.2s ease;
+                cursor: pointer;
+            }
+
+                .sidebar-fixed a:hover {
+                    background-color: rgba(255, 255, 255, 0.05);
+                    color: #F8FAFC;
+                }
+
+                .sidebar-fixed a.active-link,
+                .sidebar-fixed a[aria-expanded="true"] {
+                    background-color: rgba(37, 99, 219, 0.15);
+                    color: #60A5FA;
+                }
+
+        /* Submenu styling */
+        .submenu-box {
+            padding-left: 0.5rem;
+            margin-bottom: 10px;
+        }
+
+            .submenu-box a {
+                font-size: 0.875rem;
+                padding: 8px 14px 8px 24px;
+                position: relative;
+            }
+
+                .submenu-box a::before {
+                    content: '';
+                    position: absolute;
+                    left: 12px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 4px;
+                    height: 4px;
+                    background-color: #475569;
+                    border-radius: 50%;
+                }
+
+                .submenu-box a:hover::before {
+                    background-color: #60A5FA;
+                }
+
+        /* Sidebar Footer Logout */
+        .sidebar-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 2rem;
+            padding-top: 1rem;
+        }
+
+        /* 🔰 Main Content Area */
+        .content-area {
+            margin-left: var(--sb-width);
+            padding: 2rem;
+            margin-top: var(--navbar-height);
+            min-height: calc(100vh - var(--navbar-height));
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Breakpoint */
+        @@media (max-width: 991.98px) {
+            .sidebar-fixed {
+                transform: translateX(-100%);
+            }
+
+            .content-area {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+        }
+
+        /* 🔰 Custom Loader Overlay */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .spinner-custom {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #E2E8F0;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
 <body ng-controller="ModuleController">
+
     <!-- 🔰 Top Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark headerColor fixed-top shadow-sm">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top navbar-custom shadow-sm">
+        <div class="container-fluid px-4">
             <!-- Mobile Sidebar Toggle -->
-            <button class="btn btn-outline-light d-md-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
-                <i class="bi bi-list"></i>
+            <button class="btn btn-light d-lg-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                <i class="bi bi-list fs-4"></i>
             </button>
 
-            <a class="navbar-brand fw-bold" href="@Url.Action("Index", "Home")">bazar.com</a>
-            <div>
-                <button class="btn btn-outline-light btn-sm" ng-click="Logout_Click()">
-                    <i class="bi bi-box-arrow-right"></i> Logout
+            <!-- Brand Logo -->
+            <a class="navbar-brand-custom fw-bold d-flex align-items-center gap-2 text-decoration-none" href="@Url.Action("Index", "Home")">
+                <div class="bg-primary text-white d-flex align-items-center justify-content-center rounded-3" style="width: 32px; height: 32px;">
+                    <i class="bi bi-bag-heart-fill fs-6"></i>
+                </div>
+                <span>bazar<span class="text-dark">.com</span></span>
+            </a>
+
+            <!-- Right Profile / Actions -->
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-none d-sm-flex flex-column text-end">
+                    <span class="fw-semibold small text-secondary">Welcome back,</span>
+                    <span class="fw-bold text-dark small">Administrator</span>
+                </div>
+                <div class="vr mx-2 d-none d-sm-block" style="height: 30px;"></div>
+                <button class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2 px-3 py-2 rounded-3 fw-medium" ng-click="Logout_Click()">
+                    <i class="bi bi-box-arrow-right"></i> <span class="d-none d-sm-inline">Logout</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- 🔰 Sidebar for large screen -->
-    <div class="sidebar-fixed d-none d-md-block">
-        <a href="~/Home/H00001">Home</a>
-        <a data-bs-toggle="collapse" href="#setupMenu">Setup</a>
-        <div id="setupMenu" class="collapse">
+    <!-- 🔰 Left Sidebar for Desktop -->
+    <aside class="sidebar-fixed d-none d-lg-block">
+        <a href="~/Home/H00001" class="active-link">
+            <i class="bi bi-grid-1x2-fill"></i> Home
+        </a>
+
+        <!-- Setup Menu Module -->
+        <div class="nav-heading">System Configurations</div>
+        <a data-bs-toggle="collapse" href="#setupMenu" aria-expanded="false" class="d-flex justify-content-between align-items-center">
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-gear-fill"></i> Setup</span>
+            <i class="bi bi-chevron-down small text-muted"></i>
+        </a>
+        <div id="setupMenu" class="collapse submenu-box">
             <div ng-repeat="S in obj.setupList">
-                <a class="ms-3" ng-click="PageRedirect_Clic(S.LinkText)">{{S.FormName}}</a>
+                <a ng-click="PageRedirect_Clic(S.LinkText)">{{S.FormName}}</a>
             </div>
         </div>
 
-        <a data-bs-toggle="collapse" href="#transMenu">Transaction</a>
-        <div id="transMenu" class="collapse">
+        <!-- Transaction Menu Module -->
+        <div class="nav-heading">Core Operations</div>
+        <a data-bs-toggle="collapse" href="#transMenu" aria-expanded="false" class="d-flex justify-content-between align-items-center">
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-wallet2"></i> Transaction</span>
+            <i class="bi bi-chevron-down small text-muted"></i>
+        </a>
+        <div id="transMenu" class="collapse submenu-box">
             <div ng-repeat="T in obj.transList">
-                <a class="ms-3" ng-click="PageRedirect_Clic(T.LinkText)">{{T.FormName}}</a>
+                <a ng-click="PageRedirect_Clic(T.LinkText)">{{T.FormName}}</a>
             </div>
         </div>
 
-        <a data-bs-toggle="collapse" href="#reportMenu">Report</a>
-        <div id="reportMenu" class="collapse">
+        <!-- Report Menu Module -->
+        <div class="nav-heading">Business Intelligence</div>
+        <a data-bs-toggle="collapse" href="#reportMenu" aria-expanded="false" class="d-flex justify-content-between align-items-center">
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-bar-chart-line-fill"></i> Report</span>
+            <i class="bi bi-chevron-down small text-muted"></i>
+        </a>
+        <div id="reportMenu" class="collapse submenu-box">
             <div ng-repeat="R in obj.reportList">
-                <a class="ms-3" ng-click="PageRedirect_Clic(R.LinkText)">{{R.FormName}}</a>
+                <a ng-click="PageRedirect_Clic(R.LinkText)">{{R.FormName}}</a>
             </div>
         </div>
 
-        <span class="footerlogout" title="Logout"  ng-click="Logout_Click()">Logout</span>
-    </div>
+        <!-- Sidebar Footer Action -->
+        <div class="sidebar-footer">
+            <a class="text-danger-emphasis bg-hover-danger" ng-click="Logout_Click()">
+                <i class="bi bi-power"></i> Secure Sign Out
+            </a>
+        </div>
+    </aside>
 
-    <!-- 🔰 Sidebar for small screens -->
-    <div class="offcanvas offcanvas-start text-bg-dark" id="mobileSidebar">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Menu</h5>
+    <!-- 🔰 Offcanvas Sidebar for Mobile Screen -->
+    <div class="offcanvas offcanvas-start text-bg-dark" id="mobileSidebar" style="background-color: var(--sidebar-bg) !important;">
+        <div class="offcanvas-header border-bottom border-secondary">
+            <h5 class="offcanvas-title text-white fw-bold">Navigation Menu</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
-        <div class="offcanvas-body">
-            <a href="~/Home/H00001" class="text-white">Home</a>
-            <a data-bs-toggle="collapse" href="#mSetupMenu" class="text-white">Setup</a>
-            <div id="mSetupMenu" class="collapse">
-                <div ng-repeat="S in obj.setupList">
-                    <a class="ms-3 text-white" ng-click="PageRedirect_Clic(S.LinkText)">{{S.FormName}}</a>
+        <div class="offcanvas-body px-3">
+            <div class="d-grid gap-1">
+                <a href="~/Home/H00001" class="btn btn-primary text-start d-flex align-items-center gap-2 mb-3">
+                    <i class="bi bi-grid-1x2-fill"></i> Home
+                </a>
+
+                <p class="text-muted small fw-bold uppercase px-2 m-0">Setup</p>
+                <div class="ps-2 mb-3">
+                    <div ng-repeat="S in obj.setupList">
+                        <button class="btn btn-link text-white-50 text-start text-decoration-none w-100 py-2 py-1 small" ng-click="PageRedirect_Clic(S.LinkText)">
+                            <i class="bi bi-dot"></i> {{S.FormName}}
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <a data-bs-toggle="collapse" href="#mTransMenu" class="text-white">Transaction</a>
-            <div id="mTransMenu" class="collapse">
-                <div ng-repeat="T in obj.transList">
-                    <a class="ms-3 text-white" ng-click="PageRedirect_Clic(T.LinkText)">{{T.FormName}}</a>
+
+                <p class="text-muted small fw-bold uppercase px-2 m-0">Transaction</p>
+                <div class="ps-2 mb-3">
+                    <div ng-repeat="T in obj.transList">
+                        <button class="btn btn-link text-white-50 text-start text-decoration-none w-100 py-2 py-1 small" ng-click="PageRedirect_Clic(T.LinkText)">
+                            <i class="bi bi-dot"></i> {{T.FormName}}
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <a data-bs-toggle="collapse" href="#mReportMenu" class="text-white">Report</a>
-            <div id="mReportMenu" class="collapse">
-                <div ng-repeat="R in obj.reportList">
-                    <a class="ms-3 text-white" ng-click="PageRedirect_Clic(R.LinkText)">{{R.FormName}}</a>
+
+                <p class="text-muted small fw-bold uppercase px-2 m-0">Report</p>
+                <div class="ps-2 mb-3">
+                    <div ng-repeat="R in obj.reportList">
+                        <button class="btn btn-link text-white-50 text-start text-decoration-none w-100 py-2 py-1 small" ng-click="PageRedirect_Clic(R.LinkText)">
+                            <i class="bi bi-dot"></i> {{R.FormName}}
+                        </button>
+                    </div>
                 </div>
+
+                <hr class="border-secondary" />
+                <button class="btn btn-danger w-100 py-2 rounded-3" ng-click="Logout_Click()">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </button>
             </div>
-            <hr />
-            <a class="btn btn-danger w-100" ng-click="Logout_Click()">Logout</a>
         </div>
     </div>
 
-    <!-- 🔰 Loader -->
+    <!-- 🔰 Modern Minimalist Loader -->
     <div ng-show="isLoading" class="loader-overlay">
-        <div class="lds-dual-ring"></div>
-        <p class="mt-3 fw-bold text-success">Loading...</p>
+        <div class="spinner-custom"></div>
+        <p class="mt-3 fw-medium text-secondary" style="letter-spacing: 0.5px;">Processing data, please wait...</p>
     </div>
 
-    <!-- 🔰 Main Content -->
+    <!-- 🔰 Main Component Content Area -->
     <main class="content-area">
         @RenderBody()
     </main>
 
-    <!-- ✅ Scripts -->
+    <!-- ✅ Bundle Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>

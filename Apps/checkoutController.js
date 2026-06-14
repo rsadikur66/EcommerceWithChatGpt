@@ -106,6 +106,41 @@
         })            
     };
 
+    // ১. পরিমাণ বৃদ্ধি করা (+)
+    $scope.increaseQuantity = function (item) {
+        item.quantity = parseInt(item.quantity) + 1;
+        $scope.saveCartState();
+    };
+
+    // ২. পরিমাণ কমানো (-)
+    $scope.decreaseQuantity = function (item) {
+        if (item.quantity > 1) {
+            item.quantity = parseInt(item.quantity) - 1;
+            $scope.saveCartState();
+        }
+    };
+
+    // ৩. কার্ট থেকে প্রোডাক্ট সম্পূর্ণ বাদ দেওয়া
+    $scope.removeItem = function (item) {
+        if (confirm("আপনি কি নিশ্চিতভাবে এই পণ্যটি কার্ট থেকে বাদ দিতে চান?")) {
+            var index = $scope.cartItems.indexOf(item);
+            if (index > -1) {
+                $scope.cartItems.splice(index, 1);
+                $scope.saveCartState();
+
+                if ($scope.cartItems.length === 0) {
+                    $scope.errorMessage = "আপনার কার্ট খালি। চেকআউট করার জন্য পণ্য যোগ করুন।";
+                }
+            }
+        }
+    };
+
+    // ৪. হেল্পার ফাংশন: localStorage এবং RootScope আপডেট রাখা
+    $scope.saveCartState = function () {
+        localStorage.setItem('cart', JSON.stringify($scope.cartItems));
+        $rootScope.$broadcast('cartUpdated', $scope.cartItems);
+    };
+
 
     // কন্ট্রোলার লোড হওয়ার সময় কার্ট লোড করুন
     $scope.loadCartItems();

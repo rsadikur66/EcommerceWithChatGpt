@@ -2,52 +2,302 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/Apps/checkoutController.js"></script>
 
-<h2>আপনার কেনাকাটার কার্ট</h2>
+<style>
+    /* --- ULTIMATE PREMIUM CHECKOUT DESIGN SCHEMA --- */
+    .checkout-page-wrapper {
+        padding: 30px 0 60px 0;
+    }
 
-<div ng-app="myApp" ng-controller="cartPageController">
-    <div ng-if="cartItems.length === 0" class="alert alert-info">
-        আপনার কার্ট খালি। কেনাকাটা শুরু করুন!
+    .checkout-main-title {
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 35px;
+    }
+
+    /* Form and Segment Card Architecture */
+    .premium-checkout-card {
+        background: #ffffff;
+        border: 1px solid #eaeaea;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        margin-bottom: 25px;
+    }
+
+    .checkout-segment-header {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1a1a;
+        border-bottom: 2px solid #f1f3f5;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .checkout-segment-header i {
+            color: #0d6efd;
+        }
+
+    /* Input Fields Modification */
+    .checkout-form-group .form-label {
+        font-weight: 600;
+        color: #495057;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .checkout-form-group .form-control,
+    .checkout-form-group .form-select {
+        border-radius: 10px;
+        padding: 12px 16px;
+        border: 1px solid #ced4da;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+        .checkout-form-group .form-control:focus,
+        .checkout-form-group .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.12);
+        }
+
+    /* Custom Payment Radio Methods */
+    .payment-method-option {
+        border: 1px solid #eaeaea;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+
+        .payment-method-option:hover {
+            border-color: #0d6efd;
+            background-color: #f8f9fa;
+        }
+
+        .payment-method-option .form-check-input:checked + .form-check-label {
+            font-weight: 600;
+            color: #0d6efd;
+        }
+
+    /* Summary Panel Engine (Right Sticky Card) */
+    .checkout-summary-sidebar {
+        background: #ffffff;
+        border: 1px solid #eaeaea;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        position: sticky;
+        top: 110px;
+    }
+
+    .checkout-item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-size: 14px;
+        color: #495057;
+        padding: 10px 0;
+        border-bottom: 1px dashed #f1f3f5;
+    }
+
+    .checkout-item-title {
+        max-width: 70%;
+        font-weight: 500;
+    }
+
+    .checkout-calc-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+        .checkout-calc-row.total-bill-row {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            border-top: 1px solid #dee2e6;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+    /* Grand Final Action Placement Trigger */
+    .btn-place-order-premium {
+        background: linear-gradient(135deg, #198754, #146c43);
+        color: #ffffff;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 16px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(25, 135, 84, 0.25);
+        width: 100%;
+        cursor: pointer;
+    }
+
+        .btn-place-order-premium:hover {
+            background: linear-gradient(135deg, #146c43, #105635);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(25, 135, 84, 0.35);
+        }
+
+        .btn-place-order-premium:active {
+            transform: translateY(0);
+        }
+</style>
+
+<div ng-controller="checkoutController" class="container checkout-page-wrapper">
+
+    <h2 class="checkout-main-title"><i class="bi bi-shield-check me-2 text-success"></i>নিরাপদ চেকআউট</h2>
+
+    <div ng-if="cartItems.length === 0" class="alert alert-warning border-0 shadow-sm rounded-4 p-4 text-center">
+        <i class="bi bi-exclamation-triangle text-warning fs-1 d-block mb-2"></i>
+        <span class="fs-5 fw-medium d-block mb-3">আপনার কার্ট খালি! অনুগ্রহ করে চেকআউট করার পূর্বে কিছু পণ্য যোগ করুন।</span>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary rounded-pill px-4">কেনাকাটা করুন</a>
     </div>
 
     <div ng-if="cartItems.length > 0">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>পণ্য</th>
-                    @*<th>SKU</th>*@
-                    <th>পরিমাণ</th>
-                    <th>মূল্য</th>
-                    <th>মোট</th>
-                    <th>অ্যাকশন</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in cartItems track by item.ProductId">
-                    <td>{{ item.ProductName }}</td>
-                    @*<td>{{ item.SKU }}</td>*@
-                    <td>
-                        <input type="number" ng-model="item.quantity" ng-change="updateCartItem(item)" min="1" class="form-control" style="width: 80px;">
-                    </td>
-                    <td>{{ item.Price | currency:'৳'}}</td>
-                    <td>{{ (item.quantity * item.Price) | currency:'৳' }}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" ng-click="removeFromCart(item)">মুছে ফেলুন</button>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4" class="text-end"><strong>মোট কার্ট মূল্য:</strong></td>
-                    <td><strong>{{ getTotalCartPrice() | currency:'৳' }}</strong></td>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="row g-4">
 
-        <div class="text-end mt-4">
-            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">আরও কেনাকাটা করুন</a>
-            <a href="@Url.Action("Checkout", "Home")" class="btn btn-success">চেকআউট করুন</a>
+            <div class="col-lg-7">
+
+                <div class="premium-checkout-card">
+                    <h4 class="checkout-segment-header">
+                        <i class="bi bi-geo-alt-fill"></i> ১. ডেলিভারি ঠিকানা ও তথ্য
+                    </h4>
+
+                    <div class="row g-3 checkout-form-group">
+                        <div class="col-md-12">
+                            <label class="form-label">গ্রাহকের নাম <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" ng-model="obj.checkoutForm.CustomerName" placeholder="আপনার পূর্ণ নাম লিখুন" required />
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label">মোবাইল নম্বর <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" ng-model="obj.checkoutForm.CustomerMobile" placeholder="১১ ডিজিটের মোবাইল নম্বর দিন" required />
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label">অঞ্চল/সিটি নির্বাচন করুন <span class="text-danger">*</span></label>
+                            <select class="form-select" ng-model="obj.checkoutForm.Region" ng-change="updateShippingCharge()" required>
+                                <option value="" disabled selected>-- এরিয়া নির্বাচন করুন --</option>
+                                <option value="Inside Dhaka">ঢাকার ভিতরে (Inside Dhaka)</option>
+                                <option value="Outside Dhaka">ঢাকার বাইরে (Outside Dhaka)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label">বিস্তারিত ডেলিভারি ঠিকানা <span class="text-danger">*</span></label>
+                            <textarea class="form-control" ng-model="obj.checkoutForm.DeliveryAddress" rows="3" placeholder="বাসা নম্বর, রোড নম্বর, এলাকা বা ল্যান্ডমার্কের নাম বিস্তারিত লিখুন" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="premium-checkout-card">
+                    <h4 class="checkout-segment-header">
+                        <i class="bi bi-credit-card-fill"></i> ২. পেমেন্ট পদ্ধতি
+                    </h4>
+
+                    <div class="payment-method-option form-check">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" ng-model="obj.checkoutForm.PaymentMethod" value="COD" checked required />
+                        <label class="form-check-label ms-2 d-block" for="cod">
+                            <span class="d-block fw-semibold text-dark">ক্যাশ অন ডেলিভারি (COD)</span>
+                            <span class="text-muted small">পণ্য হাতে পেয়ে বুজে নিয়ে মূল্য পরিশোধ করুন।</span>
+                        </label>
+                    </div>
+
+                    <div class="payment-method-option form-check opacity-75">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="online" ng-model="obj.checkoutForm.PaymentMethod" value="OnlinePayment" disabled />
+                        <label class="form-check-label ms-2 d-block" for="online">
+                            <span class="d-block fw-semibold text-secondary">অনলাইন পেমেন্ট <span class="badge bg-secondary ms-1 small" style="font-size:10px;">Soon</span></span>
+                            <span class="text-muted small">বিকাশ, নগদ, রকেট বা কার্ড পেমেন্ট সিস্টেম — শীঘ্রই আসছে!</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-5">
+                <div class="checkout-summary-sidebar">
+                    <h4 class="checkout-segment-header" style="border-color:#dee2e6">
+                        <i class="bi bi-receipt-cutoff"></i> ৩. অর্ডার সারাংশ
+                    </h4>
+
+                    @*<div class="mb-4" style="max-height: 240px; overflow-y: auto; padding-right: 5px;">
+            <div class="checkout-item-row" ng-repeat="item in cartItems">
+                <div class="checkout-item-title">
+                    <span class="fw-semibold text-dark">{{ item.ProductName }}</span>
+                    <div class="text-muted small">পরিমাণ: {{ item.quantity }} × {{ item.Price | currency:'৳' }}</div>
+                </div>
+                <span class="fw-bold text-dark">{{ (item.quantity * item.Price) | currency:'৳' }}</span>
+            </div>
+        </div>*@
+
+                    <div class="mb-4" style="max-height: 280px; overflow-y: auto; padding-right: 5px;">
+                        <div class="checkout-item-row align-items-center" ng-repeat="item in cartItems">
+                            <div class="checkout-item-title" style="max-width: 60%;">
+                                <span class="fw-semibold text-dark d-block">{{ item.ProductName }}</span>
+
+                                <div class="d-flex align-items-center gap-2 mt-2">
+                                    <div class="btn-group btn-group-sm border rounded-pill overflow-hidden" style="background: #f8f9fa;">
+                                        <button type="button" class="btn btn-light px-2 border-0" ng-click="decreaseQuantity(item)" ng-disabled="item.quantity <= 1">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <span class="px-2 bg-white d-flex align-items-center justify-content-center fw-bold" style="min-width: 30px; font-size: 13px;">
+                                            {{ item.quantity }}
+                                        </span>
+                                        <button type="button" class="btn btn-light px-2 border-0" ng-click="increaseQuantity(item)">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </div>
+
+                                    <button type="button" class="btn btn-link text-danger p-0 ms-1" ng-click="removeItem(item)" title="বাদ দিন" style="text-decoration: none;">
+                                        <i class="bi bi-trash-fill fs-6"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="text-end">
+                                <span class="fw-bold text-dark d-block">{{ (item.quantity * item.Price) | currency:'৳' }}</span>
+                                <small class="text-muted" style="font-size: 11px;">{{ item.Price | currency:'৳' }}/টি</small>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="checkout-calc-row">
+                        <span>উপ-মোট (Subtotal)</span>
+                        <span class="fw-medium text-dark">{{ getTotalCartPrice() | currency:'৳' }}</span>
+                    </div>
+
+                    <div class="checkout-calc-row">
+                        <span>ডেলিভারি চার্জ (Delivery Charge)</span>
+                        <span class="fw-medium text-dark">{{ obj.checkoutForm.ShippingCharge | currency:'৳' }}</span>
+                    </div>
+
+                    <div class="checkout-calc-row total-bill-row">
+                        <span>সর্বমোট বিল</span>
+                        <span class="text-success">{{ (getTotalCartPrice() + obj.checkoutForm.ShippingCharge) | currency:'৳' }}</span>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn-place-order-premium" ng-click="placeOrder()">
+                            <i class="bi bi-bag-check-fill me-2"></i> অর্ডার চূড়ান্ত করুন
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
+
 </div>
