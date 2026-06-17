@@ -1,68 +1,67 @@
-﻿@{
+﻿<!--@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <script src="~/Apps/Setup/T11222Controller.js"></script>
 
-<div class="container" ng-controller="T11222Controller">
-    @*<div class="float-end mb-3">
+<div class="container" ng-controller="T11222Controller">-->
+@*<div class="float-end mb-3">
         <input type="button" value="Save" class="btn btn-outline-success" ng-click="btnSaveClick()" />
         <input type="button" value="Clear" class="btn btn-outline-secondary" ng-click="btnClearClick()" />
         <input type="button" value="Delete" class="btn btn-outline-danger" ng-click="btnDeleteClick()" />
     </div>*@
 
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">নতুন সাব ক্যাটাগরি যোগ করুন</h4>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="subCategoryId" class="form-label">Sub Category Id</label>
-                                <input type="text" class="form-control" ng-model="obj.T11222.SubCategoryId" id="subCategoryId" readonly>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="ddlItemCategories" class="form-label">Category</label>
-                                <select id="ddlItemCategories" class="form-select" ng-model="obj.ddlItemCategories" ng-options="V.Name for V in obj.categories track by V.CategoryId" required>
-                                    <option value="">Select One</option>
-                                </select>
-                            </div>
+<!--<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">নতুন সাব ক্যাটাগরি যোগ করুন</h4>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="subCategoryId" class="form-label">Sub Category Id</label>
+                            <input type="text" class="form-control" ng-model="obj.T11222.SubCategoryId" id="subCategoryId" readonly>
                         </div>
+                        <div class="col-md-6">
+                            <label for="ddlItemCategories" class="form-label">Category</label>
+                            <select id="ddlItemCategories" class="form-select" ng-model="obj.ddlItemCategories" ng-options="V.Name for V in obj.categories track by V.CategoryId" required>
+                                <option value="">Select One</option>
+                            </select>
+                        </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="subCategoryName" class="form-label">Name</label>
-                            <input type="text" class="form-control" ng-model="obj.T11222.Name" id="subCategoryName" required>
-                        </div>
+                    <div class="mb-3">
+                        <label for="subCategoryName" class="form-label">Name</label>
+                        <input type="text" class="form-control" ng-model="obj.T11222.Name" id="subCategoryName" required>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="subCategoryDescription" class="form-label">Description</label>
-                            <textarea class="form-control" ng-model="obj.T11222.Description" id="subCategoryDescription" rows="3"></textarea>
-                        </div>
+                    <div class="mb-3">
+                        <label for="subCategoryDescription" class="form-label">Description</label>
+                        <textarea class="form-control" ng-model="obj.T11222.Description" id="subCategoryDescription" rows="3"></textarea>
+                    </div>
 
-                        <div class="row g-2 mt-3">
-                            <div class="col-12 col-md-auto">
-                                <button type="button" class="btn btn-outline-success w-100" ng-click="btnSaveClick()">Save</button>
-                            </div>
-                            <div class="col-12 col-md-auto">
-                                <button type="button" class="btn btn-outline-secondary w-100" ng-click="btnClearClick()">Clear</button>
-                            </div>
-                            <div class="col-12 col-md-auto">
-                                <button type="button" class="btn btn-outline-danger w-100" ng-click="btnDeleteClick()">Delete</button>
-                            </div>
+                    <div class="row g-2 mt-3">
+                        <div class="col-12 col-md-auto">
+                            <button type="button" class="btn btn-outline-success w-100" ng-click="btnSaveClick()">Save</button>
                         </div>
-                    </form>
-                </div>
+                        <div class="col-12 col-md-auto">
+                            <button type="button" class="btn btn-outline-secondary w-100" ng-click="btnClearClick()">Clear</button>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <button type="button" class="btn btn-outline-danger w-100" ng-click="btnDeleteClick()">Delete</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <hr />
-
-    <!-- Search and Table -->
-    <div class="mt-4">
+<hr />-->
+<!-- Search and Table -->
+<!--<div class="mt-4">
         <input type="text" class="form-control mb-3" placeholder="🔍 Search..." ng-model="searchText">
 
         <div class="table-responsive">
@@ -92,5 +91,252 @@
                                  max-size="5" direction-links="true" boundary-links="true">
         </dir-pagination-controls>
     </div>
-</div>
+</div>-->
+@*new design*@
 
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Apps/Setup/T11222Controller.js"></script>
+
+<style>
+    /* -------------------------------------------
+       গ্লোবাল ও থিম ভ্যারিয়েবল
+    ------------------------------------------- */
+    :root {
+        --primary-theme: #4f46e5;
+        --border-color: #e2e8f0;
+    }
+
+    .custom-spacing {
+        margin-top: 20px;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* -------------------------------------------
+       কার্ড ও ফর্ম ডিজাইন
+    ------------------------------------------- */
+    .custom-card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #4f46e5, #3b82f6) !important;
+        color: white;
+        padding: 18px 20px;
+        border: none;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #818cf8;
+        box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+    }
+
+    /* -------------------------------------------
+       বাটন স্টাইল ও হোভার ইফেক্ট
+    ------------------------------------------- */
+    .btn-action {
+        border-radius: 8px;
+        padding: 8px 20px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+        .btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+    /* -------------------------------------------
+       মডার্ন টেবিল ডিজাইন
+    ------------------------------------------- */
+    .custom-table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .custom-table thead th {
+            background-color: #f1f5f9 !important;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            padding: 12px 16px;
+            border-bottom: 2px solid #cbd5e1;
+        }
+
+        .custom-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+            .custom-table tbody tr:hover {
+                background-color: #f8fafc !important;
+                cursor: pointer;
+            }
+
+    /* -------------------------------------------
+       সিলেক্টেড রো হাইলাইট ফিক্স (Guaranteed Fix)
+    ------------------------------------------- */
+    table.table tbody tr.table-warning,
+    table.table tbody tr.table-warning td,
+    table.table tbody tr.selected-row,
+    table.table tbody tr.selected-row td {
+        background-color: #e0e7ff !important; /* হালকা বেগুনি/নীল টোন */
+        color: #4338ca !important; /* টেক্সট কালার ডার্ক ব্লু */
+        font-weight: 600 !important;
+    }
+
+    /* -------------------------------------------
+       পেজিনেশন অ্যাক্টিভ স্টেট ফিক্স (Permanent Fix)
+    ------------------------------------------- */
+    .pagination .page-item.active .page-link,
+    .pagination .active a,
+    .pagination .active span,
+    .pagination li.active > a,
+    .pagination li.active > span,
+    .pagination li.active a:focus,
+    .pagination li.active a:active {
+        background-color: #4f46e5 !important;
+        border-color: #4f46e5 !important;
+        color: #ffffff !important;
+        font-weight: bold !important;
+        box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3) !important;
+        outline: none !important;
+        z-index: 3;
+    }
+
+    /* সাধারণ পেজ নাম্বার */
+    .pagination .page-item .page-link,
+    .pagination li a {
+        color: #475569 !important;
+        border-radius: 6px !important;
+        margin: 0 3px !important;
+        padding: 6px 12px !important;
+        transition: all 0.2s ease;
+        border: 1px solid #e2e8f0 !important;
+        background-color: #ffffff !important;
+    }
+
+        /* পেজ নাম্বার হোভার */
+        .pagination .page-item .page-link:hover,
+        .pagination li a:hover {
+            background-color: #e0e7ff !important;
+            color: #4f46e5 !important;
+            border-color: #c7d2fe !important;
+        }
+
+    /* ডিজেবলড বাটন (Previous/Next) */
+    .pagination .page-item.disabled .page-link,
+    .pagination li.disabled a {
+        color: #cbd5e1 !important;
+        background-color: #f8fafc !important;
+        border-color: #e2e8f0 !important;
+        cursor: not-allowed;
+    }
+</style>
+
+<div class="container-fluid custom-spacing" ng-controller="T11222Controller">
+    <div class="row g-4">
+
+        <div class="col-md-5 col-lg-5 mb-4">
+            <div class="card custom-card">
+                <div class="card-header form-header">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-plus-circle me-2"></i>নতুন সাব ক্যাটাগরি যোগ করুন</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-5">
+                                <label for="subCategoryId" class="form-label fw-semibold text-secondary mb-1">Sub Category Id</label>
+                                <input type="text" class="form-control bg-light fw-bold text-muted" ng-model="obj.T11222.SubCategoryId" id="subCategoryId" readonly style="border-style: dashed;">
+                            </div>
+                            <div class="col-md-7">
+                                <label for="ddlItemCategories" class="form-label fw-semibold text-secondary mb-1">Category</label>
+                                <select id="ddlItemCategories" class="form-select" ng-model="obj.ddlItemCategories" ng-options="V.Name for V in obj.categories track by V.CategoryId" required>
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subCategoryName" class="form-label fw-semibold text-secondary mb-1">Sub Category Name</label>
+                            <input type="text" class="form-control" ng-model="obj.T11222.Name" id="subCategoryName" placeholder="উদা: স্মার্টফোন" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subCategoryDescription" class="form-label fw-semibold text-secondary mb-1">Description</label>
+                            <textarea class="form-control" ng-model="obj.T11222.Description" id="subCategoryDescription" rows="4" placeholder="বিস্তারিত বিবরণ লিখুন..."></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4 border-top pt-3">
+                            <button type="button" class="btn btn-success btn-action px-4" ng-click="btnSaveClick()">
+                                <i class="bi bi-save me-1"></i> Save
+                            </button>
+                            <button type="button" class="btn btn-dark btn-action px-4" ng-click="btnClearClick()">
+                                <i class="bi bi-arrow-counterclockwise me-1"></i> Clear
+                            </button>
+                            <button type="button" class="btn btn-danger btn-action px-4" ng-click="btnDeleteClick()">
+                                <i class="bi bi-trash me-1"></i> Delete
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 col-lg-7">
+            <div class="card custom-card p-4">
+
+                <div class="row g-2 mb-3">
+                    <div class="col-md-7">
+                        <div class="position-relative">
+                            <span class="position-absolute top-50 translate-middle-y ps-3 text-secondary">🔍</span>
+                            <input type="text" class="form-control ps-5" placeholder="সব কলামে খুঁজুন (Global Search...)" ng-model="searchText.$" style="height: 42px; border-radius: 8px;">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select" ng-model="searchText.CategoryName" style="height: 42px; border-radius: 8px; background-color: #f8fafc;">
+                            <option value="">📂 All Categories</option>
+                            <option ng-repeat="c in obj.categories" value="{{c.Name}}">{{c.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive" style="border-radius: 8px; border: 1px solid var(--border-color);">
+                    <table class="table table-sm table-striped align-middle custom-table mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Id</th>
+                                <th style="width: 30%;">Category Name</th>
+                                <th style="width: 25%;">Sub Category Name</th>
+                                <th style="width: 30%;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="subCat in obj.subCategories | filter:searchText | itemsPerPage: pageSize"
+                                ng-click="selectSubCategory(subCat)"
+                                ng-class="{'table-warning': selectedSubCategory === subCat.SubCategoryId}">
+                                <td class="fw-bold text-secondary">{{ subCat.SubCategoryId }}</td>
+                                <td><span class="badge bg-secondary text-white p-2 fw-normal" style="font-size: 0.85rem;">{{ subCat.CategoryName }}</span></td>
+                                <td class="fw-semibold text-dark">{{ subCat.Name }}</td>
+                                <td class="text-muted small">{{ subCat.Description }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-center mt-3">
+                    <dir-pagination-controls template-url="/Content/Template/pagination.html"
+                                             max-size="5" direction-links="true" boundary-links="true">
+                    </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
