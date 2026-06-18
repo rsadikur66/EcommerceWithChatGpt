@@ -101,7 +101,7 @@
 
 <style>
     /* -------------------------------------------
-       গ্লোবাল ও থিম ভ্যারিয়েবল
+        গ্লোবাল ও থিম ভ্যারিয়েবল
     ------------------------------------------- */
     :root {
         --primary-theme: #4f46e5;
@@ -114,7 +114,7 @@
     }
 
     /* -------------------------------------------
-       কার্ড ও ফর্ম ডিজাইন
+        কার্ড ও ফর্ম ডিজাইন
     ------------------------------------------- */
     .custom-card {
         border: none;
@@ -137,7 +137,7 @@
     }
 
     /* -------------------------------------------
-       বাটন স্টাইল ও হোভার ইফেক্ট
+        বাটন স্টাইল ও হোভার ইফেক্ট
     ------------------------------------------- */
     .btn-action {
         border-radius: 8px;
@@ -152,7 +152,7 @@
         }
 
     /* -------------------------------------------
-       মডার্ন টেবিল ডিজাইন
+        মডার্ন টেবিল ডিজাইন
     ------------------------------------------- */
     .custom-table {
         border-collapse: separate;
@@ -180,7 +180,7 @@
             }
 
     /* -------------------------------------------
-       সিলেক্টেড রো হাইলাইট ফিক্স (Guaranteed Fix)
+        সিলেক্টেড রো হাইলাইট ফিক্স (Guaranteed Fix)
     ------------------------------------------- */
     table.table tbody tr.table-warning,
     table.table tbody tr.table-warning td,
@@ -192,7 +192,7 @@
     }
 
     /* -------------------------------------------
-       পেজিনেশন অ্যাক্টিভ স্টেট ফিক্স (Permanent Fix)
+        পেজিনেশন অ্যাক্টিভ স্টেট ফিক্স (Permanent Fix)
     ------------------------------------------- */
     .pagination .page-item.active .page-link,
     .pagination .active a,
@@ -320,7 +320,7 @@
                         <tbody>
                             <tr dir-paginate="subCat in obj.subCategories | filter:searchText | itemsPerPage: pageSize"
                                 ng-click="selectSubCategory(subCat)"
-                                ng-class="{'table-warning': selectedSubCategory === subCat.SubCategoryId}">
+                                ng-class="{'table-warning': obj.T11222.SubCategoryId === subCat.SubCategoryId}">
                                 <td class="fw-bold text-secondary">{{ subCat.SubCategoryId }}</td>
                                 <td><span class="badge bg-secondary text-white p-2 fw-normal" style="font-size: 0.85rem;">{{ subCat.CategoryName }}</span></td>
                                 <td class="fw-semibold text-dark">{{ subCat.Name }}</td>
