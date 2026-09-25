@@ -2,7 +2,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/Apps/checkoutController.js"></script>
+
+<script src="~/Apps/cartPageController.js"></script>
 
 <style>
     /* --- ULTIMATE PREMIUM CHECKOUT DESIGN SCHEMA --- */
@@ -154,7 +155,7 @@
         }
 </style>
 
-<div ng-controller="checkoutController" class="container checkout-page-wrapper">
+<div ng-controller="cartPageController" class="container checkout-page-wrapper">
 
     <h2 class="checkout-main-title"><i class="bi bi-shield-check me-2 text-success"></i>নিরাপদ চেকআউট</h2>
 
@@ -232,14 +233,14 @@
                     </h4>
 
                     @*<div class="mb-4" style="max-height: 240px; overflow-y: auto; padding-right: 5px;">
-            <div class="checkout-item-row" ng-repeat="item in cartItems">
-                <div class="checkout-item-title">
-                    <span class="fw-semibold text-dark">{{ item.ProductName }}</span>
-                    <div class="text-muted small">পরিমাণ: {{ item.quantity }} × {{ item.Price | currency:'৳' }}</div>
-                </div>
-                <span class="fw-bold text-dark">{{ (item.quantity * item.Price) | currency:'৳' }}</span>
-            </div>
-        </div>*@
+                            <div class="checkout-item-row" ng-repeat="item in cartItems">
+                                <div class="checkout-item-title">
+                                    <span class="fw-semibold text-dark">{{ item.ProductName }}</span>
+                                    <div class="text-muted small">পরিমাণ: {{ item.quantity }} × {{ item.Price | currency:'৳' }}</div>
+                                </div>
+                                <span class="fw-bold text-dark">{{ (item.quantity * item.Price) | currency:'৳' }}</span>
+                            </div>
+                        </div>*@
 
                     <div class="mb-4" style="max-height: 280px; overflow-y: auto; padding-right: 5px;">
                         <div class="checkout-item-row align-items-center" ng-repeat="item in cartItems">

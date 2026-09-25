@@ -11,8 +11,8 @@ namespace DataAccessLayer.Common
 {
     public class CommonDAL
     {
-        private SqlTransaction _sqlTransaction;
-        readonly SqlConnection _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlCon"].ConnectionString);
+        protected SqlTransaction _sqlTransaction;
+        protected readonly SqlConnection _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlCon"].ConnectionString);
         public void BeginTransaction()
         {
             if (_sqlConnection.State != ConnectionState.Open)
@@ -35,9 +35,38 @@ namespace DataAccessLayer.Common
             var sqlCommand = new SqlCommand
             {
                 Connection = _sqlConnection,
-                CommandText = command
+                CommandText = command,
+                Transaction = _sqlTransaction   // ✅ fix: transaction bound হলে attach হবে
             };
             return sqlCommand.ExecuteNonQuery() > 0;
+        }
+        // ✅ নতুন parameterized overload
+        public bool Command(string command, SqlParameter[] parameters)
+        {
+            if (_sqlConnection.State != ConnectionState.Open)
+                _sqlConnection.Open();
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = command,
+                Transaction = _sqlTransaction
+            };
+            if (parameters != null) sqlCommand.Parameters.AddRange(parameters);
+            return sqlCommand.ExecuteNonQuery() > 0;
+        }
+        // ✅ নতুন parameterized ExecuteScalar (transaction-aware)
+        public object ExecuteScalar(string query, SqlParameter[] parameters)
+        {
+            if (_sqlConnection.State != ConnectionState.Open)
+                _sqlConnection.Open();
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = query,
+                Transaction = _sqlTransaction
+            };
+            if (parameters != null) sqlCommand.Parameters.AddRange(parameters);
+            return sqlCommand.ExecuteScalar();
         }
         public bool Command_1(string command)
         {
@@ -105,6 +134,24 @@ namespace DataAccessLayer.Common
             return dataTable;
         }
 
+        public DataTable Query(string query, SqlParameter[] parameters)
+        {
+            if (_sqlConnection.State != ConnectionState.Open)
+                _sqlConnection.Open();
+
+            var sqlCommand = new SqlCommand
+            {
+                Connection = _sqlConnection,
+                CommandText = query,
+                Transaction = _sqlTransaction
+            };
+            if (parameters != null) sqlCommand.Parameters.AddRange(parameters);
+
+            var sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            var dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            return dataTable;
+        }
         public DataTable ExecuteSelectWithoutParam(String procedureName)
         {
             var sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlCon"].ConnectionString);

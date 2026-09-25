@@ -441,7 +441,24 @@
             <div class="d-flex align-items-center gap-3">
                 <div class="d-none d-sm-flex flex-column text-end">
                     <span class="fw-semibold small text-secondary">Welcome back,</span>
-                    <span class="fw-bold text-dark small">Administrator</span>
+                    <span class="fw-bold text-dark small">
+                        @{
+                            var fullName = "";
+                            if (Session["FirstName"] != null && Session["LastName"] != null)
+                            {
+                                fullName = Session["FirstName"].ToString() + " " + Session["LastName"].ToString();
+                            }
+                            else if (Session["Username"] != null)
+                            {
+                                fullName = Session["Username"].ToString();
+                            }
+                            else
+                            {
+                                fullName = "User";
+                            }
+                        }
+                        @fullName
+                    </span>
                 </div>
                 <div class="vr mx-2 d-none d-sm-block" style="height: 30px;"></div>
                 <button class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2 px-3 py-2 rounded-3 fw-medium" ng-click="Logout_Click()">

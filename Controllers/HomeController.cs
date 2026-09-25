@@ -33,6 +33,11 @@ namespace EcommerceWithChatGpt.Controllers
         {
             return View();
         }
+        //public ActionResult InvoiceReport(string orderId)
+        //{
+        //    ViewBag.OrderId = orderId;
+        //    return View("InvoiceReport"); // InvoiceReport.cshtml ভিউটি রিটার্ন করবে
+        //}
         public ActionResult H00001()
         {
             if (Session["UserCode"] == null)
@@ -150,31 +155,27 @@ namespace EcommerceWithChatGpt.Controllers
 
         [HttpPost]
         public ActionResult OrderPlaced(OrderInformation_T11224 model, List<OrderItems_T11225> list)
-        //public ActionResult OrderPlaced(OrderModel model)
         {
             try
             {
                 if (Session["UserCode"] == null)
                 {
-                    return Json(new { success = false, message = "0001" },
-                        JsonRequestBehavior.AllowGet);
+                    return Json(new { success = false, message = "0001" }, JsonRequestBehavior.AllowGet);
                 }
 
-
-
-                // 3. UserCode নিয়ে order save করা
                 var userCode = Session["UserCode"].ToString();
+                var result = repository.OrderPlacedSaved(model, list, userCode);
 
-                //var result = orderDAL.SaveOrder(order, userCode);
-                var data = repository.OrderPlacedSaved(model, list, userCode);
-                //var data = repository.OrderPlacedSaved(model,userCode);
-                string JSONString = string.Empty;
-                JSONString = JsonConvert.SerializeObject(data);
-                return Json(JSONString, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    success = result.Success,
+                    orderId = result.OrderId,
+                    message = result.Message
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -226,6 +227,25 @@ namespace EcommerceWithChatGpt.Controllers
         //        return Json(ex.Message, JsonRequestBehavior.AllowGet);
         //    }
         //}
+
+        public ActionResult InvoiceReport(int orderId)
+        {
+            if (Session["UserCode"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var userCode = Session["UserCode"].ToString();
+            var model = repository.GetOrderInvoice(orderId, userCode);
+
+            if (model == null)
+            {
+                // অর্ডার নেই অথবা অন্য কারো অর্ডার — অ্যাক্সেস দেওয়া হবে না
+                return HttpNotFound("Order not found.");
+            }
+
+            return View("InvoiceReport", model);
+        }
 
 
     }

@@ -21,7 +21,7 @@
     <script src="~/Apps/homepageController.js"></script>
     <script src="~/Apps/ProductDetailsController.js"></script>
     <script src="~/Apps/cartPageController.js"></script>
-    <script src="~/Apps/checkoutController.js"></script>
+    @*<script src="~/Apps/checkoutController.js"></script>*@
 
     <style>
         * {
@@ -247,10 +247,54 @@
                             {{ cartItemCount }}
                         </span>
                     </a>
-                    <a href="@Url.Action("Login","Login")" class="btn btn-primary px-3 rounded-pill d-flex align-items-center gap-1">
-                        <i class="bi bi-person-circle fs-5"></i> 
-                        <span class="d-none d-sm-inline" style="text-transform: none; font-weight:600;">Login</span>
-                    </a>
+                    @*<a href="@Url.Action("Login","Login")" class="btn btn-primary px-3 rounded-pill d-flex align-items-center gap-1">
+            <i class="bi bi-person-circle fs-5"></i>
+            <span class="d-none d-sm-inline" style="text-transform: none; font-weight:600;">Login</span>
+        </a>*@
+                    @if (Session["Username"] != null)
+                    {
+                        var displayName = Session["FirstName"] != null && !string.IsNullOrWhiteSpace(Session["FirstName"].ToString())
+                            ? Session["FirstName"].ToString()
+                            : Session["Username"].ToString();
+
+                        <!-- Logged In User Dropdown -->
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary rounded-pill dropdown-toggle d-flex align-items-center gap-2 px-3"
+                                    type="button"
+                                    id="userDropdown"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="bi bi-person-circle fs-5"></i>
+                                <span style="font-weight: 600;">@displayName</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item py-2 d-flex align-items-center gap-2" href="@Url.Action("Index", "UserProfile")">
+                                        <i class="bi bi-person text-primary fs-5"></i> User Information
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2 d-flex align-items-center gap-2" href="@Url.Action("MyOrders", "Order")">
+                                        <i class="bi bi-bag-check text-success fs-5"></i> Order List
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item py-2 d-flex align-items-center gap-2 text-danger" href="javascript:void(0)" ng-click="Logout_Click()">
+                                        <i class="bi bi-box-arrow-right fs-5"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- Guest User Login Button -->
+                        <a href="@Url.Action("Login","Login")" class="btn btn-primary px-3 rounded-pill d-flex align-items-center gap-1">
+                            <i class="bi bi-person-circle fs-5"></i>
+                            <span class="d-none d-sm-inline" style="text-transform: none; font-weight:600;">Login</span>
+                        </a>
+                    }
                 </div>
 
             </div>

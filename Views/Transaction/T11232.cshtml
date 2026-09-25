@@ -1,0 +1,312 @@
+﻿
+@{
+    ViewBag.Title = "T11232";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Apps/Transaction/T11232Controller.js"></script>
+
+<style>
+    .stock-page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 1.5rem;
+    }
+
+    .stock-page-title {
+        font-weight: 700;
+        color: var(--text-main, #1E293B);
+        margin: 0;
+    }
+
+    .stock-page-subtitle {
+        color: #64748B;
+        font-size: 0.9rem;
+        margin: 2px 0 0;
+    }
+
+    .stock-count-badge {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color, #2563EB);
+        font-weight: 600;
+        font-size: 0.8rem;
+        padding: 6px 14px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+
+    .stock-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+        border: 1px solid #EEF2F7;
+        overflow: hidden;
+    }
+
+    .stock-search-wrap {
+        position: relative;
+        padding: 1.25rem 1.25rem 0.5rem;
+    }
+
+        .stock-search-wrap i {
+            position: absolute;
+            top: 50%;
+            left: 2.25rem;
+            transform: translateY(-50%);
+            color: #94A3B8;
+        }
+
+    .stock-search-input {
+        padding-left: 2.5rem;
+        border-radius: 10px;
+        border: 1px solid #E2E8F0;
+        background-color: #F8FAFC;
+    }
+
+        .stock-search-input:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            border-color: var(--primary-color, #2563EB);
+            background-color: #fff;
+        }
+
+    .stock-table thead th {
+        background-color: #F8FAFC;
+        color: #64748B;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        font-weight: 700;
+        border-bottom: 1px solid #E2E8F0;
+        white-space: nowrap;
+    }
+
+    .stock-table tbody td {
+        vertical-align: middle;
+        font-size: 0.9rem;
+        color: #334155;
+        border-color: #F1F5F9;
+    }
+
+    .stock-table tbody tr:hover {
+        background-color: #F8FAFC;
+    }
+
+    .product-thumb {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        object-fit: cover;
+        background: #F1F5F9;
+    }
+
+    .product-name {
+        font-weight: 600;
+        color: #1E293B;
+    }
+
+    .product-sku {
+        color: #94A3B8;
+        font-size: 0.78rem;
+    }
+
+    .stock-qty {
+        font-weight: 700;
+        font-size: 0.95rem;
+        padding: 4px 12px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    .stock-ok {
+        background: #D1FAE5;
+        color: #065F46;
+    }
+
+    .stock-low {
+        background: #FEF3C7;
+        color: #92400E;
+    }
+
+    .stock-out {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
+
+    .btn-adjust {
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 6px 14px;
+        white-space: nowrap;
+    }
+
+    .change-type-toggle .btn {
+        border-radius: 8px;
+    }
+
+    .movement-timeline {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+        .movement-timeline li {
+            position: relative;
+            padding: 0 0 14px 22px;
+            border-left: 2px solid #E2E8F0;
+        }
+
+            .movement-timeline li:last-child {
+                border-left-color: transparent;
+                padding-bottom: 0;
+            }
+
+            .movement-timeline li::before {
+                content: '';
+                position: absolute;
+                left: -6px;
+                top: 4px;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+            }
+
+            .movement-timeline li.type-in::before {
+                background: #059669;
+            }
+
+            .movement-timeline li.type-out::before {
+                background: #DC2626;
+            }
+</style>
+
+<div ng-app="myApp" ng-controller="T11232Controller">
+
+    <div class="stock-page-header">
+        <div>
+            <h2 class="stock-page-title">
+                <i class="bi bi-box-seam-fill me-2 text-primary"></i>{{FormName}}
+            </h2>
+            <p class="stock-page-subtitle">প্রোডাক্টের বর্তমান স্টক দেখুন এবং প্রয়োজনে ম্যানুয়ালি Add/Reduce করুন।</p>
+        </div>
+        <span class="stock-count-badge">
+            <i class="bi bi-box2-fill me-1"></i>{{ (obj.productlists | filter:searchText).length }} টি প্রোডাক্ট
+        </span>
+    </div>
+
+    <div class="stock-card">
+
+        <div class="stock-search-wrap">
+            <i class="bi bi-search"></i>
+            <input type="text" class="form-control stock-search-input" placeholder="প্রোডাক্টের নাম বা SKU দিয়ে খুঁজুন..." ng-model="searchText">
+        </div>
+
+        <div class="table-responsive">
+            <table class="table stock-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Product</th>
+                        <th>SKU</th>
+                        <th class="text-end">Price</th>
+                        <th class="text-center">Current Stock</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="product in obj.productlists | filter:searchText | itemsPerPage: pageSize track by product.ProductId">
+                        <td>
+                            <img ng-src="{{ product.ImageUrl ? '/' + product.ImageUrl : '/Images/no-image.png' }}" class="product-thumb" alt="" />
+                        </td>
+                        <td><span class="product-name">{{ product.ProductName }}</span></td>
+                        <td><span class="product-sku">{{ product.SKU || '—' }}</span></td>
+                        <td class="text-end">৳ {{ product.Price }}</td>
+                        <td class="text-center">
+                            <span class="stock-qty"
+                                  ng-class="product.StockQuantity === 0 ? 'stock-out' : (product.StockQuantity <= 10 ? 'stock-low' : 'stock-ok')">
+                                {{ product.StockQuantity }} {{ product.Unit }}
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <button type="button" class="btn btn-primary btn-adjust" ng-click="openAdjustModal(product)">
+                                <i class="bi bi-sliders me-1"></i>Adjust Stock
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="px-3 py-3">
+            <dir-pagination-controls template-url="/Content/Template/pagination.html"
+                                     max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Stock Adjust Modal -->
+    <!-- ============================================================ -->
+    <div class="modal fade" id="adjustStockModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 14px; border: none;">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">
+                        <i class="bi bi-sliders me-2 text-primary"></i>স্টক আপডেট — {{ adjustModal.product.ProductName }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-3">
+
+                    <p class="small text-muted mb-3">বর্তমান স্টক: <strong>{{ adjustModal.product.StockQuantity }} {{ adjustModal.product.Unit }}</strong></p>
+
+                    <label class="form-label fw-semibold small text-muted">টাইপ</label>
+                    <div class="btn-group w-100 mb-3 change-type-toggle" role="group">
+                        <input type="radio" class="btn-check" name="changeType" id="typeIn" ng-model="adjustModal.changeType" value="IN">
+                        <label class="btn btn-outline-success" for="typeIn"><i class="bi bi-plus-circle me-1"></i>স্টক বাড়ান (IN)</label>
+
+                        <input type="radio" class="btn-check" name="changeType" id="typeOut" ng-model="adjustModal.changeType" value="OUT">
+                        <label class="btn btn-outline-danger" for="typeOut"><i class="bi bi-dash-circle me-1"></i>স্টক কমান (OUT)</label>
+                    </div>
+
+                    <label class="form-label fw-semibold small text-muted">পরিমাণ</label>
+                    <input type="number" min="1" class="form-control mb-3" ng-model="adjustModal.quantity" placeholder="যেমন: 20" />
+
+                    <label class="form-label fw-semibold small text-muted">কারণ (ঐচ্ছিক)</label>
+                    <input type="text" class="form-control mb-4" ng-model="adjustModal.reason" placeholder="যেমন: নতুন চালান এলো / ড্যামেজড পণ্য" />
+
+                    <label class="form-label fw-semibold small text-muted">স্টক মুভমেন্ট হিস্টোরি</label>
+                    <div ng-if="adjustModal.loadingHistory" class="text-muted small py-2">লোড হচ্ছে...</div>
+                    <ul class="movement-timeline" ng-if="!adjustModal.loadingHistory">
+                        <li ng-repeat="h in adjustModal.history" ng-class="h.ChangeType === 'IN' ? 'type-in' : 'type-out'">
+                            <div class="fw-semibold small">
+                                <span ng-if="h.ChangeType === 'IN'" class="text-success">+{{ h.Quantity }}</span>
+                                <span ng-if="h.ChangeType === 'OUT'" class="text-danger">-{{ h.Quantity }}</span>
+                                ({{ h.PreviousStock }} → {{ h.NewStock }})
+                            </div>
+                            <div class="text-muted" style="font-size: 0.78rem;">
+                                {{ h.ChangedAt_Text }} — {{ h.ChangedBy }}
+                                <span ng-if="h.Reason"> · {{ h.Reason }}</span>
+                            </div>
+                        </li>
+                        <li ng-if="adjustModal.history.length === 0">
+                            <div class="text-muted small">এখনো কোনো স্টক মুভমেন্ট হিস্টোরি নেই।</div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">বাতিল</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirmStockAdjust()">
+                        <i class="bi bi-check2 me-1"></i>আপডেট করুন
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

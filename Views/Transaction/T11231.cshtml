@@ -4,41 +4,340 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <script src="~/Apps/Transaction/T11231Controller.js"></script>
-<h2 class="text-success">{{FormName}}</h2>
 
- <!-- Search and Table -->
-<div class="mt-4" ng-app="myApp" ng-controller="T11231Controller">
-    <input type="text" class="form-control mb-3" placeholder="🔍 Search..." ng-model="searchText">
+<style>
+    .order-page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 1.5rem;
+    }
 
-    <div class="table-responsive">
-        <table class="table table-striped table-hover table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <th style="width:7%">Order Id</th>
-                    <th style="width:13%">Order Date & Time</th>
-                    <th style="width:15%">Customer Name</th>
-                    <th style="width:10%">Mobile No</th>
-                    <th style="width:10%">Grand Total</th>
-                    <th style="width:30%">Shipping Address</th>
-                    <th style="width:5%"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr dir-paginate="orders in obj.orderlists | filter:searchText | itemsPerPage: pageSize track by orders.OrderID">
-                    <td style="width:7%">{{ orders.OrderID }}</td>
-                    <td style="width:13%">{{ orders.OrderDate_Time }}</td>
-                    <td style="width:15%">{{ orders.RecipientName }}</td>
-                    <td style="width:10%">{{ orders.RecipientPhone }}</td>
-                    <td style="width:10%">{{orders.GrandTotal}}</td>
-                    <td style="width:30%">{{orders.ShippingAddress}}</td>
-                    <td style="width:10%"><input type="button" ng-click="btnOrderDetails()" value="Order Details" /></td>
-                </tr>
-            </tbody>
-        </table>
+    .order-page-title {
+        font-weight: 700;
+        color: var(--text-main, #1E293B);
+        margin: 0;
+    }
+
+    .order-page-subtitle {
+        color: #64748B;
+        font-size: 0.9rem;
+        margin: 2px 0 0;
+    }
+
+    .order-count-badge {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color, #2563EB);
+        font-weight: 600;
+        font-size: 0.8rem;
+        padding: 6px 14px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+
+    .order-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+        border: 1px solid #EEF2F7;
+        overflow: hidden;
+    }
+
+    .order-search-wrap {
+        position: relative;
+        padding: 1.25rem 1.25rem 0.5rem;
+    }
+
+        .order-search-wrap i {
+            position: absolute;
+            top: 50%;
+            left: 2.25rem;
+            transform: translateY(-50%);
+            color: #94A3B8;
+        }
+
+    .order-search-input {
+        padding-left: 2.5rem;
+        border-radius: 10px;
+        border: 1px solid #E2E8F0;
+        background-color: #F8FAFC;
+    }
+
+        .order-search-input:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            border-color: var(--primary-color, #2563EB);
+            background-color: #fff;
+        }
+
+    .order-table thead th {
+        background-color: #F8FAFC;
+        color: #64748B;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        font-weight: 700;
+        border-bottom: 1px solid #E2E8F0;
+        white-space: nowrap;
+    }
+
+    .order-table tbody td {
+        vertical-align: middle;
+        font-size: 0.9rem;
+        color: #334155;
+        border-color: #F1F5F9;
+    }
+
+    .order-table tbody tr {
+        transition: background-color 0.15s ease;
+    }
+
+        .order-table tbody tr:hover {
+            background-color: #F8FAFC;
+        }
+
+    .order-id-chip {
+        font-weight: 700;
+        color: var(--primary-color, #2563EB);
+    }
+
+    .order-customer-name {
+        font-weight: 600;
+        color: #1E293B;
+    }
+
+    .order-total-amount {
+        font-weight: 700;
+        color: #0F766E;
+    }
+
+    .order-address-cell {
+        color: #64748B;
+        font-size: 0.85rem;
+        max-width: 320px;
+    }
+
+    .btn-invoice {
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 6px 14px;
+        white-space: nowrap;
+    }
+
+    .empty-value {
+        color: #CBD5E1;
+        font-style: italic;
+        font-size: 0.82rem;
+    }
+
+    /* Status badges */
+    .status-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+        text-transform: capitalize;
+    }
+
+    .status-pending {
+        background: #FEF3C7;
+        color: #92400E;
+    }
+
+    .status-confirmed {
+        background: #DBEAFE;
+        color: #1E40AF;
+    }
+
+    .status-processing {
+        background: #E0E7FF;
+        color: #3730A3;
+    }
+
+    .status-shipped {
+        background: #EDE9FE;
+        color: #5B21B6;
+    }
+
+    .status-delivered {
+        background: #D1FAE5;
+        color: #065F46;
+    }
+
+    .status-cancelled {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
+
+    .status-default {
+        background: #F1F5F9;
+        color: #475569;
+    }
+
+    .btn-status {
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 6px 14px;
+        white-space: nowrap;
+    }
+
+    /* Status timeline (modal) */
+    .status-timeline {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        max-height: 220px;
+        overflow-y: auto;
+    }
+
+        .status-timeline li {
+            position: relative;
+            padding: 0 0 16px 22px;
+            border-left: 2px solid #E2E8F0;
+        }
+
+            .status-timeline li:last-child {
+                border-left-color: transparent;
+                padding-bottom: 0;
+            }
+
+            .status-timeline li::before {
+                content: '';
+                position: absolute;
+                left: -6px;
+                top: 4px;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: var(--primary-color, #2563EB);
+            }
+</style>
+
+<!-- Search and Table -->
+<div ng-app="myApp" ng-controller="T11231Controller">
+
+    <div class="order-page-header">
+        <div>
+            <h2 class="order-page-title">
+                <i class="bi bi-receipt-cutoff me-2 text-primary"></i>{{FormName}}
+            </h2>
+            <p class="order-page-subtitle">সমস্ত কাস্টমার অর্ডার এখান থেকে দেখুন, স্ট্যাটাস আপডেট করুন এবং ইনভয়েস চেক করুন।</p>
+        </div>
+        <span class="order-count-badge">
+            <i class="bi bi-box-seam me-1"></i>{{ (obj.orderlists | filter:searchText).length }} টি অর্ডার
+        </span>
     </div>
 
-    <dir-pagination-controls template-url="/Content/Template/pagination.html"
-                             max-size="5" direction-links="true" boundary-links="true">
-    </dir-pagination-controls>
-</div>
+    <div class="order-card">
 
+        <div class="order-search-wrap">
+            <i class="bi bi-search"></i>
+            <input type="text" class="form-control order-search-input" placeholder="Order ID, নাম, মোবাইল নম্বর দিয়ে খুঁজুন..." ng-model="searchText">
+        </div>
+
+        <div class="table-responsive">
+            <table class="table order-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Order Date &amp; Time</th>
+                        <th>Customer Name</th>
+                        <th>Mobile No</th>
+                        <th>Grand Total</th>
+                        <th>Status</th>
+                        <th>Shipping Address</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="orders in obj.orderlists | filter:searchText | itemsPerPage: pageSize track by orders.OrderID">
+                        <td><span class="order-id-chip">#{{ orders.OrderID }}</span></td>
+                        <td>{{ orders.OrderDate_Time }}</td>
+                        <td>
+                            <span ng-if="orders.RecipientName" class="order-customer-name">{{ orders.RecipientName }}</span>
+                            <span ng-if="!orders.RecipientName" class="empty-value">তথ্য নেই</span>
+                        </td>
+                        <td>
+                            <span ng-if="orders.RecipientPhone">{{ orders.RecipientPhone }}</span>
+                            <span ng-if="!orders.RecipientPhone" class="empty-value">তথ্য নেই</span>
+                        </td>
+                        <td><span class="order-total-amount">৳ {{ orders.GrandTotal }}</span></td>
+                        <td>
+                            <span class="status-badge"
+                                  ng-class="'status-' + (orders.OrderStatus ? orders.OrderStatus.toLowerCase() : 'default')">
+                                {{ orders.OrderStatus || 'Pending' }}
+                            </span>
+                        </td>
+                        <td class="order-address-cell">
+                            <span ng-if="orders.ShippingAddress">{{ orders.ShippingAddress }}</span>
+                            <span ng-if="!orders.ShippingAddress" class="empty-value">ঠিকানা নেই</span>
+                        </td>
+                        <td class="text-end">
+                            <div class="d-flex gap-2 justify-content-end">
+                                <button type="button" class="btn btn-outline-primary btn-status" ng-click="openStatusModal(orders)">
+                                    <i class="bi bi-arrow-repeat me-1"></i>Status
+                                </button>
+                                <button type="button" class="btn btn-primary btn-invoice" ng-click="btnOrderDetails(orders)">
+                                    <i class="bi bi-file-earmark-text me-1"></i>Order Details
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="px-3 py-3">
+            <dir-pagination-controls template-url="/Content/Template/pagination.html"
+                                     max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Order Status Update Modal -->
+    <!-- ============================================================ -->
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 14px; border: none;">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">
+                        <i class="bi bi-arrow-repeat me-2 text-primary"></i>
+                        অর্ডার স্ট্যাটাস আপডেট — <span class="text-primary">#{{ statusModal.order.OrderID }}</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-3">
+
+                    <label class="form-label fw-semibold small text-muted">নতুন স্ট্যাটাস সিলেক্ট করুন</label>
+                    <select class="form-select mb-4" ng-model="statusModal.newStatus" ng-options="s for s in statusOptions">
+                    </select>
+
+                    <label class="form-label fw-semibold small text-muted">স্ট্যাটাস হিস্টোরি / টাইমলাইন</label>
+                    <div ng-if="statusModal.loadingHistory" class="text-muted small py-2">লোড হচ্ছে...</div>
+                    <ul class="status-timeline" ng-if="!statusModal.loadingHistory">
+                        <li ng-repeat="h in statusModal.history">
+                            <div class="fw-semibold small">{{ h.Status }}</div>
+                            <div class="text-muted" style="font-size: 0.78rem;">{{ h.ChangedAt_Text }} — {{ h.ChangedBy }}</div>
+                        </li>
+                        <li ng-if="statusModal.history.length === 0">
+                            <div class="text-muted small">এখনো কোনো স্ট্যাটাস হিস্টোরি নেই।</div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">বাতিল</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirmStatusUpdate()">
+                        <i class="bi bi-check2 me-1"></i>আপডেট করুন
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

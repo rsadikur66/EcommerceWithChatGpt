@@ -14,5 +14,15 @@ namespace EcommerceWithChatGpt.Controllers.Common
             }
             return View();
         }
+
+        // GET: Transaction/T11232 — Stock/Inventory Adjustment পেজ
+        public ActionResult T11232()
+        {
+            if (Session["UserCode"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return View();
+        }
     }
 }

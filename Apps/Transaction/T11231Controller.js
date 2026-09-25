@@ -20,9 +20,64 @@
             });
         LoaderService.hide();
     }
-    $scope.btnOrderDetails = function () {
-        window.open('/T11231/Customer_Order_InvoiceReport', '_blank');
+    $scope.btnOrderDetails = function (order) {
+        // অ্যাডমিন যেকোনো কাস্টমারের অর্ডার দেখতে পারবে — তাই T11231Controller এর
+        // আলাদা OrderInvoice অ্যাকশন ব্যবহার করা হচ্ছে (Home/InvoiceReport না, কারণ
+        // সেটাতে শুধু অর্ডারের মালিক নিজের অর্ডার দেখতে পারে)
+        window.open(baseUrl + '/T11231/OrderInvoice?orderId=' + order.OrderID, '_blank');
     };
+
+    // ============================================================
+    // Order Status Update — মডালের ভেতরে ড্রপডাউন থেকে নতুন status
+    // সিলেক্ট করে আপডেট করা, এবং T11226 থেকে হিস্টোরি টাইমলাইন দেখানো
+    // ============================================================
+    $scope.statusOptions = ['Pending', 'Confirmed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
+    $scope.statusModal = { order: null, newStatus: '', history: [], loadingHistory: false };
+
+    $scope.openStatusModal = function (order) {
+        $scope.statusModal.order = order;
+        $scope.statusModal.newStatus = order.OrderStatus || 'Pending';
+        $scope.statusModal.history = [];
+        loadStatusHistory(order.OrderID);
+        $('#statusModal').modal('show');
+    };
+
+    function loadStatusHistory(orderId) {
+        $scope.statusModal.loadingHistory = true;
+        Service.loadDataSingleParm(baseUrl + '/T11231/GetOrderStatusHistory', orderId)
+            .then(function (returnData) {
+                $scope.statusModal.history = JSON.parse(returnData);
+                $scope.statusModal.loadingHistory = false;
+            })
+            .catch(function () {
+                $scope.statusModal.loadingHistory = false;
+            });
+    }
+
+    $scope.confirmStatusUpdate = function () {
+        if (!$scope.statusModal.order || !$scope.statusModal.newStatus) {
+            return;
+        }
+
+        LoaderService.show();
+        Service.loadDataSingleParm(baseUrl + '/T11231/UpdateOrderStatus', {
+            OrderID: $scope.statusModal.order.OrderID,
+            Status: $scope.statusModal.newStatus
+        }).then(function (result) {
+            LoaderService.hide();
+            if (result.success) {
+                $scope.statusModal.order.OrderStatus = $scope.statusModal.newStatus;
+                loadStatusHistory($scope.statusModal.order.OrderID);
+                sweetAlertService.showResponseMessage("অর্ডার স্ট্যাটাস সফলভাবে আপডেট হয়েছে-1");
+            } else {
+                sweetAlertService.showError("ব্যর্থ হয়েছে!", result.message || "স্ট্যাটাস আপডেট করা যায়নি।");
+            }
+        }).catch(function () {
+            LoaderService.hide();
+            sweetAlertService.showError("ব্যর্থ হয়েছে!", "স্ট্যাটাস আপডেট করার সময় একটি সমস্যা হয়েছে।");
+        });
+    };
+
     $scope.btnSaveClick = function () {
 
         if ($scope.obj.T11221.Name == "" || $scope.obj.T11221.Name == undefined) {

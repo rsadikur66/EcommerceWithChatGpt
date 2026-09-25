@@ -157,6 +157,7 @@
     <Compile Include="Controllers\Setup\T11223Controller.cs" />
     <Compile Include="Controllers\Setup\T11224Controller.cs" />
     <Compile Include="Controllers\Transaction\T11231Controller.cs" />
+    <Compile Include="Controllers\Transaction\T11232Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +184,7 @@
     <Content Include="Apps\Setup\T11223Controller.js" />
     <Content Include="Apps\Setup\T11224Controller.js" />
     <Content Include="Apps\Transaction\T11231Controller.js" />
+    <Content Include="Apps\Transaction\T11232Controller.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -300,12 +302,15 @@
     <Content Include="Views\Transaction\T11231.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Home\H00002.cshtml" />
+    <Content Include="Views\Home\InvoiceReport.cshtml" />
+    <Content Include="Views\Transaction\T11232.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Template\" />
     <Folder Include="Models\" />
     <Folder Include="Views\T11231\" />
+    <Folder Include="Views\T11232\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

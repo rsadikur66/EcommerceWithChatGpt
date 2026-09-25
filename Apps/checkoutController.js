@@ -54,7 +54,7 @@
     $scope.placeOrder = function () {
         $scope.orderPlacedMessage = '';
         $scope.errorMessage = '';
-        var returnUrl = "/Home/Checkout";
+        var returnUrl = "/Home/Cart";
         localStorage.setItem("returnUrl", returnUrl);
         //console.log($scope.obj.checkoutForm);
         //console.log($scope.cartItems);

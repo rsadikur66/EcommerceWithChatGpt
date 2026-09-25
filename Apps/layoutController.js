@@ -1,4 +1,4 @@
-﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "baseUrlService", "$window", function ($scope, $rootScope, Service, Data, sweetAlertService, baseUrlService, $window) {
+﻿app.controller('LayoutController', ["$scope", "$rootScope", "Service", "Data", "sweetAlertService", "baseUrlService", "$window","$http", function ($scope, $rootScope, Service, Data, sweetAlertService, baseUrlService, $window,$http) {
     console.log("LayoutController initialized");
     $scope.obj = {};
     $scope.obj = Data;
@@ -163,9 +163,20 @@
         }
     }
 
+    //$scope.Logout_Click = function () {
+    //    window.location.href = baseUrl + '/Login/Logout'; // অথবা তোমার actual logout URL
+    //}
+
     $scope.Logout_Click = function () {
-        window.location.href = baseUrl + '/Login/Logout'; // অথবা তোমার actual logout URL
-    }
+        $http.post(baseUrl + '/Login/Logout').then(function (response) {
+            if (response.data && response.data.success) {
+                // সেশন ক্লিয়ার হলে হোম পেজে রিডাইরেক্ট করবে
+                window.location.href = baseUrl + '/Home/Index';
+            }
+        }, function (error) {
+            console.error("Logout Error:", error);
+        });
+    };
 
 
 }]);
